@@ -17,7 +17,7 @@ public class TextLoader {
 		this.encoding = encoding;
 	}
 	
-	public String load (File file) {
+	public String load(File file) {
 		String text;
 		try {
 			text = TextIO.loadText(file.getAbsolutePath(),
