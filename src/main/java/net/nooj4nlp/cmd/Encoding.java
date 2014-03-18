@@ -27,7 +27,7 @@ public final class Encoding {
 		return type;
 	}
 	
-	public int getTypeCode() {
+	public int getTypeOrdinal() {
 		return type.ordinal();
 	}
 	

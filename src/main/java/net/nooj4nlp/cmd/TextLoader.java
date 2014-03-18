@@ -21,7 +21,7 @@ public class TextLoader {
 		String text;
 		try {
 			text = TextIO.loadText(file.getAbsolutePath(),
-					encoding.getTypeCode(),
+					encoding.getTypeOrdinal(),
 					encoding.getCode(),
 					encoding.getTypeName(),
 					language.chartable);
