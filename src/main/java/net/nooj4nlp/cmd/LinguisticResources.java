@@ -40,7 +40,7 @@ public final class LinguisticResources {
 	public void loadInto(Engine engine) {
 		String languageName = engine.Lan.isoName;
 		if (!lexicalResources.containsKey(languageName)) {
-			throw new ResourceException(languageName, "");
+			throw new LinguisticResourceException(languageName, "");
 		}
 
 		RefObject<String> errMessage = new RefObject<String>("");
@@ -53,10 +53,10 @@ public final class LinguisticResources {
 					errMessage);
 			
 			if (!success) {
-				throw new ResourceException(languageName, errMessage.argvalue);
+				throw new LinguisticResourceException(languageName, errMessage.argvalue);
 			}
 		} catch (IOException | ClassNotFoundException e) {
-			throw new ResourceException(languageName, errMessage.argvalue);
+			throw new LinguisticResourceException(languageName, errMessage.argvalue);
 		}
 	}
 
@@ -82,23 +82,18 @@ public final class LinguisticResources {
 		return resources;
 	}
 
-	public static final class ResourceException extends RuntimeException {
+	public static final class LinguisticResourceException extends EngineException {
 		private static final long serialVersionUID = 1L;
 		
 		private final String languageName;
-		private final String message;
 		
-		ResourceException(String languageName, String message) {
+		LinguisticResourceException(String languageName, String message) {
+			super(message);
 			this.languageName = languageName;
-			this.message = message;
 		}
 
 		public String getLanguageName() {
 			return languageName;
-		}
-
-		public String getErrorMessage() {
-			return message;
 		}
 	}
 
