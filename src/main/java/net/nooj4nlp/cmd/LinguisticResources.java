@@ -17,7 +17,7 @@ import com.google.common.collect.ImmutableListMultimap;
 import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Multimaps;
 
-public final class LinguisticResourceLoader {
+public final class LinguisticResources {
 	private static final Supplier<List<String>> ARRAY_LIST_SUPPLIER = new Supplier<List<String>>() {
 		@Override
 		public List<String> get() {
@@ -28,7 +28,7 @@ public final class LinguisticResourceLoader {
 	private final ListMultimap<String, String> lexicalResources;
 	private final ListMultimap<String, String> syntacticResources;
 
-	public LinguisticResourceLoader(
+	public LinguisticResources(
 			Map<String, Collection<String>> lexicalResources,
 			Map<String, Collection<String>> syntacticResources) {
 		this.lexicalResources = ImmutableListMultimap.copyOf(Multimaps
