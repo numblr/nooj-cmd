@@ -6,8 +6,10 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 
+import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
+import net.nooj4nlp.engine.RefObject;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +31,9 @@ public class TestImportTest extends NoojTest {
 	
 	@Test
 	public void fromFileCreatesNtext() {
-		TextImport textImport = new TextImport(ENGLISH, DELIMITER, textLoaderMock);
+		Engine engine = new Engine(new RefObject<Language>(ENGLISH),
+				"", "", "", false, null, false, null);
+		TextImport textImport = new TextImport(ENGLISH, DELIMITER, textLoaderMock, engine);
 		Ntext ntext = textImport.fromFile(DUMMY_FILE);
 		
 		assertEquals(ENGLISH.isoName, ntext.getLanguage().isoName);
