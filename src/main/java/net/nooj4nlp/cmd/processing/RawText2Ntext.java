@@ -4,7 +4,7 @@ import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 
 public class RawText2Ntext extends NtextImporter {
-	private static final String[] EMPTY_XML_NODES = new String[0];
+	private static final String[] NO_XML_NODES = null;
 	
 	private final String delimiter;
 
@@ -14,6 +14,6 @@ public class RawText2Ntext extends NtextImporter {
 	}
 
 	public Ntext convert(String text) {
-		return convert(text, delimiter, EMPTY_XML_NODES);
+		return convert(text, delimiter, NO_XML_NODES);
 	}
 }

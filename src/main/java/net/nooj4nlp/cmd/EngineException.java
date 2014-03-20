@@ -6,6 +6,7 @@ public abstract class EngineException extends RuntimeException {
 	private final String message;
 
 	protected EngineException(String message) {
+		super(message);
 		this.message = message;
 	}
 
