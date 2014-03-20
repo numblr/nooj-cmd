@@ -3,7 +3,6 @@ package net.nooj4nlp.cmd.processing;
 import java.io.IOException;
 import java.util.HashMap;
 
-import net.nooj4nlp.cmd.EngineException;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.RefObject;
@@ -53,7 +52,7 @@ public class SyntacticParser implements NtextProcessor {
 		}
 	}
 	
-	public static final class GrammarException extends EngineException {
+	public static final class GrammarException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 		
 		private GrammarException(String message) {
@@ -61,7 +60,7 @@ public class SyntacticParser implements NtextProcessor {
 		}
 	}
 	
-	public static final class SyntaxParsingException extends EngineException {
+	public static final class SyntaxParsingException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 		
 		private SyntaxParsingException(String message) {

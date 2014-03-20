@@ -3,7 +3,6 @@ package net.nooj4nlp.cmd.processing;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.nooj4nlp.cmd.EngineException;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.RefObject;
@@ -31,7 +30,7 @@ public class LexicalAnalyzer implements NtextProcessor {
 		}
 	}
 	
-	public static final class LexicalAnalysisException extends EngineException {
+	public static final class LexicalAnalysisException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 		
 		private LexicalAnalysisException(String message) {

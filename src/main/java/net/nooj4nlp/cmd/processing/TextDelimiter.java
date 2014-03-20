@@ -3,7 +3,6 @@ package net.nooj4nlp.cmd.processing;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import net.nooj4nlp.cmd.EngineException;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.UnsignedShort;
@@ -51,7 +50,7 @@ public class TextDelimiter implements NtextProcessor {
 		return "";
 	}
 	
-	public static final class DelimiterException extends EngineException {
+	public static final class DelimiterException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 		
 		private DelimiterException(String message) {

@@ -6,7 +6,6 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
-import net.nooj4nlp.cmd.EngineException;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.RefObject;
@@ -83,7 +82,7 @@ public final class LinguisticResources {
 		return resources;
 	}
 
-	public static final class LinguisticResourceException extends EngineException {
+	public static final class LinguisticResourceException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 		
 		private final String languageName;
