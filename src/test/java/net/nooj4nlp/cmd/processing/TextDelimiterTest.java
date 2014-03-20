@@ -23,6 +23,11 @@ public class TextDelimiterTest extends NoojTest {
 	private static final Language ENGLISH = new Language("en");
 	private static final List<String> XML_NODES = ImmutableList.of("<Node1>", "<Node2>");
 	
+	private static final String RAW_TEXT = "This is the first sentence.\n"
+			+ "This is the second sentence, placed on the second line. The third sentence is on the same line as the second.";
+	
+	private static final String XML = "<Node1>Trying to delimit text\nBased on tags</Node1><Node2>\n\nTryout once more</Node2>";
+	
 	@Rule public ExpectedException thrown= ExpectedException.none();
 	
 	public TextDelimiterTest() {
@@ -89,9 +94,4 @@ public class TextDelimiterTest extends NoojTest {
 		nText.buffer = StringUtils.repeat("a", UnsignedShort.MAX_VALUE + 1);
 		textDelimiter.process(nText);
 	}
-	
-	private static final String RAW_TEXT = "This is the first sentence.\n"
-			+ "This is the second sentence, placed on the second line. The third sentence is on the same line as the second.";
-	
-	private static final String XML = "<Node1>Trying to delimit text\nBased on tags</Node1><Node2>\n\nTryout once more</Node2>";
 }
