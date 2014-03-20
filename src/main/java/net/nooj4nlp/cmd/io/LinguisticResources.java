@@ -1,4 +1,4 @@
-package net.nooj4nlp.cmd;
+package net.nooj4nlp.cmd.io;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -6,6 +6,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Map;
 
+import net.nooj4nlp.cmd.EngineException;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.RefObject;

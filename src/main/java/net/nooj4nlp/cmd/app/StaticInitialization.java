@@ -1,4 +1,4 @@
-package net.nooj4nlp.cmd;
+package net.nooj4nlp.cmd.app;
 
 import java.io.File;
 import java.io.IOException;

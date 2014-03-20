@@ -1,4 +1,4 @@
-package net.nooj4nlp.cmd;
+package net.nooj4nlp.cmd.processing;
 
 import net.nooj4nlp.engine.Ntext;
 

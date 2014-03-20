@@ -6,12 +6,15 @@ import static org.mockito.Mockito.when;
 
 import java.io.File;
 
-import net.nooj4nlp.cmd.io.TextLoader;
-import net.nooj4nlp.cmd.processing.NtextImporter;
+<<<<<<< HEAD
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.RefObject;
+=======
+import net.nooj4nlp.engine.Language;
+import net.nooj4nlp.engine.Ntext;
+>>>>>>> 093498620903f61063d3aa2e548c72d7599d2f9c
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,9 +36,13 @@ public class TestImportTest extends NoojTest {
 	
 	@Test
 	public void fromFileCreatesNtext() {
+<<<<<<< HEAD
 		Engine engine = new Engine(new RefObject<Language>(ENGLISH),
 				"", "", "", false, null, false, null);
-		NtextImporter textImport = new NtextImporter(ENGLISH, DELIMITER, textLoaderMock, engine);
+		TextImport textImport = new TextImport(ENGLISH, DELIMITER, textLoaderMock, engine);
+=======
+		TextImport textImport = new TextImport(ENGLISH, DELIMITER, textLoaderMock);
+>>>>>>> 093498620903f61063d3aa2e548c72d7599d2f9c
 		Ntext ntext = textImport.fromFile(DUMMY_FILE);
 		
 		assertEquals(ENGLISH.isoName, ntext.getLanguage().isoName);

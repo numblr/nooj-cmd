@@ -1,11 +1,11 @@
 package net.nooj4nlp.cmd;
 
-abstract class EngineException extends RuntimeException {
+public abstract class EngineException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
 	
 	private final String message;
 
-	EngineException(String message) {
+	protected EngineException(String message) {
 		this.message = message;
 	}
 

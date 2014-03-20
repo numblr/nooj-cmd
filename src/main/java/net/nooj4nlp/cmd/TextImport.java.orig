@@ -5,6 +5,10 @@ import java.io.File;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
+<<<<<<< HEAD
+=======
+import net.nooj4nlp.engine.RefObject;
+>>>>>>> 093498620903f61063d3aa2e548c72d7599d2f9c
 
 public final class TextImport {
 	private static final String[] EMPTY_XML_NODES = new String[0];
@@ -17,12 +21,17 @@ public final class TextImport {
 	
 	public TextImport(Language language,
 			Encoding encoding,
+<<<<<<< HEAD
 			String delimiter,
 			Engine engine) {
 		this(language,
 				delimiter,
 				new TextLoader(encoding, language),
 				engine);
+=======
+			String delimiter) {
+		this(language, delimiter, new TextLoader(encoding, language));
+>>>>>>> 093498620903f61063d3aa2e548c72d7599d2f9c
 	}
 	
 	public TextImport(Language language,
@@ -39,6 +48,12 @@ public final class TextImport {
 		Ntext nText = new Ntext(language.isoName, delimiter, EMPTY_XML_NODES);
 
 		nText.buffer = textLoader.load(file);
+<<<<<<< HEAD
+=======
+		
+		Engine engine = new Engine(new RefObject<Language>(nText.Lan),
+				"", "", "", false, null, false, null);
+>>>>>>> 093498620903f61063d3aa2e548c72d7599d2f9c
 
 		String errorMessage = engine.delimitTextUnits(nText);
 		if (!errorMessage.isEmpty())

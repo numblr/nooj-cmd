@@ -1,4 +1,4 @@
-package net.nooj4nlp.cmd;
+package net.nooj4nlp.cmd.io;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,7 +20,7 @@ public class CharVariantsLoader {
 		loadCharVariants(charVariants);
 	}
 	
-	private void loadCharVariants(File charVariants) {
+	public void loadCharVariants(File charVariants) {
 		try
 		{
 			StringBuilder errorMessage = new StringBuilder("");

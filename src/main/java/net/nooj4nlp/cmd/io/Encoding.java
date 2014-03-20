@@ -1,4 +1,4 @@
-package net.nooj4nlp.cmd;
+package net.nooj4nlp.cmd.io;
 
 public final class Encoding {
 	public static enum EncodingType {
