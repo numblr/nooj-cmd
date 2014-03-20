@@ -27,16 +27,16 @@ public class TextLoader {
 		String text;
 		try {
 			text = TextIO.loadText(file.getAbsolutePath(),
-					encoding.getTypeOrdinal(),
-					encoding.getCode(),
-					encoding.getTypeName(),
+					encoding.getInputTypeOrdinal(),
+					encoding.getEncoding(),
+					encoding.getInputTypeName(),
 					language.chartable);
 		} catch (IOException | BadLocationException e) {
 			throw new TextLoaderException(file, e.getMessage());
 		}
 		
 		if (text == null) {
-			throw new TextLoaderException(file, "Unsupported encoding: " + encoding.getTypeName());
+			throw new TextLoaderException(file, "Unsupported file type: " + encoding.getInputTypeName());
 		}
 		
 		return text;
