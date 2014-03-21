@@ -1,10 +1,12 @@
 package net.nooj4nlp.cmd.app;
 
 import java.io.File;
-import java.util.Collection;
-import java.util.Map;
+import java.nio.file.Path;
+import java.util.List;
 
+import net.nooj4nlp.cmd.io.CharVariantsLoader;
 import net.nooj4nlp.cmd.io.Encoding;
+import net.nooj4nlp.cmd.io.LinguisticResources;
 import net.nooj4nlp.cmd.io.TextLoader;
 import net.nooj4nlp.cmd.processing.LexicalAnalyzer;
 import net.nooj4nlp.cmd.processing.Ntext2Xml;
@@ -21,10 +23,14 @@ import com.google.common.collect.ImmutableList;
 
 public class TextProcessor {
 	private String delimiter;
-	private Map<String, Collection<String>> lexicalResources;
-	private Map<String, Collection<String>> syntacticResources;
+	private List<Path> lexicalResources;
+	private List<Path> syntacticResources;
+	private Path propertiesDefinitions;
+	private Path docDirectory;
 
 	public void process(Language language, Encoding encoding, File file) {
+		new CharVariantsLoader(language).loadCharVariants(null);
+		
 		TextLoader textIO = new TextLoader(encoding, language);
 		String rawText = textIO.load(file);
 		Ntext nText = new RawText2Ntext(language, delimiter).convert(rawText);
@@ -41,10 +47,13 @@ public class TextProcessor {
 		Engine engine = new Engine(new RefObject<Language>(language),
 				"", "", "", false, null, false, null);
 		
-//		LinguisticResources resourceLoader =
-//				new LinguisticResources(lexicalResources, syntacticResources);
-//		resourceLoader.loadInto(engine);
-//		resourceLoader.loadInto(nText);
+		LinguisticResources resources =
+				new LinguisticResources(lexicalResources,
+						syntacticResources,
+						propertiesDefinitions,
+						docDirectory);
+		resources.loadInto(engine);
+		resources.loadInto(nText);
 		
 		return ImmutableList.of(new TextDelimiter(engine),
 				new LexicalAnalyzer(engine),
