@@ -10,6 +10,6 @@ public interface NtextProcessor {
 	 * @param ntext the Ntext object to be analysed. The instance may be
 	 * 				modified during the analysis.
 	 */
-	void process(Ntext ntext);
+	void process(Ntext nText);
 	
 }
