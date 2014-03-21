@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.rmi.server.UID;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -18,29 +19,28 @@ public final class ResourceLinker implements AutoCloseable {
 	private static final Path PROPERTIES_DEFINITIONS = Paths.get("_properties.def");
 	
 	private final String language;
-	private final Path projectDirectory;
-	private Path lexicalResourcesDir;
-	private Path syntacticResourcesDir;
+	private final Path docDirectory;
 
-	ResourceLinker(String language, Path projectDirectory) {
+	ResourceLinker(String language, Path outputDirectory) {
 		this.language = language;
-		this.projectDirectory = projectDirectory;
+		this.docDirectory = outputDirectory.resolve(new UID().toString().replaceAll("\\W", ""));
 	}
 	
 	@Override
 	public void close() throws IOException {
-		FileUtils.deleteDirectory(lexicalResourcesDir.toFile());
-		FileUtils.deleteDirectory(syntacticResourcesDir.toFile());
+		FileUtils.deleteDirectory(docDirectory.toFile());
 	}
 	
-	void linkResources(List<Path> lexicalResources,
+	Path linkResources(List<Path> lexicalResources,
 			List<Path> syntacticResources,
 			Path propertiesDefinitions) {
-		lexicalResourcesDir = linkInDirectoryStructure(lexicalResources,
+		linkInDirectoryStructure(lexicalResources,
 				Paths.get(Constants.LEXICAL_ANALYSIS_PATH));
-		syntacticResourcesDir = linkInDirectoryStructure(syntacticResources,
+		linkInDirectoryStructure(syntacticResources,
 				Paths.get(Constants.SYNTACTIC_ANALYSIS_PATH));
 		linkPropertyDefinitions(propertiesDefinitions);
+		
+		return docDirectory;
 	}
 	
 	private Path linkInDirectoryStructure(List<Path> resourcesPaths, Path resourceDirectory) {
@@ -52,9 +52,9 @@ public final class ResourceLinker implements AutoCloseable {
 	}
 	
 	private Path createDirectoryPath(Path resourceDirectory) {
-		Path path = projectDirectory
+		Path path = docDirectory
 				.resolve(Paths.get(language)
-						.resolve(resourceDirectory));
+				.resolve(resourceDirectory));
 		try {
 			return Files.createDirectories(path);
 		} catch (IOException e) {
@@ -83,7 +83,7 @@ public final class ResourceLinker implements AutoCloseable {
 	}
 	
 	private void linkPropertyDefinitions(Path propertiesDefinitions) {
-		Path link = projectDirectory
+		Path link = docDirectory
 				.resolve(language)
 				.resolve(Constants.LEXICAL_ANALYSIS_PATH)
 				.resolve(PROPERTIES_DEFINITIONS);

@@ -1,5 +1,6 @@
 package net.nooj4nlp.cmd.processing;
 
+import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -23,22 +24,23 @@ public class NoojTestWithResources extends NoojTest {
 	
 	private LinguisticResources linguisticResources;
 
-	NoojTestWithResources(Language language) {
+	protected NoojTestWithResources(Language language) throws IOException {
 		super(language);
 	}
 
 	@Before
-	public void setupLexicalResources(){
+	public void setupLinguisticResources(){
 		List<Path> lexicalResources = ImmutableList.of(DICT);
 		List<Path> syntacticResources = ImmutableList.of(GRAMMAR);
 		linguisticResources = new LinguisticResources(lexicalResources,
 				syntacticResources,
-				PROPERTIES_DEFINITIONS);
+				PROPERTIES_DEFINITIONS,
+				getOutputDirectory());
 		
 		getLinguisticResources().loadInto(getEngine());
 	}
 
-	public LinguisticResources getLinguisticResources() {
+	protected final LinguisticResources getLinguisticResources() {
 		return linguisticResources;
 	}
 }
