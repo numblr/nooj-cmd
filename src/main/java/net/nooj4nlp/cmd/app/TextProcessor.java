@@ -4,14 +4,20 @@ import java.io.File;
 import java.util.Collection;
 import java.util.Map;
 
-import net.nooj4nlp.cmd.XmlExport;
 import net.nooj4nlp.cmd.io.Encoding;
-import net.nooj4nlp.cmd.io.LinguisticResources;
-import net.nooj4nlp.cmd.processing.NtextImporter;
+import net.nooj4nlp.cmd.io.TextLoader;
+import net.nooj4nlp.cmd.processing.LexicalAnalyzer;
+import net.nooj4nlp.cmd.processing.Ntext2Xml;
+import net.nooj4nlp.cmd.processing.NtextProcessor;
+import net.nooj4nlp.cmd.processing.RawText2Ntext;
+import net.nooj4nlp.cmd.processing.SyntacticParser;
+import net.nooj4nlp.cmd.processing.TextDelimiter;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.RefObject;
+
+import com.google.common.collect.ImmutableList;
 
 public class TextProcessor {
 	private String delimiter;
@@ -19,20 +25,29 @@ public class TextProcessor {
 	private Map<String, Collection<String>> syntacticResources;
 
 	public void process(Language language, Encoding encoding, File file) {
+		TextLoader textIO = new TextLoader(encoding, language);
+		String rawText = textIO.load(file);
+		Ntext nText = new RawText2Ntext(language, delimiter).convert(rawText);
+
+		for (NtextProcessor processor : createNtextProcessors(language, nText)) {
+			processor.process(nText);
+		}
+		
+		String xml = new Ntext2Xml(null, null, language, false).convert(nText);
+		textIO.write(xml, null);
+	}
+
+	private ImmutableList<NtextProcessor> createNtextProcessors(Language language, Ntext nText) {
 		Engine engine = new Engine(new RefObject<Language>(language),
 				"", "", "", false, null, false, null);
 		
-		NtextImporter textImport = new NtextImporter(language, encoding, delimiter, engine);
-		Ntext nText = textImport.fromFile(file);
+//		LinguisticResources resourceLoader =
+//				new LinguisticResources(lexicalResources, syntacticResources);
+//		resourceLoader.loadInto(engine);
+//		resourceLoader.loadInto(nText);
 		
-		LinguisticResources resourceLoader =
-				new LinguisticResources(lexicalResources, syntacticResources);
-		resourceLoader.loadInto(engine);
-		resourceLoader.loadInto(nText);
-		
-		LinguisticAnalysis analysis = new LinguisticAnalysis(engine);
-		analysis.analyze(nText);
-		
-		new XmlExport().write();
+		return ImmutableList.of(new TextDelimiter(engine),
+				new LexicalAnalyzer(engine),
+				new SyntacticParser(engine));
 	}
 }
