@@ -8,19 +8,14 @@ import net.nooj4nlp.engine.Ntext;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 
-import com.google.common.collect.Lists;
-
 public class Ntext2Xml {
-	private final List<Object> annotations;
 	private final List<String> xmlAnnotations;
 	private final boolean filterOut;
 	private final Language language;
 
-	public Ntext2Xml(List<Object> annotations,
-			List<String> xmlAnnotations,
+	public Ntext2Xml(List<String> xmlAnnotations,
 			Language language,
 			boolean filterOut) {
-				this.annotations = annotations;
 				this.xmlAnnotations = xmlAnnotations;
 				this.language = language;
 				this.filterOut = filterOut;
@@ -63,7 +58,7 @@ public class Ntext2Xml {
 				filterOut,
 				xmlWriter,
 				textUnit,
-				Lists.newArrayList(annotations),
+				text.annotations,
 				xmlAnnotations.toArray(new String[0]),
 				language,
 				false);

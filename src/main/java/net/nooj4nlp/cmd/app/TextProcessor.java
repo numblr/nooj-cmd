@@ -23,37 +23,47 @@ import com.google.common.collect.ImmutableList;
 
 public class TextProcessor {
 	private String delimiter;
+	private List<File> files;
 	private List<Path> lexicalResources;
 	private List<Path> syntacticResources;
 	private Path propertiesDefinitions;
 	private Path docDirectory;
+	private Language language;
+	private Encoding encoding;
+	private boolean filterXml;
+	private List<String> xmlAnnotations;
 
-	public void process(Language language, Encoding encoding, File file) {
+	public void process() {
 		new CharVariantsLoader(language).loadCharVariants(null);
-		
 		TextLoader textIO = new TextLoader(encoding, language);
-		String rawText = textIO.load(file);
-		Ntext nText = new RawText2Ntext(language, delimiter).convert(rawText);
-
-		for (NtextProcessor processor : createNtextProcessors(language, nText)) {
-			processor.process(nText);
-		}
-		
-		String xml = new Ntext2Xml(null, null, language, false).convert(nText);
-		textIO.write(xml, null);
-	}
-
-	private ImmutableList<NtextProcessor> createNtextProcessors(Language language, Ntext nText) {
-		Engine engine = new Engine(new RefObject<Language>(language),
-				"", "", "", false, null, false, null);
-		
 		LinguisticResources resources =
 				new LinguisticResources(lexicalResources,
 						syntacticResources,
 						propertiesDefinitions,
 						docDirectory);
+		List<NtextProcessor> ntextProcessors = createNtextProcessors(language, resources);
+		RawText2Ntext rawTextConverter = new RawText2Ntext(language, delimiter);
+		Ntext2Xml xmlConverter = new Ntext2Xml(xmlAnnotations, language, filterXml);
+		
+		for (File file : files) {
+			String rawText = textIO.load(file);
+			Ntext nText = rawTextConverter.convert(rawText);
+			resources.loadInto(nText);
+			
+			for (NtextProcessor processor : ntextProcessors) {
+				processor.process(nText);
+			}
+			
+			String xml = xmlConverter.convert(nText);
+			textIO.write(xml, null);
+		}
+	}
+
+	private ImmutableList<NtextProcessor> createNtextProcessors(Language language, LinguisticResources resources) {
+		Engine engine = new Engine(new RefObject<Language>(language),
+				"", "", "", false, null, false, null);
+		
 		resources.loadInto(engine);
-		resources.loadInto(nText);
 		
 		return ImmutableList.of(new TextDelimiter(engine),
 				new LexicalAnalyzer(engine),
