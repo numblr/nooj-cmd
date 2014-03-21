@@ -19,10 +19,11 @@ public abstract class NoojTest {
 	@Rule public TemporaryFolder tmp = new TemporaryFolder();
 	
 	private final Language language;
+	private Path outputDirectory;
 	
 	private Engine engine;
 	
-	protected NoojTest(Language language) {
+	protected NoojTest(Language language) throws IOException {
 		this.language = language;
 	}
 	
@@ -33,13 +34,17 @@ public abstract class NoojTest {
 	
 	@Before
 	public void setupEngine() throws IOException {
-		Path projectDirectory = tmp.newFolder().toPath();
+		outputDirectory = tmp.newFolder().toPath();
 		engine = new Engine(new RefObject<Language>(language),
-				"", projectDirectory.toAbsolutePath().toString(), "",
+				"", "", "",
 				false, null, false, null);
 	}
 
-	protected Engine getEngine() {
+	protected final Engine getEngine() {
 		return engine;
+	}
+
+	protected final Path getOutputDirectory() {
+		return outputDirectory;
 	}
 }

@@ -32,7 +32,7 @@ public class TextProcessor {
 	private String delimiter;
 	private Encoding encoding;
 	private boolean filterXml;
-	private Path docDirectory;
+	private Path outputDirectory;
 
 	public void process() {
 		new CharVariantsLoader(language).loadCharVariants(charVariantsFile);
@@ -41,7 +41,7 @@ public class TextProcessor {
 				new LinguisticResources(lexicalResources,
 						syntacticResources,
 						propertiesDefinitions,
-						docDirectory);
+						outputDirectory);
 		List<NtextProcessor> ntextProcessors = createNtextProcessors(language, resources);
 		RawText2Ntext rawTextConverter = new RawText2Ntext(language, delimiter);
 		Ntext2Xml xmlConverter = new Ntext2Xml(xmlAnnotations, language, filterXml);
@@ -62,7 +62,7 @@ public class TextProcessor {
 
 	private List<NtextProcessor> createNtextProcessors(Language language, LinguisticResources resources) {
 		Engine engine = new Engine(new RefObject<Language>(language),
-				"", docDirectory.toAbsolutePath().toString(), "",
+				"", "", "",
 				false, null, false, null);
 		
 		resources.loadInto(engine);

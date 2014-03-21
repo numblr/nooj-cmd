@@ -2,6 +2,9 @@ package net.nooj4nlp.cmd.processing;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
+import java.io.IOException;
+
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 
@@ -14,7 +17,7 @@ public class LexicalAnalyzerTest extends NoojTestWithResources {
 	private static final String RAW_TEXT = "This is the first sentence.\n"
 			+ "This is the second sentence, placed on line 2. The third sentence is on the same line as the second.";
 
-	public LexicalAnalyzerTest() {
+	public LexicalAnalyzerTest() throws IOException {
 		super(ENGLISH);
 	}
 

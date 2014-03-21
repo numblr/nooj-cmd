@@ -1,5 +1,7 @@
 package net.nooj4nlp.cmd.processing;
 
+import java.io.IOException;
+
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 
@@ -12,7 +14,7 @@ public class SyntacticParserTest extends NoojTestWithResources {
 	private static final String RAW_TEXT = "This is the first sentence.\n"
 			+ "This is the second sentence, placed on line 2. The third sentence is on the same line as the second.";
 
-	public SyntacticParserTest() {
+	public SyntacticParserTest() throws IOException {
 		super(ENGLISH);
 	}
 

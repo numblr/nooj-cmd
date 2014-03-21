@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -19,26 +18,32 @@ public final class LinguisticResources {
 	private final List<Path> lexicalResources;
 	private final List<Path> syntacticResources;
 	private final Path propertiesDefinitions;
+	private final Path outputDirectory;
 
 	public LinguisticResources(List<Path> lexicalResources,
 			List<Path> syntacticResources,
-			Path propertiesDefinitions) {
+			Path propertiesDefinitions,
+			Path outputDirectory) {
 		checkNotNull(propertiesDefinitions, "propertiesDefinitions");
+		checkNotNull(outputDirectory, "outputDirectory");
 		checkArgument(lexicalResources.size() < 101, "There can be at most 100 dictionaries");
 		checkArgument(syntacticResources.size() < 101, "There can be at most 100 grammars");
 		
 		this.lexicalResources = lexicalResources;
 		this.syntacticResources = syntacticResources;
 		this.propertiesDefinitions = propertiesDefinitions;
+		this.outputDirectory = outputDirectory;
 	}
 
 	public void loadInto(Engine engine) {
 		String language = engine.Lan.isoName;
-		Path docDirectory = Paths.get(engine.docDir);
 		
-		try (ResourceLinker linker = new ResourceLinker(language, docDirectory)) {
-			linker.linkResources(lexicalResources, syntacticResources, propertiesDefinitions);
+		try (ResourceLinker linker = new ResourceLinker(language, outputDirectory)) {
+			engine.docDir = linker.linkResources(lexicalResources,
+					syntacticResources,
+					propertiesDefinitions).toAbsolutePath().toString();
 			loadViaLinks(engine, language);
+			engine.docDir = "";
 		} catch (IOException e) {
 			throw new LinguisticResourceException("Could not remove generated links.");
 		}
