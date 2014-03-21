@@ -1,0 +1,51 @@
+# NooJ V2
+# Dictionary properties' definition
+#
+# Language is: en
+#
+# Special Characters: '=' '+' '#' ' '
+#
+# List categories and properties associated with features
+#   Example: N_Number = m | f;
+# Special KEYWORD: INFLECTION lists all inflectional features (used by variables $xF)
+#   Example: INFLECTION = m | f | Present | Futur;
+
+# Max Silberztein
+# These rules define the valid associations
+# categories/properties/values
+#
+
+INFLECTION = 1 | 2 | 3 |
+             m | f | s | p |
+             G | PR | PP | INF | PT;
+
+ADV_CmS = A | S | C;
+
+N_Distribution = Abst | Anl | AnlColl | Coll | Conc |
+                 Hum | HumColl | PR | Ntime | Ntps | Unit;
+N_Gender = m | f | n;
+N_Nb = s | p;
+N_Struct = 2XN | NCN | NPN | NsN | NX | PMCO | XN;
+
+A_CmS = C | S;
+
+V_Pers = 1 | 2 | 3;
+V_Nb = s | p;
+V_Tense = G | INF | PP | PR | PT;
+V_Syntax = AUX | i | t ;
+
+DET_Distribution = Dadj | Ddéf | Ddem | DetQ | Dind | Dnum;
+DET_Pers = Poss1p | Poss1s | Poss2sp | Poss3fs |
+           Poss3ms | Poss3ns | Poss3f;
+DET_Gender = m | f | n;
+DET_Nb = s | p;
+
+PRO_Pers = 1 | 2 | 3 |
+           Poss1p | Poss1s | Poss2sp | Poss3fs |
+           Poss3ms | Poss3ns | Poss3f;
+PRO_Distribution = Refl | RelQ;
+PRO_Gender = m | f | n;
+PRO_Nb = s | p;
+PRO_Case = Accus | Nomin ;
+
+X_Nb = s | p;

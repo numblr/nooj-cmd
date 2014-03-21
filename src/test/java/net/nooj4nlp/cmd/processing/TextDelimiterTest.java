@@ -12,9 +12,7 @@ import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.UnsignedShort;
 
 import org.apache.commons.lang3.StringUtils;
-import org.junit.Rule;
 import org.junit.Test;
-import org.junit.rules.ExpectedException;
 
 import com.google.common.collect.ImmutableList;
 
@@ -27,8 +25,6 @@ public class TextDelimiterTest extends NoojTest {
 			+ "This is the second sentence, placed on the second line. The third sentence is on the same line as the second.";
 	
 	private static final String XML = "<Node1>Trying to delimit text\nBased on tags</Node1><Node2>\n\nTryout once more</Node2>";
-	
-	@Rule public ExpectedException thrown= ExpectedException.none();
 	
 	public TextDelimiterTest() {
 		super(ENGLISH);
