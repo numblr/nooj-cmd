@@ -3,6 +3,7 @@ package net.nooj4nlp.cmd.processing;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.io.IOException;
 import java.util.List;
 
 import net.nooj4nlp.cmd.NoojTest;
@@ -26,7 +27,7 @@ public class TextDelimiterTest extends NoojTest {
 	
 	private static final String XML = "<Node1>Trying to delimit text\nBased on tags</Node1><Node2>\n\nTryout once more</Node2>";
 	
-	public TextDelimiterTest() {
+	public TextDelimiterTest() throws IOException {
 		super(ENGLISH);
 	}
 	
