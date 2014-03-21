@@ -22,19 +22,20 @@ import net.nooj4nlp.engine.RefObject;
 import com.google.common.collect.ImmutableList;
 
 public class TextProcessor {
-	private String delimiter;
+	private Language language;
 	private List<File> files;
 	private List<Path> lexicalResources;
 	private List<Path> syntacticResources;
+	private List<String> xmlAnnotations;
 	private Path propertiesDefinitions;
-	private Path docDirectory;
-	private Language language;
+	private File charVariantsFile;
+	private String delimiter;
 	private Encoding encoding;
 	private boolean filterXml;
-	private List<String> xmlAnnotations;
+	private Path docDirectory;
 
 	public void process() {
-		new CharVariantsLoader(language).loadCharVariants(null);
+		new CharVariantsLoader(language).loadCharVariants(charVariantsFile);
 		TextLoader textIO = new TextLoader(encoding, language);
 		LinguisticResources resources =
 				new LinguisticResources(lexicalResources,
@@ -59,9 +60,10 @@ public class TextProcessor {
 		}
 	}
 
-	private ImmutableList<NtextProcessor> createNtextProcessors(Language language, LinguisticResources resources) {
+	private List<NtextProcessor> createNtextProcessors(Language language, LinguisticResources resources) {
 		Engine engine = new Engine(new RefObject<Language>(language),
-				"", "", "", false, null, false, null);
+				"", docDirectory.toAbsolutePath().toString(), "",
+				false, null, false, null);
 		
 		resources.loadInto(engine);
 		

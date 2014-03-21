@@ -21,7 +21,6 @@ public abstract class NoojTest {
 	private final Language language;
 	
 	private Engine engine;
-	private Path projectDirectory;
 	
 	protected NoojTest(Language language) {
 		this.language = language;
@@ -34,7 +33,7 @@ public abstract class NoojTest {
 	
 	@Before
 	public void setupEngine() throws IOException {
-		projectDirectory = tmp.newFolder().toPath();
+		Path projectDirectory = tmp.newFolder().toPath();
 		engine = new Engine(new RefObject<Language>(language),
 				"", projectDirectory.toAbsolutePath().toString(), "",
 				false, null, false, null);
@@ -42,9 +41,5 @@ public abstract class NoojTest {
 
 	protected Engine getEngine() {
 		return engine;
-	}
-
-	public Path getProjectDirectory() {
-		return projectDirectory;
 	}
 }

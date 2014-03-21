@@ -32,8 +32,7 @@ public class LinguisticResourcesTest extends NoojTest {
 		List<Path> syntacticResources = ImmutableList.of(GRAMMAR);
 		LinguisticResources linguisticResources = new LinguisticResources(lexicalResources,
 				syntacticResources,
-				PROPERTIES_DEFINITIONS,
-				getProjectDirectory());
+				PROPERTIES_DEFINITIONS);
 
 		linguisticResources.loadInto(getEngine());
 	}
@@ -44,8 +43,7 @@ public class LinguisticResourcesTest extends NoojTest {
 		List<Path> syntacticResources = ImmutableList.of(GRAMMAR);
 		LinguisticResources linguisticResources = new LinguisticResources(lexicalResources,
 				syntacticResources,
-				PROPERTIES_DEFINITIONS,
-				getProjectDirectory());
+				PROPERTIES_DEFINITIONS);
 		
 		linguisticResources.loadInto(new Ntext(ENGLISH.isoName));
 	}

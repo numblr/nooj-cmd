@@ -33,8 +33,7 @@ public class NoojTestWithResources extends NoojTest {
 		List<Path> syntacticResources = ImmutableList.of(GRAMMAR);
 		linguisticResources = new LinguisticResources(lexicalResources,
 				syntacticResources,
-				PROPERTIES_DEFINITIONS,
-				getProjectDirectory());
+				PROPERTIES_DEFINITIONS);
 		
 		getLinguisticResources().loadInto(getEngine());
 	}

@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +19,10 @@ public final class LinguisticResources {
 	private final List<Path> lexicalResources;
 	private final List<Path> syntacticResources;
 	private final Path propertiesDefinitions;
-	private final Path docDirectory;
 
 	public LinguisticResources(List<Path> lexicalResources,
 			List<Path> syntacticResources,
-			Path propertiesDefinitions,
-			Path docDirectory) {
-		checkNotNull(docDirectory, "docDirectory");
+			Path propertiesDefinitions) {
 		checkNotNull(propertiesDefinitions, "propertiesDefinitions");
 		checkArgument(lexicalResources.size() < 101, "There can be at most 100 dictionaries");
 		checkArgument(syntacticResources.size() < 101, "There can be at most 100 grammars");
@@ -32,11 +30,11 @@ public final class LinguisticResources {
 		this.lexicalResources = lexicalResources;
 		this.syntacticResources = syntacticResources;
 		this.propertiesDefinitions = propertiesDefinitions;
-		this.docDirectory = docDirectory;
 	}
 
 	public void loadInto(Engine engine) {
 		String language = engine.Lan.isoName;
+		Path docDirectory = Paths.get(engine.docDir);
 		
 		try (ResourceLinker linker = new ResourceLinker(language, docDirectory)) {
 			linker.linkResources(lexicalResources, syntacticResources, propertiesDefinitions);
