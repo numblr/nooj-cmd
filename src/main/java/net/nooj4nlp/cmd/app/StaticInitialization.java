@@ -30,5 +30,4 @@ public class StaticInitialization {
 				+ DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM, java.util.Locale.ENGLISH).format(
 						today));
 	}
-
 }
