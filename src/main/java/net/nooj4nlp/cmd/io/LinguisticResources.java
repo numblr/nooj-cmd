@@ -24,24 +24,24 @@ public final class LinguisticResources {
 			List<Path> syntacticResources,
 			Path propertiesDefinitions,
 			Path outputDirectory) {
-		checkNotNull(propertiesDefinitions, "propertiesDefinitions");
-		checkNotNull(outputDirectory, "outputDirectory");
 		checkArgument(lexicalResources.size() < 101, "There can be at most 100 dictionaries");
 		checkArgument(syntacticResources.size() < 101, "There can be at most 100 grammars");
 		
 		this.lexicalResources = lexicalResources;
 		this.syntacticResources = syntacticResources;
-		this.propertiesDefinitions = propertiesDefinitions;
-		this.outputDirectory = outputDirectory;
+		this.propertiesDefinitions = checkNotNull(propertiesDefinitions);
+		this.outputDirectory = checkNotNull(outputDirectory);
 	}
 
 	public void loadInto(Engine engine) {
 		String language = engine.Lan.isoName;
 		
 		try (ResourceLinker linker = new ResourceLinker(language, outputDirectory)) {
-			engine.docDir = linker.linkResources(lexicalResources,
+			Path docDirectory = linker.linkResources(lexicalResources,
 					syntacticResources,
-					propertiesDefinitions).toAbsolutePath().toString();
+					propertiesDefinitions);
+			
+			engine.docDir = docDirectory.toAbsolutePath().toString();
 			loadViaLinks(engine, language);
 			engine.docDir = "";
 		} catch (IOException e) {
@@ -54,8 +54,8 @@ public final class LinguisticResources {
 		try {
 			boolean success = engine.loadResources(
 					//Suffering from bad interface design..
-					Lists.newArrayList(prefixResourceNames(lexicalResources)),
-					Lists.newArrayList(prefixResourceNames(syntacticResources)),
+					Lists.newArrayList(priorityPrefixedFileNames(lexicalResources)),
+					Lists.newArrayList(priorityPrefixedFileNames(syntacticResources)),
 					true,
 					errMessage);
 			
@@ -69,13 +69,13 @@ public final class LinguisticResources {
 
 	public void loadInto(Ntext nText) {
 		ArrayList<String> resources = new ArrayList<>();
-		resources.addAll(postfixResourceNames(lexicalResources));
-		resources.addAll(postfixResourceNames(syntacticResources));
+		resources.addAll(priorityPostfixedFileNames(lexicalResources));
+		resources.addAll(priorityPostfixedFileNames(syntacticResources));
 
 		nText.listOfResources = resources;
 	}
 	
-	private List<String> postfixResourceNames(List<Path> resouces) {
+	private List<String> priorityPostfixedFileNames(List<Path> resouces) {
 		List<String> resources = new ArrayList<>();
 		for (int priority = 0; priority < resouces.size(); priority++) {
 			resources.add(priorityPostfixFileName(resouces.get(priority), priority));
@@ -84,7 +84,7 @@ public final class LinguisticResources {
 		return resources;
 	}
 	
-	private List<String> prefixResourceNames(List<Path> resouces) {
+	private List<String> priorityPrefixedFileNames(List<Path> resouces) {
 		List<String> resources = new ArrayList<>();
 		for (int priority = 0; priority < resouces.size(); priority++) {
 			resources.add(priorityPrefixFileName(resouces.get(priority), priority));
