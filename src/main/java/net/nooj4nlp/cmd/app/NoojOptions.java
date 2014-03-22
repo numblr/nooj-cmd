@@ -20,7 +20,7 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 
 @SuppressWarnings("static-access")
-public class NoojOptions {
+final class NoojOptions {
 	private static final HelpFormatter HELP_FORMATTER = new HelpFormatter();
 
 	private static final char OPTION_SEPARATOR = ',';
@@ -168,7 +168,7 @@ public class NoojOptions {
 		return new NoojOptions(new GnuParser().parse(OPTIONS, args));
 	}
 	
-	public List<Path> getFiles() {
+	List<Path> getFiles() {
 		if (!options.hasOption(INPUT_FILES)) {
 			return null;
 		}
@@ -176,15 +176,15 @@ public class NoojOptions {
 		return getPathOptions(INPUT_FILES);
 	}
 
-	public List<Path> getLexicalResources() {
+	List<Path> getLexicalResources() {
 		return getPathOptions(DICTS);
 	}
 
-	public List<Path> getSyntacticResources() {
+	List<Path> getSyntacticResources() {
 		return getPathOptions(GRAMMARS);
 	}
 
-	public List<Path> getPathOptions(String optionKey) {
+	List<Path> getPathOptions(String optionKey) {
 		String[] filePaths = options.getOptionValues(optionKey);
 		Builder<Path> files = ImmutableList.builder();
 		for (String file : filePaths) {
@@ -194,11 +194,11 @@ public class NoojOptions {
 		return files.build();
 	}
 
-	public Path getPropertiesDefinitions() {
+	Path getPropertiesDefinitions() {
 		return Paths.get(options.getOptionValue(PROPERTIES));
 	}
 
-	public Path getCharVariantsFile() {
+	Path getCharVariantsFile() {
 		if (!options.hasOption(CHAR_VARIANTS)) {
 			return null;
 		}
@@ -206,7 +206,7 @@ public class NoojOptions {
 		return Paths.get(options.getOptionValue(CHAR_VARIANTS));
 	}
 
-	public List<String> getXmlTags() {
+	List<String> getXmlTags() {
 		if (!options.hasOption(XML_TAGS)) {
 			return null;
 		}
@@ -214,7 +214,7 @@ public class NoojOptions {
 		return ImmutableList.copyOf(options.getOptionValues(XML_TAGS));
 	}
 
-	public List<String> getXmlAnnotations() {
+	List<String> getXmlAnnotations() {
 		return DEFAULT_XML_ANNOTATIONS;
 		//not implemented yet
 //		if (!options.hasOption(XML_ANNOTATIONS)) {
@@ -224,11 +224,11 @@ public class NoojOptions {
 //		return ImmutableList.copyOf(options.getOptionValues(XML_ANNOTATIONS));
 	}
 
-	public boolean isFilterXml() {
+	boolean isFilterXml() {
 		return options.hasOption(FILTER);
 	}
 
-	public Language getLanguage() {
+	Language getLanguage() {
 		if (!options.hasOption(LANGUAGE)) {
 			return new Language(DEFUALT_LANGUAGE);
 		};
@@ -236,7 +236,7 @@ public class NoojOptions {
 		return new Language(options.getOptionValue(LANGUAGE));
 	}
 
-	public Encoding getEncoding() {
+	Encoding getEncoding() {
 		if (!options.hasOption(FILE_TYPE) && !options.hasOption(ENCODING)) {
 			return DEFAULT_ENCODING;
 		};
@@ -254,11 +254,11 @@ public class NoojOptions {
 		return new Encoding(encoding, inputType);
 	}
 
-	public String getDelimiter() {
+	String getDelimiter() {
 		return options.getOptionValue(DELIMITER);
 	}
 
-	public Path getTmpDirectory() {
+	Path getTmpDirectory() {
 		if (!options.hasOption(TMP)) {
 			return Paths.get(DEFAULT_TMP_DIR);
 		}
@@ -266,7 +266,7 @@ public class NoojOptions {
 		return Paths.get(options.getOptionValue(TMP));
 	}
 	
-	public static void printHelp() {
+	static void printHelp() {
 		HELP_FORMATTER.printHelp(HELP_MESSAGE, OPTIONS);
 	}
 	
