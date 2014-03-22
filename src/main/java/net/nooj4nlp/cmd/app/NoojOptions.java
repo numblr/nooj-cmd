@@ -155,6 +155,7 @@ public class NoojOptions {
 	
 	private static final String DEFUALT_LANGUAGE = "en";
 	private static final Encoding DEFAULT_ENCODING = new Encoding(null, InputType.DEFAULT);
+	private static final String DEFAULT_TMP_DIR = System.getProperty("java.io.tmpdir");
 	
 	private final CommandLine options;
 	
@@ -258,7 +259,7 @@ public class NoojOptions {
 
 	public Path getTmpDirectory() {
 		if (!options.hasOption(TMP)) {
-			return Paths.get(System.getProperty("java.io.tmpdir"));
+			return Paths.get(DEFAULT_TMP_DIR);
 		}
 		
 		return Paths.get(options.getOptionValue(TMP));
