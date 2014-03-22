@@ -1,7 +1,6 @@
 package net.nooj4nlp.cmd.io;
 
 import java.io.BufferedWriter;
-import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
@@ -23,10 +22,10 @@ public class TextLoader {
 		this.encoding = encoding;
 	}
 	
-	public String load(File file) {
+	public String load(Path file) {
 		String text;
 		try {
-			text = TextIO.loadText(file.getAbsolutePath(),
+			text = TextIO.loadText(file.toAbsolutePath().toString(),
 					encoding.getInputTypeOrdinal(),
 					encoding.getEncoding(),
 					encoding.getInputTypeName(),
@@ -42,9 +41,8 @@ public class TextLoader {
 		return text;
 	}
 	
-	public void write(String text, File file) {
-		Path path = file.toPath();
-		try (BufferedWriter fileWriter = Files.newBufferedWriter(path, UTF_8)) {
+	public void write(String text, Path file) {
+		try (BufferedWriter fileWriter = Files.newBufferedWriter(file, UTF_8)) {
 			fileWriter.write(text);
 		} catch (IOException e) {
 			throw new TextLoaderException(file, e.getMessage());
@@ -54,7 +52,7 @@ public class TextLoader {
 	public static class TextLoaderException extends FileException {
 		private static final long serialVersionUID = 1L;
 
-		private TextLoaderException(File file, String errorMessage) {
+		private TextLoaderException(Path file, String errorMessage) {
 			super(file, errorMessage);
 		}
 	}

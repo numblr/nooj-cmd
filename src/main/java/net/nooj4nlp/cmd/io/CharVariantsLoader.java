@@ -1,14 +1,14 @@
 package net.nooj4nlp.cmd.io;
 
-import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 import net.nooj4nlp.engine.Language;
 
 public class CharVariantsLoader {
-	private final File charVariants;
+	private final Path charVariants;
 
-	public CharVariantsLoader(File charVariants) {
+	public CharVariantsLoader(Path charVariants) {
 		this.charVariants = charVariants;
 	}
 	
@@ -16,7 +16,7 @@ public class CharVariantsLoader {
 		try
 		{
 			StringBuilder errorMessage = new StringBuilder("");
-			if (!language.loadCharacterVariants(charVariants.getAbsolutePath(), errorMessage)) {
+			if (!language.loadCharacterVariants(charVariants.toAbsolutePath().toString(), errorMessage)) {
 				throw new CharVariantsException(charVariants, errorMessage.toString());
 			}
 		}
@@ -29,7 +29,7 @@ public class CharVariantsLoader {
 	public static class CharVariantsException extends FileException {
 		private static final long serialVersionUID = 1L;
 		
-		CharVariantsException(File file, String errorMessage) {
+		CharVariantsException(Path file, String errorMessage) {
 			super(file, errorMessage);
 		}
 	}
