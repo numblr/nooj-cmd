@@ -49,7 +49,6 @@ public class TextProcessor {
 						outputDirectory);
 		List<NtextProcessor> ntextProcessors = createNtextProcessors(language, resources);
 		RawText2Ntext rawTextConverter = new RawText2Ntext(language, delimiter);
-		RawText2Ntext rawTextConverter = new Xml2Ntext(language, xmlTags);
 		Ntext2Xml xmlConverter = new Ntext2Xml(xmlAnnotations, language, filterXml);
 		
 		for (File file : files) {
