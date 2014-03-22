@@ -2,7 +2,6 @@ package net.nooj4nlp.cmd.app;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Collections;
 import java.util.List;
 
 import net.nooj4nlp.cmd.io.Encoding;
@@ -32,7 +31,7 @@ public class NoojOptions {
 	private static final String PROPERTIES = "p";
 	private static final String CHAR_VARIANTS = "c";
 	private static final String XML_TAGS = "x";
-	private static final String XML_ANNOTATIONS = "a";
+//	private static final String XML_ANNOTATIONS = "a";
 	private static final String FILTER = "f";
 	private static final String LANGUAGE = "l";
 	private static final String DELIMITER = "s";
@@ -91,12 +90,12 @@ public class NoojOptions {
 				.withDescription("comma sepearted list of xml tag strings without braces")
 				.create(XML_TAGS);
 		
-		Option xmlAnnotations = OptionBuilder.withLongOpt("xml-annotations")
-				.hasArgs()
-				.withArgName("ANNOTATIONS")
-				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma sepearted list of xml annotation strings without braces")
-				.create(XML_ANNOTATIONS);
+//		Option xmlAnnotations = OptionBuilder.withLongOpt("xml-annotations")
+//				.hasArgs()
+//				.withArgName("ANNOTATIONS")
+//				.withValueSeparator(OPTION_SEPARATOR)
+//				.withDescription("comma sepearted list of xml annotation strings without braces")
+//				.create(XML_ANNOTATIONS);
 		
 		Option filterXml = OptionBuilder
 				.withLongOpt("filter-xml")
@@ -144,7 +143,7 @@ public class NoojOptions {
 		OPTIONS.addOption(grammars);
 		OPTIONS.addOption(properties);
 		OPTIONS.addOption(charVariants);
-		OPTIONS.addOption(xmlAnnotations);
+		//OPTIONS.addOption(xmlAnnotations);
 		OPTIONS.addOption(xmlTags);
 		OPTIONS.addOption(filterXml);
 		OPTIONS.addOption(language);
@@ -214,11 +213,13 @@ public class NoojOptions {
 	}
 
 	public List<String> getXmlAnnotations() {
-		if (!options.hasOption(XML_ANNOTATIONS)) {
-			return Collections.emptyList();
-		}
-		
-		return ImmutableList.copyOf(options.getOptionValues(XML_ANNOTATIONS));
+		return ImmutableList.of("<SYNTAX>");
+		//not implemented yet
+//		if (!options.hasOption(XML_ANNOTATIONS)) {
+//			return ImmutableList.of("<SYNTAX>");
+//		}
+//		
+//		return ImmutableList.copyOf(options.getOptionValues(XML_ANNOTATIONS));
 	}
 
 	public boolean isFilterXml() {
