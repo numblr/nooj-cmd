@@ -153,6 +153,7 @@ public class NoojOptions {
 		OPTIONS.addOption(tmpDir);
 	}
 	
+	private static final List<String> DEFAULT_XML_ANNOTATIONS = ImmutableList.of("<SYNTAX>");
 	private static final String DEFUALT_LANGUAGE = "en";
 	private static final Encoding DEFAULT_ENCODING = new Encoding(null, InputType.DEFAULT);
 	private static final String DEFAULT_TMP_DIR = System.getProperty("java.io.tmpdir");
@@ -214,7 +215,7 @@ public class NoojOptions {
 	}
 
 	public List<String> getXmlAnnotations() {
-		return ImmutableList.of("<SYNTAX>");
+		return DEFAULT_XML_ANNOTATIONS;
 		//not implemented yet
 //		if (!options.hasOption(XML_ANNOTATIONS)) {
 //			return ImmutableList.of("<SYNTAX>");
