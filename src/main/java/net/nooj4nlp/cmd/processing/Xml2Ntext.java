@@ -1,5 +1,7 @@
 package net.nooj4nlp.cmd.processing;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.List;
 
 import net.nooj4nlp.engine.Language;
@@ -12,7 +14,7 @@ public class Xml2Ntext extends NtextImporter {
 
 	public Xml2Ntext(Language language, List<String> xmlTags) {
 		super(language);
-		this.xmlTags = xmlTags;
+		this.xmlTags = checkNotNull(xmlTags);
 	}
 
 	public Ntext convert(String xml) {

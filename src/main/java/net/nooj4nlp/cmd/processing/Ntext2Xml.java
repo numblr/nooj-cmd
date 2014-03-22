@@ -1,5 +1,7 @@
 package net.nooj4nlp.cmd.processing;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.PrintWriter;
 import java.util.List;
 
@@ -16,9 +18,9 @@ public class Ntext2Xml {
 	public Ntext2Xml(List<String> xmlAnnotations,
 			Language language,
 			boolean filterOut) {
-				this.xmlAnnotations = xmlAnnotations;
-				this.language = language;
-				this.filterOut = filterOut;
+		this.xmlAnnotations = checkNotNull(xmlAnnotations);
+		this.language = checkNotNull(language);
+		this.filterOut = filterOut;
 	}
 	
 	public String convert(Ntext nText) {

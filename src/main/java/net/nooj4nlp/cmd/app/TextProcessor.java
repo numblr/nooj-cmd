@@ -4,20 +4,16 @@ import java.io.File;
 import java.nio.file.Path;
 import java.util.List;
 
-import org.apache.commons.cli.CommandLine;
-
 import net.nooj4nlp.cmd.io.CharVariantsLoader;
 import net.nooj4nlp.cmd.io.Encoding;
 import net.nooj4nlp.cmd.io.LinguisticResources;
 import net.nooj4nlp.cmd.io.TextLoader;
-import net.nooj4nlp.cmd.io.Encoding.InputType;
 import net.nooj4nlp.cmd.processing.LexicalAnalyzer;
 import net.nooj4nlp.cmd.processing.Ntext2Xml;
 import net.nooj4nlp.cmd.processing.NtextProcessor;
 import net.nooj4nlp.cmd.processing.RawText2Ntext;
 import net.nooj4nlp.cmd.processing.SyntacticParser;
 import net.nooj4nlp.cmd.processing.TextDelimiter;
-import net.nooj4nlp.cmd.processing.Xml2Ntext;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;

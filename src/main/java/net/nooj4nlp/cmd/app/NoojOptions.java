@@ -2,6 +2,7 @@ package net.nooj4nlp.cmd.app;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 import net.nooj4nlp.cmd.io.Encoding;
@@ -214,7 +215,7 @@ public class NoojOptions {
 
 	public List<String> getXmlAnnotations() {
 		if (!options.hasOption(XML_ANNOTATIONS)) {
-			return null;
+			return Collections.emptyList();
 		}
 		
 		return ImmutableList.copyOf(options.getOptionValues(XML_ANNOTATIONS));

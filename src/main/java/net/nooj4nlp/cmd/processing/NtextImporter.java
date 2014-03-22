@@ -1,5 +1,6 @@
 package net.nooj4nlp.cmd.processing;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 
@@ -7,7 +8,7 @@ public abstract class NtextImporter {
 	private final Language language;
 
 	protected NtextImporter(Language language) {
-		this.language = language;
+		this.language = checkNotNull(language);
 	}
 	
 	public abstract Ntext convert(String input);

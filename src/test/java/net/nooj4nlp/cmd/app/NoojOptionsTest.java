@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -154,10 +155,10 @@ public class NoojOptionsTest {
 	}
 	
 	@Test
-	public void noOptionXmlAnnotationsIsParsedToNull() throws ParseException {
+	public void noOptionXmlAnnotationsIsParsedToEmptyList() throws ParseException {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
-		assertNull(noojOptions.getXmlAnnotations());
+		assertEquals(Collections.emptyList(), noojOptions.getXmlAnnotations());
 	}
 
 	@Test
