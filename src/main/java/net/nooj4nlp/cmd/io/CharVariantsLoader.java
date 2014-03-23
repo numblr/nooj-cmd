@@ -6,30 +6,31 @@ import java.nio.file.Path;
 import net.nooj4nlp.engine.Language;
 
 public class CharVariantsLoader {
-	private final Path charVariants;
+	private final Path characterVariants;
 
 	public CharVariantsLoader(Path charVariants) {
-		this.charVariants = charVariants;
+		this.characterVariants = charVariants;
 	}
 	
 	public void loadInto(Language language) {
 		try
 		{
 			StringBuilder errorMessage = new StringBuilder("");
-			if (!language.loadCharacterVariants(charVariants.toAbsolutePath().toString(), errorMessage)) {
-				throw new CharVariantsException(charVariants, errorMessage.toString());
+			String filePath = characterVariants.toAbsolutePath().toString();
+			if (!language.loadCharacterVariants(filePath, errorMessage)) {
+				throw new CharVariantsException(characterVariants, errorMessage.toString());
 			}
 		}
 		catch (IOException exception)
 		{
-			throw new CharVariantsException(charVariants, exception.getMessage());
+			throw new CharVariantsException(characterVariants, exception.getMessage());
 		}
 	}
 	
 	public static class CharVariantsException extends FileException {
 		private static final long serialVersionUID = 1L;
 		
-		CharVariantsException(Path file, String errorMessage) {
+		private CharVariantsException(Path file, String errorMessage) {
 			super(file, errorMessage);
 		}
 	}
