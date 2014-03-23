@@ -1,12 +1,14 @@
 package net.nooj4nlp.cmd.app;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.nio.file.Path;
 import java.util.List;
 
 import net.nooj4nlp.cmd.io.CharVariantsLoader;
 import net.nooj4nlp.cmd.io.Encoding;
-import net.nooj4nlp.cmd.io.LinguisticResources;
 import net.nooj4nlp.cmd.io.FileIO;
+import net.nooj4nlp.cmd.io.LinguisticResources;
 import net.nooj4nlp.cmd.processing.LexicalAnalyzer;
 import net.nooj4nlp.cmd.processing.Ntext2Xml;
 import net.nooj4nlp.cmd.processing.NtextConverter;
@@ -25,7 +27,7 @@ final class TextProcessorFactory {
 	private final NoojOptions options;
 
 	TextProcessorFactory(NoojOptions options) {
-		this.options = options;
+		this.options = checkNotNull(options);
 	}
 	
 	TextProcessor create() {

@@ -1,5 +1,7 @@
 package net.nooj4nlp.cmd.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 import java.nio.file.Path;
 
@@ -9,7 +11,7 @@ public class CharVariantsLoader {
 	private final Path characterVariants;
 
 	public CharVariantsLoader(Path charVariants) {
-		this.characterVariants = charVariants;
+		this.characterVariants = checkNotNull(charVariants);
 	}
 	
 	public void loadInto(Language language) {

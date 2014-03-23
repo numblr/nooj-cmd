@@ -1,5 +1,7 @@
 package net.nooj4nlp.cmd.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -23,7 +25,7 @@ final class ResourceLinker implements AutoCloseable {
 	private final Path docDirectory;
 
 	ResourceLinker(String language, Path outputDirectory) {
-		this.language = language;
+		this.language = checkNotNull(language);
 		this.docDirectory = outputDirectory.resolve(new UID().toString().replaceAll("\\W", ""));
 	}
 	

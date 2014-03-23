@@ -1,5 +1,7 @@
 package net.nooj4nlp.cmd.app;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -156,7 +158,7 @@ final class NoojOptions {
 	private final CommandLine options;
 	
 	private NoojOptions(CommandLine options) {
-		this.options = options;
+		this.options = checkNotNull(options);
 	}
 	
 	static NoojOptions create(String[] args) throws ParseException {

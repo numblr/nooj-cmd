@@ -1,5 +1,6 @@
 package net.nooj4nlp.cmd.app;
 
+import static com.google.common.base.Preconditions.checkNotNull;
 import static org.apache.commons.io.FilenameUtils.removeExtension;
 
 import java.nio.file.Path;
@@ -27,11 +28,11 @@ final class TextProcessor {
 			LinguisticResources resources,
 			List<NtextProcessor> ntextProcessors,
 			Ntext2Xml xmlConverter) {
-		this.fileIO = fileIO;
-		this.inputConverter = inputConverter;
-		this.resources = resources;
-		this.ntextProcessors = ntextProcessors;
-		this.xmlConverter = xmlConverter;
+		this.fileIO = checkNotNull(fileIO);
+		this.inputConverter = checkNotNull(inputConverter);
+		this.resources = checkNotNull(resources);
+		this.ntextProcessors = checkNotNull(ntextProcessors);
+		this.xmlConverter = checkNotNull(xmlConverter);
 	}
 
 	void processFiles(List<Path> files) {

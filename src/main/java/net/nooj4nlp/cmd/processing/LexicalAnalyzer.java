@@ -1,5 +1,7 @@
 package net.nooj4nlp.cmd.processing;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -11,7 +13,7 @@ public final class LexicalAnalyzer implements NtextProcessor {
 	private final Engine engine;
 
 	public LexicalAnalyzer(Engine engine) {
-		this.engine = engine;
+		this.engine = checkNotNull(engine);
 	}
 
 	@Override

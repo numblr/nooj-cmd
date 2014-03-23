@@ -1,5 +1,7 @@
 package net.nooj4nlp.cmd.io;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 public final class Encoding {
 	public static enum FileType {
 		UNICODE,
@@ -14,8 +16,8 @@ public final class Encoding {
 	private final FileType type;
 	
 	public Encoding(String encoding, FileType type) {
-		this.encoding = encoding;
-		this.type = type;
+		this.encoding = checkNotNull(encoding);
+		this.type = checkNotNull(type);
 	}
 	
 	public String getEncoding() {
