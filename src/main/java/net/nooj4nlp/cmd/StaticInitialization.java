@@ -15,7 +15,7 @@ public class StaticInitialization {
 		initializeLogFile();
 	}
 	
-	static void initializeLogFile() throws IOException {
+	private static void initializeLogFile() throws IOException {
 		Dic.LogFileName = LOG_FILE;
 		
 		File file = new File(Dic.LogFileName);
