@@ -6,7 +6,7 @@ import java.util.List;
 import net.nooj4nlp.cmd.io.CharVariantsLoader;
 import net.nooj4nlp.cmd.io.Encoding;
 import net.nooj4nlp.cmd.io.LinguisticResources;
-import net.nooj4nlp.cmd.io.TextLoader;
+import net.nooj4nlp.cmd.io.FileIO;
 import net.nooj4nlp.cmd.processing.LexicalAnalyzer;
 import net.nooj4nlp.cmd.processing.Ntext2Xml;
 import net.nooj4nlp.cmd.processing.NtextConverter;
@@ -33,23 +33,23 @@ final class TextProcessorFactory {
 		
 		loadCharacterVariants(language);
 		
-		TextLoader textIO = createTextIO(language);
+		FileIO fileIO = createFileIO(language);
 		NtextConverter inputConverter = createInputConverter(language);
 		LinguisticResources resources = createLinugisticResources();
-		List<NtextProcessor> processors = createNtextProcessors(language, resources);
+		List<NtextProcessor> processors = createProcessors(language, resources);
 		Ntext2Xml xmlConverter = createXmlConverter(language);
 		
-		return new TextProcessor(textIO,
+		return new TextProcessor(fileIO,
 				inputConverter,
 				resources,
 				processors,
 				xmlConverter);
 	}
 
-	private TextLoader createTextIO(Language language) {
+	private FileIO createFileIO(Language language) {
 		Encoding encoding = options.getEncoding();
 		
-		return new TextLoader(encoding, language);
+		return new FileIO(encoding, language);
 	}
 
 	private Ntext2Xml createXmlConverter(Language language) {
@@ -90,7 +90,7 @@ final class TextProcessorFactory {
 		}
 	}
 	
-	private List<NtextProcessor> createNtextProcessors(Language language, LinguisticResources resources) {
+	private List<NtextProcessor> createProcessors(Language language, LinguisticResources resources) {
 		Engine engine = new Engine(new RefObject<Language>(language),
 				"", "", "",
 				false, null, false, null);

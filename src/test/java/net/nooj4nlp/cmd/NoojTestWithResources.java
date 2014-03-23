@@ -1,13 +1,11 @@
-package net.nooj4nlp.cmd.processing;
+package net.nooj4nlp.cmd;
 
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import net.nooj4nlp.cmd.NoojTest;
 import net.nooj4nlp.cmd.io.LinguisticResources;
-import net.nooj4nlp.cmd.io.LinguisticResourcesTest;
 import net.nooj4nlp.engine.Language;
 
 import org.junit.Before;
@@ -15,12 +13,9 @@ import org.junit.Before;
 import com.google.common.collect.ImmutableList;
 
 public class NoojTestWithResources extends NoojTest {
-	private static final Path DICT = Paths.get(LinguisticResourcesTest.class
-			.getResource("/linguistic/_Sample-s.dic").getPath());
-	private static final Path GRAMMAR = Paths.get(LinguisticResourcesTest.class
-			.getResource("/linguistic/_Date.nog").getPath());
-	private static final Path PROPERTIES_DEFINITIONS = Paths.get(LinguisticResourcesTest.class
-			.getResource("/linguistic/_properties.def").getPath());
+	private static final Path DICT = getPath("/linguistic/_Sample.jnod");
+	private static final Path GRAMMAR = getPath("/linguistic/_Date.nog");
+	private static final Path PROPERTIES_DEFINITIONS = getPath("/linguistic/_properties.def");
 	
 	private LinguisticResources linguisticResources;
 
@@ -42,5 +37,9 @@ public class NoojTestWithResources extends NoojTest {
 
 	protected final LinguisticResources getLinguisticResources() {
 		return linguisticResources;
+	}
+	
+	private static Path getPath(String path) {
+		return Paths.get(NoojTestWithResources.class.getResource(path).getPath());
 	}
 }

@@ -5,11 +5,8 @@ import java.util.HashMap;
 
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Ntext;
-import net.nooj4nlp.engine.UnsignedShort;
 
 public class TextDelimiter implements NtextProcessor {
-	private static final String LIMIT_EXCEEDED = "Exceeded limit for text unit of " + UnsignedShort.MAX_VALUE + " characters";
-	
 	private final Engine engine;
 
 	public TextDelimiter(Engine engine) {
@@ -18,16 +15,16 @@ public class TextDelimiter implements NtextProcessor {
 	
 	@Override
 	public void process(Ntext nText) {
-		String errorMessage = "";
 		if (nText.XmlNodes != null) {
-			errorMessage = delimitXml(nText);
+			String errorMessage = delimitXml(nText);
+			if (nText.mft == null) {
+				throw new DelimiterException(errorMessage);
+			}
 		} else {
 			delimitRawText(nText);
-			errorMessage = LIMIT_EXCEEDED;
-		}
-		
-		if (nText.mft == null) {
-			throw new DelimiterException(errorMessage);
+			if (nText.mft == null) {
+				throw new LimitExeededException();
+			}
 		}
 	}
 
@@ -56,5 +53,9 @@ public class TextDelimiter implements NtextProcessor {
 		private DelimiterException(String message) {
 			super(message);
 		}
+	}
+	
+	public static final class LimitExeededException extends RuntimeException {
+		private static final long serialVersionUID = 1L;
 	}
 }

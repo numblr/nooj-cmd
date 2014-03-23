@@ -9,7 +9,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
-import net.nooj4nlp.cmd.io.LinguisticResources.LinguisticResourceException;
+import net.nooj4nlp.cmd.io.LinguisticResources.ResourceLinkCreationException;
 import net.nooj4nlp.engine.Constants;
 
 import org.apache.commons.io.FileUtils;
@@ -59,7 +59,7 @@ final class ResourceLinker implements AutoCloseable {
 		try {
 			return Files.createDirectories(path);
 		} catch (IOException e) {
-			throw new LinkerException("Could not create directories: " + path + " : " + e.getMessage());
+			throw new ResourceLinkCreationException(path, e.getMessage());
 		}
 	}
 	
@@ -78,7 +78,7 @@ final class ResourceLinker implements AutoCloseable {
 			try {
 				Files.createSymbolicLink(link.getKey(), link.getValue());
 			} catch (IOException e) {
-				throw new LinkerException("Could not create link " + link.getKey() + " to " + link.getValue() + " : " + e.getMessage());
+				throw new ResourceLinkCreationException(link.getKey(), e.getMessage());
 			}
 		}
 	}
@@ -91,16 +91,8 @@ final class ResourceLinker implements AutoCloseable {
 		try {
 			Files.createSymbolicLink(link, propertiesDefinitions);
 		} catch (IOException e) {
-			throw new LinkerException("Could not create link to properties definitions: " + propertiesDefinitions.toString());
+			throw new ResourceLinkCreationException(propertiesDefinitions, e.getMessage());
 		}
 	}
-	
 
-	static final class LinkerException extends LinguisticResourceException {
-		private static final long serialVersionUID = 1L;
-		
-		private LinkerException(String message) {
-			super(message);
-		}
-	}
 }

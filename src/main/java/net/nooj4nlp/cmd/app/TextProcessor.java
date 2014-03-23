@@ -5,7 +5,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import net.nooj4nlp.cmd.io.LinguisticResources;
-import net.nooj4nlp.cmd.io.TextLoader;
+import net.nooj4nlp.cmd.io.FileIO;
 import net.nooj4nlp.cmd.processing.Ntext2Xml;
 import net.nooj4nlp.cmd.processing.NtextConverter;
 import net.nooj4nlp.cmd.processing.NtextProcessor;
@@ -16,18 +16,18 @@ import org.apache.commons.io.FilenameUtils;
 class TextProcessor {
 	private static final String XML_EXTENSION = ".xml.txt";
 	
-	private final TextLoader textIO;
+	private final FileIO fileIO;
 	private final NtextConverter inputConverter;
 	private final LinguisticResources resources;
 	private final List<NtextProcessor> ntextProcessors;
 	private final Ntext2Xml xmlConverter;
 
-	TextProcessor(TextLoader textIO,
+	TextProcessor(FileIO fileIO,
 			NtextConverter inputConverter,
 			LinguisticResources resources,
 			List<NtextProcessor> ntextProcessors,
 			Ntext2Xml xmlConverter) {
-		this.textIO = textIO;
+		this.fileIO = fileIO;
 		this.inputConverter = inputConverter;
 		this.resources = resources;
 		this.ntextProcessors = ntextProcessors;
@@ -36,7 +36,7 @@ class TextProcessor {
 
 	void processFiles(List<Path> files) {
 		for (Path file : files) {
-			String rawText = textIO.load(file);
+			String rawText = fileIO.load(file);
 			Ntext nText = inputConverter.convert(rawText);
 			resources.loadInto(nText);
 			
@@ -46,7 +46,7 @@ class TextProcessor {
 			
 			String xml = xmlConverter.convert(nText);
 			Path outputFile = createOutputFileName(file);
-			textIO.write(xml, outputFile);
+			fileIO.write(xml, outputFile);
 		}
 	}
 

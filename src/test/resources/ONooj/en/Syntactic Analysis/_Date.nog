@@ -1,0 +1,385 @@
+#OpenNooJ 1.0
+TYPE SYNTAX
+ILANGUAGE en
+OLANGUAGE en
+NUMBEROFGRAPHS 20
+SIZE 1047 763
+SCALE 100
+IFONT Times New Roman:R:12
+OFONT Courier New:B:12
+CFONT Times New Roman:R:12
+AUXICOLOR 65535
+BACKCOLOR 16777215
+COMMCOLOR 32768
+FORECOLOR 0
+SELECOLOR 16711680
+VARCOLOR 255
+DISPFRAME y
+DISPDATE y
+DISPFILENAME y
+DISPDIRNAME y
+#
+#
+Main
+20
+"<E>/<ADV\+Date" 108 378 2 4 11 
+"" 807 303 0 
+":on the 3rd of June+:tomorrow+:a few days ago+:once+:in a few days" 189 163 1 14 
+"<E>" 588 137 1 12 
+"<E>" 140 272 5 2 5 13 18 19 
+"<E>" 399 272 4 6 8 9 10 
+":at 1532" 462 188 1 7 
+"<E>" 620 226 1 12 
+":at seven o'clock" 451 226 1 7 
+":at 7:10 am" 459 264 1 7 
+":in the afternoon" 438 155 1 7 
+":in May 2002" 216 378 1 12 
+"<E>/>" 755 335 1 1 
+":Monday, June 5th" 184 80 3 14 15 16 
+"<E>" 373 137 2 3 5 
+"afternoon+morning+night" 470 80 1 3 
+"early+late" 385 46 1 15 
+"(1) Adverbs before the date are not processed here:+*early in the morning+vs+in the early morning+(2) Durations and Frequencies are not processed here:+*from Monday to Thursday+*all summer+*Monday all afternoon+*every Monday afternoon" 67 587 0 
+":a few years ago+:in a few years" 205 334 1 12 
+":Mon, 16 Mar 2003" 187 237 1 14 
+#
+Monday, June 5th
+28
+"<E>" 41 191 2 24 25 
+"" 954 396 0 
+"Monday+Tuesday+Wednesday+Thursday+Friday+Saturday+Sunday" 195 319 2 17 23 
+"<E>" 392 174 3 4 8 11 
+"January+March+May+July+August+October+December" 444 252 3 9 12 15 
+"2" 747 79 3 6 18 22 
+"4th+5th+6th+7th+8th+9th" 800 195 1 7 
+"<E>" 865 167 1 1 
+"February" 442 60 1 9 
+"<E>+the" 611 123 1 10 
+"<E>" 706 123 4 5 6 19 22 
+"April+June+September+November" 443 123 2 9 12 
+"<E>+the" 606 353 1 13 
+"30th" 749 353 1 14 
+"<E>" 864 396 1 1 
+"<E>+the" 608 455 1 16 
+"31st" 760 455 1 14 
+"," 337 252 1 3 
+"0th" 801 33 1 7 
+"1" 735 215 2 20 6 
+"0+1+2+3" 764 279 1 21 
+"th" 809 279 1 7 
+"1st+2nd+3rd" 797 85 1 7 
+"<E>" 517 396 4 12 9 15 14 
+"on+<E>" 135 174 2 2 3 
+"<E>+last+next+this+next" 124 499 1 26 
+"Monday+Tuesday+Wednesday+Thursday+Friday+Saturday+Sunday" 274 499 1 27 
+"<E>" 863 499 1 1 
+#
+tomorrow
+4
+"<E>" 106 174 2 2 3 
+"" 409 157 0 
+"yesterday+today+tomorrow" 179 101 1 1 
+"the day before yesterday+the day after tomorrow" 168 208 1 1 
+#
+a few years ago
+14
+"<E>" 19 241 3 4 8 10 
+"" 662 300 0 
+"<NB>+:Dnums" 228 518 1 12 
+"seconds+minutes+hours+days+weeks+months+trimesters+semesters+years+decades+centuries+milleniums" 498 521 1 6 
+"a+1+one" 202 167 2 5 9 
+"second+minute+hour+day+week+month+trimester+semester+year+decade+century+millenium" 330 167 1 6 
+"ago" 595 301 1 1 
+"a couple of+a few+several+<E>" 167 448 1 12 
+"a long time" 220 301 1 6 
+"full+long" 260 124 1 5 
+"<E>" 101 518 3 7 2 13 
+"full+long+short" 415 447 1 3 
+"<E>" 376 479 2 3 11 
+"these last+these past" 137 555 1 2 
+#
+Dnums
+5
+"<E>" 55 139 3 2 3 4 
+"" 374 139 0 
+":Dnum2-99" 175 61 1 1 
+":Dnum100-999" 171 139 1 1 
+":Dnum1000-999999" 154 219 1 1 
+#
+Dnum100-999
+6
+"<E>" 47 175 1 2 
+"" 450 175 0 
+"one+two+three+four+five+six+seven+eight+nine" 84 175 1 3 
+"hundred" 205 175 2 1 4 
+"and+<E>" 282 96 1 5 
+":Dnum1-99" 345 96 1 1 
+#
+Dnum1000-999999
+10
+"<E>" 22 156 2 2 4 
+"" 759 126 0 
+":Dnum100-999" 76 156 1 3 
+"thousand" 209 126 2 5 7 
+":Dnum1-99" 86 100 1 3 
+"and+<E>" 298 79 1 6 
+":Dnum100-999" 360 79 1 7 
+"<E>" 490 126 2 1 8 
+"and+<E>" 556 79 1 9 
+":Dnum1-99" 622 79 1 1 
+#
+Dnum2-99
+7
+"<E>" 108 321 3 4 3 5 
+"" 477 224 0 
+"one+two+three+four+five+six+seven+eight+nine" 375 112 1 1 
+"ten+eleven+twelve+thirteen+fourteen+fifteen+sixteen+seventeen+eighteen+nineteen" 288 321 1 1 
+"twenty+thirty+fourty+fifty+sixty+seventy+eighty+ninety" 194 192 2 2 1 
+"two+three+four+five+six+seven+eight+nine" 231 480 1 6 
+"<E>" 399 480 1 1 
+#
+at 1532
+29
+"<E>" 6 245 1 2 
+"" 941 245 0 
+"at+around" 47 245 2 11 12 
+"<E>+0+1" 312 245 2 4 7 
+"5+6+7+8+9" 383 298 1 13 
+"\":\"+h" 466 245 2 8 10 
+"2" 331 177 1 7 
+"0+1+2+3+4" 383 177 1 13 
+"0+1+2+3+4+5" 550 162 1 9 
+"<D>" 589 162 1 10 
+"<E>" 738 245 3 1 26 27 
+"<E>" 267 245 3 6 3 25 
+"exactly+approximately+approx." 131 163 1 11 
+"<E>" 439 245 1 5 
+"0+1+2+3+4+5" 480 453 1 15 
+"<D>" 519 453 2 16 17 
+"hrs" 583 424 1 19 
+"\" \"" 585 483 1 19 
+"no other digit" 616 506 0 
+"<E>" 641 442 1 10 
+"0+1" 331 535 2 21 23 
+"5+6+7+8+9" 381 535 1 24 
+"2" 338 415 1 23 
+"0+1+2+3+4" 381 415 1 24 
+"<E>" 430 453 1 14 
+"<E>" 298 452 2 22 20 
+"GMT+UTC" 790 194 1 1 
+"Greenwish+<CAP>" 769 309 1 28 
+"time" 884 309 1 1 
+#
+at seven o'clock
+23
+"at" 31 338 2 15 16 
+"" 830 305 0 
+"midnight+noon" 558 74 1 11 
+"<E>" 256 161 3 4 5 8 
+"five+ten+a quarter+twenty+twenty-five" 302 108 2 7 6 
+"half" 302 223 1 6 
+"after+past" 418 223 1 8 
+"of+to" 428 108 1 8 
+"<E>" 474 160 2 2 9 
+"one+two+three+four+five+six+seven+eight+nine+ten+eleven+twelve" 554 210 2 10 11 
+"am+a.m.+pm+p.m.+in the morning+in the afternoon" 633 273 1 11 
+"<E>" 794 210 1 1 
+"one+two+three+four+five+six+seven+eight+nine+ten+eleven" 460 491 1 13 
+"o'clock" 542 491 2 17 19 
+"am+a.m.+pm+p.m." 732 506 1 1 
+"<E>" 223 338 3 3 12 18 
+"about+approximately+approx.+around" 73 284 1 15 
+"in the morning+in the afternoon" 614 418 1 1 
+"twelve" 470 622 3 19 20 21 
+"<E>" 674 506 2 14 1 
+"noon" 732 622 1 1 
+"o'clock" 588 595 1 19 
+"problem:+John looks <at one> TV" 717 95 0 
+#
+at 7:10 am
+20
+"at" 39 352 2 15 14 
+"" 815 331 0 
+"<E>" 268 172 3 3 4 7 
+"<E>+1+2" 312 116 1 16 
+"half" 313 231 1 5 
+"after+past" 428 231 1 7 
+"of+to" 440 116 1 7 
+"<E>" 484 172 1 8 
+"1+2+3+4+5+6+7+8+9+10+11+12" 555 172 2 9 18 
+"am+a.m.+pm+p.m." 628 118 1 10 
+"<E>" 721 172 1 1 
+"1+2+3+4+5+6+7+8+9+10+11+12" 480 504 1 12 
+"o'clock" 595 504 2 13 1 
+"am+a.m.+pm+p.m." 714 504 1 1 
+"<E>" 213 352 2 2 11 
+"approximately+approx.+around" 83 294 1 14 
+"<D>" 374 116 2 6 5 
+"<D> : any digit" 370 56 0 
+"\" \"" 629 190 1 10 
+"no digit after" 620 231 0 
+#
+in the afternoon
+4
+"in the" 79 291 2 3 2 
+"" 406 291 0 
+"afternoon+morning+evening+night+day" 314 291 1 1 
+"early+late" 187 240 1 2 
+#
+in May 2002
+7
+"in" 73 308 2 2 3 
+"" 587 259 0 
+"early+late" 131 266 1 3 
+"<E>" 235 308 3 4 5 6 
+"January+February+March+April+June+July+August+September+October+November+December" 339 118 1 1 
+"Jan.+Feb.+Mar.+Apr.+Jun.+Jul.+Aug.+Sep.+Oct.+Nov.+Dec." 352 402 1 1 
+"Septembre+Octobre+Novembre+Decembre" 341 259 1 1 
+#
+on the 3rd of June
+26
+"on+<E>" 39 351 2 23 24 
+"" 989 351 0 
+"the" 360 146 1 6 
+"2" 457 102 3 4 12 16 
+"4th+5th+6th+7th+8th+9th" 510 218 1 5 
+"of" 575 190 3 17 20 19 
+"<E>" 416 146 4 3 4 13 16 
+"the" 361 351 1 8 
+"30th" 461 351 1 9 
+"of" 585 351 3 20 17 19 
+"the" 358 478 1 11 
+"31st" 470 478 1 18 
+"0th" 513 55 1 5 
+"1" 445 238 2 14 4 
+"1+2+3" 474 302 1 15 
+"th" 519 302 1 5 
+"1st+2nd+3rd" 507 108 1 5 
+"February" 694 190 1 21 
+"of" 584 478 1 19 
+"January+March+May+July+August+October+December" 690 478 1 21 
+"April+June+September+November" 691 351 1 21 
+"<E>" 848 351 2 22 1 
+", <NB>" 898 287 1 1 
+"Monday+Tuesday+Wednesday+Thirsday+Friday+Saturday+Sunday" 105 228 1 25 
+"<E>" 307 351 3 2 7 10 
+"<E>+," 246 228 1 24 
+#
+Dnum1-99
+7
+"<E>" 111 361 3 4 5 3 
+"" 563 280 0 
+"one+two+three+four+five+six+seven+eight+nine" 385 122 1 1 
+"ten+eleven+twelve+thirteen+fourteen+fifteen+sixteen+seventeen+eighteen+nineteen" 298 331 1 1 
+"twenty+thirty+fourty+fifty+sixty+seventy+eighty+ninety" 204 202 1 2 
+"one+two+three+four+five+six+seven+eight+nine" 241 490 1 6 
+"<E>" 409 490 1 1 
+#
+once
+13
+"<E>" 84 293 4 2 4 6 8 
+"" 466 293 0 
+"one" 195 208 1 3 
+"day" 325 208 1 1 
+"once" 195 293 2 5 1 
+"upon a time" 289 271 1 1 
+"at" 178 430 2 7 9 
+"once" 257 402 1 12 
+"right" 195 334 1 11 
+"one" 228 461 1 10 
+"moment+time" 281 461 1 12 
+"away+now+then" 316 334 1 1 
+"<E>" 365 428 1 1 
+#
+in a few years
+11
+"in" 60 352 2 4 8 
+"" 544 309 0 
+"<NB>+:Dnums" 173 534 1 10 
+"weeks+months+trimesters+semesters+years+decades+centuries+milleniums" 374 538 1 1 
+"a+1+one" 212 177 2 5 7 
+"week+month+trimester+semester+year+decade+century+millenium" 340 177 1 1 
+"a couple of+a few+several+the next+<E>" 162 432 1 10 
+"full+long+short" 270 134 1 5 
+"<E>" 127 496 2 6 2 
+"full+long+short" 291 464 1 3 
+"<E>" 252 496 2 3 9 
+#
+a few days ago
+19
+"<E>" 77 259 2 9 15 
+"" 667 250 0 
+"<NB>+:Dnums" 298 454 1 11 
+"seconds+minutes+hours+days" 499 458 1 6 
+"a+1+one" 342 101 2 5 8 
+"second+minute+day" 470 101 1 18 
+"ago" 611 249 1 1 
+"a couple of+a few+several+<E>" 206 385 1 11 
+"full+long" 403 145 2 5 17 
+"<E>" 139 454 3 7 2 12 
+"full+long+short" 416 384 1 3 
+"<E>" 377 416 2 3 10 
+"these last+these past" 188 483 1 2 
+"<E>" 284 163 2 4 16 
+"a quarter of+half" 164 128 1 13 
+"<E>" 121 163 2 14 13 
+"an" 346 185 1 17 
+"hour" 484 185 1 18 
+"<E>" 548 145 1 6 
+#
+in a few days
+11
+"in" 65 336 2 4 8 
+"" 676 334 0 
+"<NB>+:Dnums" 183 544 1 10 
+"seconds+minutes+hours+days" 457 506 1 1 
+"a+1+one" 222 187 2 5 7 
+"second+minute+hour+day" 350 187 1 1 
+"a couple of+a few+several+the next+<E>" 168 416 1 10 
+"full+long+short" 280 144 1 5 
+"<E>" 137 506 2 6 2 
+"full+long+short" 374 432 1 3 
+"<E>" 303 506 2 3 9 
+#
+Mon, 16 Mar 2003
+26
+"<E>" 37 254 1 14 
+"" 1009 269 0 
+"Mon+Tue+Wed+Thu+Fri+Sat+Sun" 155 156 3 8 21 13 
+"2" 524 151 3 4 9 12 
+"4+5+6+7+8+9" 577 267 1 15 
+"<E>" 483 195 4 3 4 10 12 
+"30" 578 425 2 18 16 
+"31" 578 466 1 16 
+"," 265 156 1 13 
+"0" 578 105 1 15 
+"1" 512 287 2 11 4 
+"1+2+3" 576 371 1 15 
+"1+2+3" 574 157 1 15 
+"<E>" 313 254 3 5 6 7 
+"on+<E>" 79 254 3 2 13 24 
+"<E>" 692 237 3 16 17 18 
+"Jan+Mar+May+Jul+Aug+Oct+Dec" 773 338 1 19 
+"Feb" 771 146 1 19 
+"Apr+Jun+Sep+Nov" 772 209 1 19 
+"<E>" 834 269 2 20 23 
+"." 858 217 1 23 
+"." 239 121 1 8 
+"<NB>" 918 216 1 1 
+"<E>" 883 269 2 1 22 
+"Monday+Tuesday+Wednesday+Thursday+Friday+Saturday+Sunday" 139 406 2 25 13 
+"," 278 393 1 13 
+# NooJ
+# Enter examples, *counter-examples and #comments
+#
+
+March 23rd
+*Tuesday, February the 30st
+on Monday 14th
+on the 22nd of May, 2002
+a long time ago
+a couple of years ago
+two years ago
+two months ago
+
+*one

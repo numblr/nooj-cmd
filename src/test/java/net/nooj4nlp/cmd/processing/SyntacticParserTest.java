@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import net.nooj4nlp.cmd.NoojTestWithResources;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Mft;
 import net.nooj4nlp.engine.Ntext;

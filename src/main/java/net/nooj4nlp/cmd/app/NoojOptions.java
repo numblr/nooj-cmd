@@ -155,7 +155,7 @@ final class NoojOptions {
 	
 	private static final List<String> DEFAULT_XML_ANNOTATIONS = ImmutableList.of("<SYNTAX>");
 	private static final String DEFUALT_LANGUAGE = "en";
-	private static final Encoding DEFAULT_ENCODING = new Encoding(null, InputType.DEFAULT);
+	private static final Encoding DEFAULT_ENCODING = new Encoding(null, InputType.UNICODE);
 	private static final String DEFAULT_TMP_DIR = System.getProperty("java.io.tmpdir");
 	
 	private final CommandLine options;
@@ -248,7 +248,7 @@ final class NoojOptions {
 			String inputTypeString = options.getOptionValue(FILE_TYPE).trim();
 			inputType = InputType.valueOf(inputTypeString.toUpperCase());
 		} else {
-			inputType = InputType.DEFAULT;
+			inputType = DEFAULT_ENCODING.getInputType();
 		}
 		
 		return new Encoding(encoding, inputType);
@@ -270,10 +270,14 @@ final class NoojOptions {
 		HELP_FORMATTER.printHelp(HELP_MESSAGE, OPTIONS);
 	}
 	
-	private static final String HELP_MESSAGE = "Command Line interfacec for ONooj.\n" +
-			"\n" +
-			"The specified input files are converted to xml annotated text files." +
-			"The output files are created next to the input files with an xml postfix." +
-			"\n" +
-			"Dictionary, grammar and property definition files must be specified.";
+	private static final String HELP_MESSAGE = "Command Line interfacec for ONooj.\n"
+			+ "\n"
+			+ "The specified input files are converted to xml annotated text files."
+			+ "The output files are created next to the input files with an xml postfix."
+			+ "\n"
+			+ "Dictionary, grammar and property definition files must be specified."
+			+ "\n"
+			+ "If any of the arguments contains whitespace characters, then on Windows "
+			+ "the argument must be surrounded with double quotes. On Unix you can use"
+			+ "simple quotes, double quotes, or escape the space with a backslash.";
 }

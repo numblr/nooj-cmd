@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import java.io.IOException;
 import java.util.List;
 
+import net.nooj4nlp.cmd.NoojTestWithResources;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Mft;
 import net.nooj4nlp.engine.Ntext;
@@ -24,12 +25,11 @@ public class LexicalAnalyzerTest extends NoojTestWithResources {
 	
 	private static final List<Object> EXPECTED_ANNOTATIONS = Lists.<Object>newArrayList(
 			"This,UNKNOWN",
-			"is,UNKNOWN",
+			"is,be,V+FLX=BE+PR+s+3+Aux",
 			"the,UNKNOWN",
 			"first,UNKNOWN",
 			"sentence,UNKNOWN",
 			"This,UNKNOWN",
-			"is,UNKNOWN",
 			"the,UNKNOWN",
 			"second,UNKNOWN",
 			"sentence,UNKNOWN",
@@ -39,7 +39,6 @@ public class LexicalAnalyzerTest extends NoojTestWithResources {
 			"The,UNKNOWN",
 			"third,UNKNOWN",
 			"sentence,UNKNOWN",
-			"is,UNKNOWN",
 			"on,UNKNOWN",
 			"the,UNKNOWN",
 			"same,UNKNOWN",

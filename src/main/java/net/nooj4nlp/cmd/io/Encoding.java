@@ -7,8 +7,7 @@ public final class Encoding {
 		RTF,
 		WORD,
 		HTML,
-		PDF,
-		DEFAULT;
+		PDF;
 	}
 	
 	private final String encoding;
@@ -28,7 +27,7 @@ public final class Encoding {
 	}
 	
 	public int getInputTypeOrdinal() {
-		return type.ordinal();
+		return type.ordinal() + 1;
 	}
 	
 	public String getInputTypeName() {

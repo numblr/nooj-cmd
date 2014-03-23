@@ -8,6 +8,7 @@ import java.util.List;
 
 import net.nooj4nlp.cmd.NoojTest;
 import net.nooj4nlp.cmd.processing.TextDelimiter.DelimiterException;
+import net.nooj4nlp.cmd.processing.TextDelimiter.LimitExeededException;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.UnsignedShort;
@@ -81,9 +82,7 @@ public class TextDelimiterTest extends NoojTest {
 
 	@Test
 	public void longUndelimitedTextThrows() {
-		thrown.expect(DelimiterException.class);
-		thrown.expectMessage("Exceeded");
-		thrown.expectMessage(String.valueOf(UnsignedShort.MAX_VALUE));
+		thrown.expect(LimitExeededException.class);
 		
 		TextDelimiter textDelimiter = new TextDelimiter(getEngine());
 		

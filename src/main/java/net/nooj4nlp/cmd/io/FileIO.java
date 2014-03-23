@@ -11,13 +11,13 @@ import javax.swing.text.BadLocationException;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.TextIO;
 
-public class TextLoader {
+public class FileIO {
 	private static final Charset UTF_8 = Charset.forName("UTF-8");
 	
 	private Encoding encoding;
 	private Language language;
 
-	public TextLoader(Encoding encoding, Language language) {
+	public FileIO(Encoding encoding, Language language) {
 		this.language = language;
 		this.encoding = encoding;
 	}
@@ -31,11 +31,11 @@ public class TextLoader {
 					encoding.getInputTypeName(),
 					language.chartable);
 		} catch (IOException | BadLocationException e) {
-			throw new TextLoaderException(file, e.getMessage());
+			throw new FileIOLoadException(file, e.getMessage());
 		}
 		
 		if (text == null) {
-			throw new TextLoaderException(file, "Unsupported file type: " + encoding.getInputTypeName());
+			throw new FileIOUnsupportedTypeException(file, encoding.getInputTypeName());
 		}
 		
 		return text;
@@ -45,14 +45,30 @@ public class TextLoader {
 		try (BufferedWriter fileWriter = Files.newBufferedWriter(file, UTF_8)) {
 			fileWriter.write(text);
 		} catch (IOException e) {
-			throw new TextLoaderException(file, e.getMessage());
+			throw new FileIOWriteException(file, e.getMessage());
 		}
 	}
 	
-	public static class TextLoaderException extends FileException {
+	public static class FileIOLoadException extends FileException {
 		private static final long serialVersionUID = 1L;
 
-		private TextLoaderException(Path file, String errorMessage) {
+		private FileIOLoadException(Path file, String errorMessage) {
+			super(file, errorMessage);
+		}
+	}
+	
+	public static class FileIOUnsupportedTypeException extends FileIOLoadException {
+		private static final long serialVersionUID = 1L;
+		
+		private FileIOUnsupportedTypeException(Path file, String errorMessage) {
+			super(file, errorMessage);
+		}
+	}
+	
+	public static class FileIOWriteException extends FileException {
+		private static final long serialVersionUID = 1L;
+		
+		private FileIOWriteException(Path file, String errorMessage) {
 			super(file, errorMessage);
 		}
 	}

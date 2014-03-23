@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 public class CharVariantsLoaderTest {
 	private static final Path CHAR_VARIANTS = Paths.get(LinguisticResourcesTest.class
 			.getResource("/charactervariants/charvariants.txt").getPath());
+	
 	private static final List<String> FRENCH_VARIANTS = Lists.newArrayList(
 			"æ", "ae",
 			"œ", "oe",

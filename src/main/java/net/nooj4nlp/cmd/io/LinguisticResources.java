@@ -14,29 +14,29 @@ import net.nooj4nlp.engine.RefObject;
 
 import com.google.common.collect.Lists;
 
-public final class LinguisticResources {
+public class LinguisticResources {
 	private final List<Path> lexicalResources;
 	private final List<Path> syntacticResources;
 	private final Path propertiesDefinitions;
-	private final Path outputDirectory;
+	private final Path tmpDirectory;
 
 	public LinguisticResources(List<Path> lexicalResources,
 			List<Path> syntacticResources,
 			Path propertiesDefinitions,
-			Path outputDirectory) {
+			Path tmpDirectory) {
 		checkArgument(lexicalResources.size() < 101, "There can be at most 100 dictionaries");
 		checkArgument(syntacticResources.size() < 101, "There can be at most 100 grammars");
 		
 		this.lexicalResources = lexicalResources;
 		this.syntacticResources = syntacticResources;
 		this.propertiesDefinitions = checkNotNull(propertiesDefinitions);
-		this.outputDirectory = checkNotNull(outputDirectory);
+		this.tmpDirectory = checkNotNull(tmpDirectory);
 	}
 
 	public void loadInto(Engine engine) {
 		String language = engine.Lan.isoName;
 		
-		try (ResourceLinker linker = new ResourceLinker(language, outputDirectory)) {
+		try (ResourceLinker linker = new ResourceLinker(language, tmpDirectory)) {
 			Path docDirectory = linker.linkResources(lexicalResources,
 					syntacticResources,
 					propertiesDefinitions);
@@ -45,7 +45,7 @@ public final class LinguisticResources {
 			loadViaLinks(engine, language);
 			engine.docDir = "";
 		} catch (IOException e) {
-			throw new LinguisticResourceException("Could not remove generated links.");
+			throw new ResourceLinkRemovalException(tmpDirectory, e.getMessage());
 		}
 	}
 
@@ -110,6 +110,22 @@ public final class LinguisticResources {
 		
 		protected LinguisticResourceException(String message) {
 			super(message);
+		}
+	}
+	
+	public static class ResourceLinkRemovalException extends FileException {
+		private static final long serialVersionUID = 1L;
+		
+		private ResourceLinkRemovalException(Path path, String message) {
+			super(path, message);
+		}
+	}
+	
+	public static class ResourceLinkCreationException extends FileException {
+		private static final long serialVersionUID = 1L;
+		
+		ResourceLinkCreationException(Path path, String message) {
+			super(path, message);
 		}
 	}
 }

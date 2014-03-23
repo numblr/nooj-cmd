@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import java.io.IOException;
 
-import net.nooj4nlp.cmd.processing.NoojTestWithResources;
+import net.nooj4nlp.cmd.NoojTestWithResources;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 
