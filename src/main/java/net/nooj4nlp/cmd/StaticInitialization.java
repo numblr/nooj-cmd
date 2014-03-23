@@ -1,4 +1,4 @@
-package net.nooj4nlp.cmd.app;
+package net.nooj4nlp.cmd;
 
 import java.io.File;
 import java.io.IOException;
@@ -15,7 +15,7 @@ public class StaticInitialization {
 		initializeLogFile();
 	}
 	
-	public static void initializeLogFile() throws IOException {
+	static void initializeLogFile() throws IOException {
 		Dic.LogFileName = LOG_FILE;
 		
 		File file = new File(Dic.LogFileName);

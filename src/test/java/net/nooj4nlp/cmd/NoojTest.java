@@ -3,7 +3,6 @@ package net.nooj4nlp.cmd;
 import java.io.IOException;
 import java.nio.file.Path;
 
-import net.nooj4nlp.cmd.app.StaticInitialization;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.RefObject;

@@ -4,27 +4,17 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import net.nooj4nlp.cmd.io.CharVariantsLoader;
-import net.nooj4nlp.cmd.io.Encoding;
 import net.nooj4nlp.cmd.io.LinguisticResources;
 import net.nooj4nlp.cmd.io.TextLoader;
-import net.nooj4nlp.cmd.processing.LexicalAnalyzer;
 import net.nooj4nlp.cmd.processing.Ntext2Xml;
 import net.nooj4nlp.cmd.processing.NtextConverter;
 import net.nooj4nlp.cmd.processing.NtextProcessor;
-import net.nooj4nlp.cmd.processing.RawText2Ntext;
-import net.nooj4nlp.cmd.processing.SyntacticParser;
-import net.nooj4nlp.cmd.processing.TextDelimiter;
-import net.nooj4nlp.cmd.processing.Xml2Ntext;
-import net.nooj4nlp.engine.Engine;
-import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
-import net.nooj4nlp.engine.RefObject;
 
-import com.google.common.collect.ImmutableList;
+import org.apache.commons.io.FilenameUtils;
 
-public class TextProcessor {
-	private static final String XML_EXTENSION = ".xml";
+class TextProcessor {
+	private static final String XML_EXTENSION = ".xml.txt";
 	
 	private final TextLoader textIO;
 	private final NtextConverter inputConverter;
@@ -32,7 +22,7 @@ public class TextProcessor {
 	private final List<NtextProcessor> ntextProcessors;
 	private final Ntext2Xml xmlConverter;
 
-	public TextProcessor(TextLoader textIO,
+	TextProcessor(TextLoader textIO,
 			NtextConverter inputConverter,
 			LinguisticResources resources,
 			List<NtextProcessor> ntextProcessors,
@@ -42,57 +32,6 @@ public class TextProcessor {
 		this.resources = resources;
 		this.ntextProcessors = ntextProcessors;
 		this.xmlConverter = xmlConverter;
-	}
-	
-	public static TextProcessor create(NoojOptions options) {
-		Language language = options.getLanguage();
-		Encoding encoding = options.getEncoding();
-		
-		Path characterVariants = options.getCharVariantsFile();
-		if (characterVariants != null) {
-			new CharVariantsLoader(characterVariants).loadInto(language);
-		}
-		
-		TextLoader textIO = new TextLoader(encoding, language);
-		
-		List<String> xmlTags = options.getXmlTags();
-		NtextConverter inputConverter;
-		if (xmlTags == null) {
-			inputConverter = new RawText2Ntext(language, options.getDelimiter());
-		} else {
-			inputConverter = new Xml2Ntext(language, xmlTags);
-		}
-		
-		List<Path> lexicalResources = options.getLexicalResources();
-		List<Path> syntacticResources = options.getSyntacticResources();
-		Path propertiesDefinitions = options.getPropertiesDefinitions();
-		Path tmpDirectory = options.getTmpDirectory();
-		
-		LinguisticResources resources =
-				new LinguisticResources(lexicalResources,
-						syntacticResources,
-						propertiesDefinitions,
-						tmpDirectory);
-		
-		List<NtextProcessor> ntextProcessors = createNtextProcessors(language, resources);
-
-		List<String> xmlAnnotations = options.getXmlAnnotations();
-		boolean filterXml = options.isFilterXml();
-		Ntext2Xml xmlConverter = new Ntext2Xml(xmlAnnotations, language, filterXml);
-		
-		return new TextProcessor(textIO, inputConverter, resources, ntextProcessors, xmlConverter);
-	}
-	
-	private static List<NtextProcessor> createNtextProcessors(Language language, LinguisticResources resources) {
-		Engine engine = new Engine(new RefObject<Language>(language),
-				"", "", "",
-				false, null, false, null);
-		
-		resources.loadInto(engine);
-		
-		return ImmutableList.of(new TextDelimiter(engine),
-				new LexicalAnalyzer(engine),
-				new SyntacticParser(engine));
 	}
 
 	void processFiles(List<Path> files) {
@@ -106,8 +45,15 @@ public class TextProcessor {
 			}
 			
 			String xml = xmlConverter.convert(nText);
-			String outputFileName = file.toAbsolutePath().toString() + XML_EXTENSION;
-			textIO.write(xml, Paths.get(outputFileName));
+			Path outputFile = createOutputFileName(file);
+			textIO.write(xml, outputFile);
 		}
+	}
+
+	private Path createOutputFileName(Path file) {
+		String filePath = file.toAbsolutePath().toString();
+		String xmlFilePath = FilenameUtils.removeExtension(filePath) + XML_EXTENSION;
+		
+		return Paths.get(xmlFilePath);
 	}
 }

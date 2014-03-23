@@ -9,13 +9,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import net.nooj4nlp.cmd.io.LinguisticResources.LinguisticResourceException;
 import net.nooj4nlp.engine.Constants;
 
 import org.apache.commons.io.FileUtils;
 
 import com.google.common.collect.Maps;
 
-public final class ResourceLinker implements AutoCloseable {
+final class ResourceLinker implements AutoCloseable {
 	private static final Path PROPERTIES_DEFINITIONS = Paths.get("_properties.def");
 	
 	private final String language;
@@ -95,7 +96,7 @@ public final class ResourceLinker implements AutoCloseable {
 	}
 	
 
-	public static final class LinkerException extends RuntimeException {
+	static final class LinkerException extends LinguisticResourceException {
 		private static final long serialVersionUID = 1L;
 		
 		private LinkerException(String message) {

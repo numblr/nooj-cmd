@@ -105,10 +105,10 @@ public final class LinguisticResources {
 		return fileName + "(" + String.format("%02d", priority) + ")";
 	}
 	
-	public static final class LinguisticResourceException extends RuntimeException {
+	public static class LinguisticResourceException extends RuntimeException {
 		private static final long serialVersionUID = 1L;
 		
-		private LinguisticResourceException(String message) {
+		protected LinguisticResourceException(String message) {
 			super(message);
 		}
 	}
