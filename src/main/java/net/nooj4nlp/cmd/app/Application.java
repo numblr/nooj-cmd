@@ -18,7 +18,7 @@ import net.nooj4nlp.cmd.processing.TextDelimiter.LimitExeededException;
 
 import org.apache.commons.cli.ParseException;
 
-class Application {
+final class Application {
 	void run(String[] args) throws ParseException {
 		NoojOptions noojOptions = NoojOptions.create(args);
 		TextProcessor textProcessor = new TextProcessorFactory(noojOptions).create();
@@ -33,7 +33,7 @@ class Application {
 		try {
 			new Application().run(args);
 		} catch (ParseException e) {
-			error = "Cannot parse command line options:"
+			error = "Cannot parse command line options: "
 					+ e.getMessage();
 		} catch (CharVariantsException e) {
 			error = "Cannot load character variants file: "
@@ -63,11 +63,11 @@ class Application {
 			error = "Cannot split text into text units: "
 					+ "one text unit is larger than 65K characters";
 		} catch (LexicalAnalysisException e) {
-			error = "Lexical analysis failed, cannot tokenize text:" + e.getMessage();
+			error = "Lexical analysis failed, cannot tokenize text: " + e.getMessage();
 		} catch (SyntaxParsingException e) {
-			error = "Syntactic parsing failed:" + e.getMessage();
+			error = "Syntactic parsing failed: " + e.getMessage();
 		} catch (GrammarException e) {
-			error = "Cannot apply grammars:" + e.getMessage();
+			error = "Cannot apply grammars: " + e.getMessage();
 		}
 		
 		if (error != null) {
