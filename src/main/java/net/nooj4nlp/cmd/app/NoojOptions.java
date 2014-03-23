@@ -1,5 +1,6 @@
 package net.nooj4nlp.cmd.app;
 
+import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -18,6 +19,7 @@ import org.apache.commons.cli.ParseException;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
+import com.google.common.collect.Sets;
 
 @SuppressWarnings("static-access")
 final class NoojOptions {
@@ -31,7 +33,6 @@ final class NoojOptions {
 	private static final String PROPERTIES = "p";
 	private static final String CHAR_VARIANTS = "c";
 	private static final String XML_TAGS = "x";
-//	private static final String XML_ANNOTATIONS = "a";
 	private static final String FILTER = "f";
 	private static final String LANGUAGE = "l";
 	private static final String DELIMITER = "s";
@@ -48,6 +49,7 @@ final class NoojOptions {
 				.withArgName("FILES")
 				.withValueSeparator(OPTION_SEPARATOR)
 				.withDescription("comma seperated list of input files")
+				.isRequired()
 				.create(INPUT_FILES);
 		
 		Option dicts = OptionBuilder
@@ -55,7 +57,7 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("DICTS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma sepearted list of .dic files")
+				.withDescription("comma sepearted list of .jnod files")
 				.isRequired()
 				.create(DICTS);
 		
@@ -87,15 +89,8 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("TAGS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma sepearted list of xml tag strings without braces")
+				.withDescription("comma sepearted list of xml tags (without braces)")
 				.create(XML_TAGS);
-		
-//		Option xmlAnnotations = OptionBuilder.withLongOpt("xml-annotations")
-//				.hasArgs()
-//				.withArgName("ANNOTATIONS")
-//				.withValueSeparator(OPTION_SEPARATOR)
-//				.withDescription("comma sepearted list of xml annotation strings without braces")
-//				.create(XML_ANNOTATIONS);
 		
 		Option filterXml = OptionBuilder
 				.withLongOpt("filter-xml")
@@ -106,7 +101,7 @@ final class NoojOptions {
 				.withLongOpt("language")
 				.hasArgs(1)
 				.withArgName("LANG")
-				.withDescription("language of the input files")
+				.withDescription("iso code for the language of the input files")
 				.create(LANGUAGE);
 		
 		Option encoding = OptionBuilder
@@ -127,7 +122,7 @@ final class NoojOptions {
 				.withLongOpt("delimiter")
 				.hasArg()
 				.withArgName("DEL")
-				.withDescription("delimiter for text units")
+				.withDescription("delimiter used for splitting into text units")
 				.create(DELIMITER);
 		
 		Option tmpDir = OptionBuilder
@@ -169,22 +164,18 @@ final class NoojOptions {
 	}
 	
 	List<Path> getFiles() {
-		if (!options.hasOption(INPUT_FILES)) {
-			return null;
-		}
-		
-		return getPathOptions(INPUT_FILES);
+		return getPaths(INPUT_FILES);
 	}
 
 	List<Path> getLexicalResources() {
-		return getPathOptions(DICTS);
+		return getPaths(DICTS);
 	}
 
 	List<Path> getSyntacticResources() {
-		return getPathOptions(GRAMMARS);
+		return getPaths(GRAMMARS);
 	}
 
-	List<Path> getPathOptions(String optionKey) {
+	private List<Path> getPaths(String optionKey) {
 		String[] filePaths = options.getOptionValues(optionKey);
 		Builder<Path> files = ImmutableList.builder();
 		for (String file : filePaths) {
@@ -216,14 +207,8 @@ final class NoojOptions {
 
 	List<String> getXmlAnnotations() {
 		return DEFAULT_XML_ANNOTATIONS;
-		//not implemented yet
-//		if (!options.hasOption(XML_ANNOTATIONS)) {
-//			return ImmutableList.of("<SYNTAX>");
-//		}
-//		
-//		return ImmutableList.copyOf(options.getOptionValues(XML_ANNOTATIONS));
 	}
-
+	
 	boolean isFilterXml() {
 		return options.hasOption(FILTER);
 	}
@@ -278,6 +263,18 @@ final class NoojOptions {
 			+ "Dictionary, grammar and property definition files must be specified."
 			+ "\n"
 			+ "If any of the arguments contains whitespace characters, then on Windows "
-			+ "the argument must be surrounded with double quotes. On Unix you can use"
-			+ "simple quotes, double quotes, or escape the space with a backslash.";
+			+ "the argument must be surrounded with double quotes. On Unix simple quotes, "
+			+ "double quotes, or escape the space with a backslash."
+			+ "\n"
+			+ "Supported file tpyes:"
+			+ "\n"
+			+ Encoding.InputType.values()
+			+ "\n"
+			+ "Supported language codes:"
+			+ "\n"
+			+ Language.getAllLanguages()
+			+ "\n"
+			+ "Supported character sets:"
+			+ "\n"
+			+ Sets.newTreeSet(Charset.availableCharsets().keySet());
 }

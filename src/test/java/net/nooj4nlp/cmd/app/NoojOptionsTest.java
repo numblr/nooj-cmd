@@ -27,14 +27,13 @@ public class NoojOptionsTest {
 	private static final Map<String, String> ARGS = new HashMap<String, String>() {
 		private static final long serialVersionUID = 1L;
 		{
+			put("-i", "input.txt,with space.txt,/absolute/in.txt,relative/input-file.txt");
 			put("-d", "test/dir/dict.dic,other/test/dir/tcid.dic");
 			put("-g", "test/dir/grammar.nop,other/test/dir/rammarg.nop");
 			put("-p", "ONooj/en/Lexical Analysis/properties.def");
 			put("-c", "test/dir/charactervariants.txt");
 			put("-x", "s,div,h,header");
-			//put("-a", "date,something"); not implemented yet
 			put("-f", null);
-			put("-i", "input.txt,with space.txt,/absolute/in.txt,relative/input-file.txt");
 			put("-l", "en-us");
 			put("-s", "\t");
 			put("-e", "iso-8859-1");
@@ -48,6 +47,7 @@ public class NoojOptionsTest {
 	@Before
 	public void setupRequiredArguments() {
 		args = Lists.newArrayList(
+				"-i", ARGS.get("-i"),
 				"-d", ARGS.get("-d"),
 				"-g", ARGS.get("-g"),
 				"-p", ARGS.get("-p")
@@ -81,8 +81,6 @@ public class NoojOptionsTest {
 	
 	@Test
 	public void optionInputIsParsedToPathList() throws ParseException {
-		args.add("-i");
-		args.add(ARGS.get("-i"));
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		List<Path> expected = Lists.newArrayList(Paths.get("input.txt"),
@@ -92,13 +90,6 @@ public class NoojOptionsTest {
 		
 		
 		assertEquals(expected, noojOptions.getFiles());
-	}
-	
-	@Test
-	public void noOptionInputIsParsedToNull() throws ParseException {
-		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
-		
-		assertNull(noojOptions.getFiles());
 	}
 	
 	@Test
