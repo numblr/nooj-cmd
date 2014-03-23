@@ -16,7 +16,7 @@ public final class Encoding {
 	private final FileType type;
 	
 	public Encoding(String encoding, FileType type) {
-		this.encoding = checkNotNull(encoding);
+		this.encoding = encoding;
 		this.type = checkNotNull(type);
 	}
 	
