@@ -4,11 +4,16 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
+import java.util.List;
 
 import net.nooj4nlp.engine.Language;
+import net.nooj4nlp.engine.Mft;
 import net.nooj4nlp.engine.Ntext;
 
+import org.junit.Before;
 import org.junit.Test;
+
+import com.google.common.collect.Lists;
 
 public class LexicalAnalyzerTest extends NoojTestWithResources {
 	private static final Language ENGLISH = new Language("en");
@@ -16,17 +21,57 @@ public class LexicalAnalyzerTest extends NoojTestWithResources {
 	
 	private static final String RAW_TEXT = "This is the first sentence.\n"
 			+ "This is the second sentence, placed on line 2. The third sentence is on the same line as the second.";
+	
+	private static final List<Object> EXPECTED_ANNOTATIONS = Lists.<Object>newArrayList(
+			"This,UNKNOWN",
+			"is,UNKNOWN",
+			"the,UNKNOWN",
+			"first,UNKNOWN",
+			"sentence,UNKNOWN",
+			"This,UNKNOWN",
+			"is,UNKNOWN",
+			"the,UNKNOWN",
+			"second,UNKNOWN",
+			"sentence,UNKNOWN",
+			"placed,UNKNOWN",
+			"on,UNKNOWN",
+			"line,UNKNOWN",
+			"The,UNKNOWN",
+			"third,UNKNOWN",
+			"sentence,UNKNOWN",
+			"is,UNKNOWN",
+			"on,UNKNOWN",
+			"the,UNKNOWN",
+			"same,UNKNOWN",
+			"line,UNKNOWN",
+			"as,UNKNOWN",
+			"the,UNKNOWN",
+			"second,UNKNOWN");
+	
+	private Ntext nText;
 
 	public LexicalAnalyzerTest() throws IOException {
 		super(ENGLISH);
 	}
 
+	@Before
+	public void setupNtext() {
+		Mft mft = new Mft(2);
+		int[] tuAddresses = {0, 0, 28};
+		int[] tuLengths = {0, 27, 100};
+		mft.tuAddresses = tuAddresses;
+		mft.tuLengths = tuLengths;
+		
+		nText = new Ntext(ENGLISH.isoName, DELIMITER, null);
+		nText.nbOfTextUnits = 2;
+		nText.annotations = Lists.newArrayList();
+		nText.mft = mft;
+		nText.buffer = RAW_TEXT;
+	}
+	
 	@Test
 	public void processSetsNtextFields() {
-		Ntext nText = new Ntext(ENGLISH.isoName, DELIMITER, null);
-		nText.buffer = RAW_TEXT;
-		
-		new TextDelimiter(getEngine()).process(nText);
+		//This seems to be not necessary, but it is done in GUI code
 		getLinguisticResources().loadInto(nText);
 		
 		LexicalAnalyzer lexicalAnalyzer = new LexicalAnalyzer(getEngine());
@@ -36,5 +81,6 @@ public class LexicalAnalyzerTest extends NoojTestWithResources {
 		assertEquals(1, nText.nbOfDigits);
 		assertEquals(4, nText.nbOfDelimiters);
 		assertTrue(0 < nText.annotations.size());
+		assertEquals(EXPECTED_ANNOTATIONS, nText.annotations);
 	}
 }

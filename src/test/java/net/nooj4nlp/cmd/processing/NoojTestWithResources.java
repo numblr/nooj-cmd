@@ -18,7 +18,7 @@ public class NoojTestWithResources extends NoojTest {
 	private static final Path DICT = Paths.get(LinguisticResourcesTest.class
 			.getResource("/linguistic/_Sample-s.dic").getPath());
 	private static final Path GRAMMAR = Paths.get(LinguisticResourcesTest.class
-			.getResource("/linguistic/_Sample-s.dic").getPath());
+			.getResource("/linguistic/_Date.nog").getPath());
 	private static final Path PROPERTIES_DEFINITIONS = Paths.get(LinguisticResourcesTest.class
 			.getResource("/linguistic/_properties.def").getPath());
 	
