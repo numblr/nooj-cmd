@@ -4,10 +4,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 
-public abstract class NtextImporter {
+public abstract class NtextConverter {
 	private final Language language;
 
-	protected NtextImporter(Language language) {
+	protected NtextConverter(Language language) {
 		this.language = checkNotNull(language);
 	}
 	

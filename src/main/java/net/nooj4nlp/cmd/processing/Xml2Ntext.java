@@ -7,7 +7,7 @@ import java.util.List;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 
-public class Xml2Ntext extends NtextImporter {
+public class Xml2Ntext extends NtextConverter {
 	private static final String EMPTY_DELIMITER = "";
 	
 	private final List<String> xmlTags;
