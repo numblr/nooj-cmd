@@ -1,0 +1,8 @@
+﻿#NooJ v2
+# table of characters' variants
+#
+
+æ:ae
+œ:oe
+ﬁ:fi
+ﬂ:fl
