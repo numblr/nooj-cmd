@@ -6,7 +6,7 @@ import java.util.HashMap;
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Ntext;
 
-public class TextDelimiter implements NtextProcessor {
+public final class TextDelimiter implements NtextProcessor {
 	private final Engine engine;
 
 	public TextDelimiter(Engine engine) {

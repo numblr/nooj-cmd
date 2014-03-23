@@ -3,7 +3,7 @@ package net.nooj4nlp.cmd.processing;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
 
-public class RawText2Ntext extends NtextConverter {
+public final class RawText2Ntext extends NtextConverter {
 	private static final String[] NO_XML_NODES = null;
 	
 	private final String delimiter;

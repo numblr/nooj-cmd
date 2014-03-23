@@ -94,5 +94,4 @@ final class ResourceLinker implements AutoCloseable {
 			throw new ResourceLinkCreationException(propertiesDefinitions, e.getMessage());
 		}
 	}
-
 }

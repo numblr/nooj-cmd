@@ -7,7 +7,7 @@ import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.RefObject;
 
-public class SyntacticParser implements NtextProcessor {
+public final class SyntacticParser implements NtextProcessor {
 	private final Engine engine;
 
 	public SyntacticParser(Engine engine) {

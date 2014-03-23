@@ -11,9 +11,16 @@ public abstract class NtextConverter {
 		this.language = checkNotNull(language);
 	}
 	
+	/**
+	 * Converts the given input to a {@link Ntext} object.
+	 * 
+	 * @param input input string to be converted
+	 * 
+	 * @return a new {@code Ntext} instance based on the input string
+	 */
 	public abstract Ntext convert(String input);
 
-	protected Ntext convert(String bufferValue, String delimiter, String[] xmlTags) {
+	protected final Ntext convert(String bufferValue, String delimiter, String[] xmlTags) {
 		Ntext nText = new Ntext(language.isoName, delimiter, xmlTags);
 		
 		nText.buffer = bufferValue;

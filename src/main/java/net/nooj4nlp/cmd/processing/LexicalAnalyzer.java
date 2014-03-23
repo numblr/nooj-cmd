@@ -7,7 +7,7 @@ import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Ntext;
 import net.nooj4nlp.engine.RefObject;
 
-public class LexicalAnalyzer implements NtextProcessor {
+public final class LexicalAnalyzer implements NtextProcessor {
 	private final Engine engine;
 
 	public LexicalAnalyzer(Engine engine) {
