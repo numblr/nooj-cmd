@@ -45,18 +45,30 @@ final class TextProcessorFactory {
 				processors,
 				xmlConverter);
 	}
+	
+	private void loadCharacterVariants(Language language) {
+		Path characterVariants = options.getCharVariantsFile();
+		if (characterVariants != null) {
+			new CharVariantsLoader(characterVariants).loadInto(language);
+		}
+	}
 
 	private FileIO createFileIO(Language language) {
 		Encoding encoding = options.getEncoding();
 		
 		return new FileIO(encoding, language);
 	}
-
-	private Ntext2Xml createXmlConverter(Language language) {
-		List<String> xmlAnnotations = options.getXmlAnnotations();
-		boolean filterXml = options.isFilterXml();
+	
+	private NtextConverter createInputConverter(Language language) {
+		List<String> xmlTags = options.getXmlTags();
+		NtextConverter inputConverter;
+		if (xmlTags == null) {
+			inputConverter = new RawText2Ntext(language, options.getDelimiter());
+		} else {
+			inputConverter = new Xml2Ntext(language, xmlTags);
+		}
 		
-		return new Ntext2Xml(xmlAnnotations, language, filterXml);
+		return inputConverter;
 	}
 
 	private LinguisticResources createLinugisticResources() {
@@ -70,25 +82,6 @@ final class TextProcessorFactory {
 				propertiesDefinitions,
 				tmpDirectory);
 	}
-
-	private NtextConverter createInputConverter(Language language) {
-		List<String> xmlTags = options.getXmlTags();
-		NtextConverter inputConverter;
-		if (xmlTags == null) {
-			inputConverter = new RawText2Ntext(language, options.getDelimiter());
-		} else {
-			inputConverter = new Xml2Ntext(language, xmlTags);
-		}
-		
-		return inputConverter;
-	}
-
-	private void loadCharacterVariants(Language language) {
-		Path characterVariants = options.getCharVariantsFile();
-		if (characterVariants != null) {
-			new CharVariantsLoader(characterVariants).loadInto(language);
-		}
-	}
 	
 	private List<NtextProcessor> createProcessors(Language language, LinguisticResources resources) {
 		Engine engine = new Engine(new RefObject<Language>(language),
@@ -100,5 +93,12 @@ final class TextProcessorFactory {
 		return ImmutableList.of(new TextDelimiter(engine),
 				new LexicalAnalyzer(engine),
 				new SyntacticParser(engine));
+	}
+	
+	private Ntext2Xml createXmlConverter(Language language) {
+		List<String> xmlAnnotations = options.getXmlAnnotations();
+		boolean filterXml = options.isFilterXml();
+		
+		return new Ntext2Xml(xmlAnnotations, language, filterXml);
 	}
 }

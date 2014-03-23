@@ -1,19 +1,19 @@
 package net.nooj4nlp.cmd.app;
 
+import static org.apache.commons.io.FilenameUtils.removeExtension;
+
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import net.nooj4nlp.cmd.io.LinguisticResources;
 import net.nooj4nlp.cmd.io.FileIO;
+import net.nooj4nlp.cmd.io.LinguisticResources;
 import net.nooj4nlp.cmd.processing.Ntext2Xml;
 import net.nooj4nlp.cmd.processing.NtextConverter;
 import net.nooj4nlp.cmd.processing.NtextProcessor;
 import net.nooj4nlp.engine.Ntext;
 
-import org.apache.commons.io.FilenameUtils;
-
-class TextProcessor {
+final class TextProcessor {
 	private static final String XML_EXTENSION = ".xml.txt";
 	
 	private final FileIO fileIO;
@@ -52,7 +52,7 @@ class TextProcessor {
 
 	private Path createOutputFileName(Path file) {
 		String filePath = file.toAbsolutePath().toString();
-		String xmlFilePath = FilenameUtils.removeExtension(filePath) + XML_EXTENSION;
+		String xmlFilePath = removeExtension(filePath) + XML_EXTENSION;
 		
 		return Paths.get(xmlFilePath);
 	}
