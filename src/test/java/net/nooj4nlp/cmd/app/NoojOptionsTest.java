@@ -11,7 +11,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import net.nooj4nlp.cmd.io.Encoding.InputType;
+import net.nooj4nlp.cmd.io.Encoding.FileType;
 
 import org.apache.commons.cli.ParseException;
 import org.junit.Before;
@@ -208,7 +208,7 @@ public class NoojOptionsTest {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(null, noojOptions.getEncoding().getEncoding());
-		assertEquals(InputType.PDF, noojOptions.getEncoding().getInputType());
+		assertEquals(FileType.PDF, noojOptions.getEncoding().getFileType());
 	}
 
 	@Test
@@ -218,7 +218,7 @@ public class NoojOptionsTest {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(ARGS.get("-e"), noojOptions.getEncoding().getEncoding());
-		assertEquals(InputType.UNICODE, noojOptions.getEncoding().getInputType());
+		assertEquals(FileType.UNICODE, noojOptions.getEncoding().getFileType());
 	}
 	
 	@Test
@@ -230,7 +230,7 @@ public class NoojOptionsTest {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(ARGS.get("-e"), noojOptions.getEncoding().getEncoding());
-		assertEquals(InputType.PDF, noojOptions.getEncoding().getInputType());
+		assertEquals(FileType.PDF, noojOptions.getEncoding().getFileType());
 	}
 
 	@Test
@@ -238,7 +238,7 @@ public class NoojOptionsTest {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(null, noojOptions.getEncoding().getEncoding());
-		assertEquals(InputType.UNICODE, noojOptions.getEncoding().getInputType());
+		assertEquals(FileType.UNICODE, noojOptions.getEncoding().getFileType());
 	}
 	
 	@Test

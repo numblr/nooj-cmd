@@ -26,16 +26,16 @@ public class FileIO {
 		String text;
 		try {
 			text = TextIO.loadText(file.toAbsolutePath().toString(),
-					encoding.getInputTypeOrdinal(),
+					encoding.getFileTypeOrdinal(),
 					encoding.getEncoding(),
-					encoding.getInputTypeName(),
+					encoding.getFileTypeName(),
 					language.chartable);
 		} catch (IOException | BadLocationException e) {
 			throw new FileIOLoadException(file, e.getMessage());
 		}
 		
 		if (text == null) {
-			throw new FileIOUnsupportedTypeException(file, encoding.getInputTypeName());
+			throw new FileIOUnsupportedTypeException(file, encoding.getFileTypeName());
 		}
 		
 		return text;

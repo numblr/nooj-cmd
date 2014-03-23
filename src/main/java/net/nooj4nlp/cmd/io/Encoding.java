@@ -1,7 +1,7 @@
 package net.nooj4nlp.cmd.io;
 
 public final class Encoding {
-	public static enum InputType {
+	public static enum FileType {
 		UNICODE,
 		RAW_TEXT,
 		RTF,
@@ -11,9 +11,9 @@ public final class Encoding {
 	}
 	
 	private final String encoding;
-	private final InputType type;
+	private final FileType type;
 	
-	public Encoding (String encoding, InputType type) {
+	public Encoding(String encoding, FileType type) {
 		this.encoding = encoding;
 		this.type = type;
 	}
@@ -22,15 +22,15 @@ public final class Encoding {
 		return encoding;
 	}
 	
-	public InputType getInputType() {
+	public FileType getFileType() {
 		return type;
 	}
 	
-	public int getInputTypeOrdinal() {
+	public int getFileTypeOrdinal() {
 		return type.ordinal() + 1;
 	}
 	
-	public String getInputTypeName() {
+	public String getFileTypeName() {
 		return type.name();
 	}
 }

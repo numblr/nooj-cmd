@@ -6,7 +6,7 @@ import java.nio.file.Paths;
 import java.util.List;
 
 import net.nooj4nlp.cmd.io.Encoding;
-import net.nooj4nlp.cmd.io.Encoding.InputType;
+import net.nooj4nlp.cmd.io.Encoding.FileType;
 import net.nooj4nlp.engine.Language;
 
 import org.apache.commons.cli.CommandLine;
@@ -150,7 +150,7 @@ final class NoojOptions {
 	
 	private static final List<String> DEFAULT_XML_ANNOTATIONS = ImmutableList.of("<SYNTAX>");
 	private static final String DEFUALT_LANGUAGE = "en";
-	private static final Encoding DEFAULT_ENCODING = new Encoding(null, InputType.UNICODE);
+	private static final Encoding DEFAULT_ENCODING = new Encoding(null, FileType.UNICODE);
 	private static final String DEFAULT_TMP_DIR = System.getProperty("java.io.tmpdir");
 	
 	private final CommandLine options;
@@ -228,15 +228,15 @@ final class NoojOptions {
 		
 		String encoding = options.getOptionValue(ENCODING);
 	
-		InputType inputType;
+		FileType fileType;
 		if (options.hasOption(FILE_TYPE)) {
-			String inputTypeString = options.getOptionValue(FILE_TYPE).trim();
-			inputType = InputType.valueOf(inputTypeString.toUpperCase());
+			String fileTypeString = options.getOptionValue(FILE_TYPE).trim();
+			fileType = FileType.valueOf(fileTypeString.toUpperCase());
 		} else {
-			inputType = DEFAULT_ENCODING.getInputType();
+			fileType = DEFAULT_ENCODING.getFileType();
 		}
 		
-		return new Encoding(encoding, inputType);
+		return new Encoding(encoding, fileType);
 	}
 
 	String getDelimiter() {
@@ -268,7 +268,7 @@ final class NoojOptions {
 			+ "\n"
 			+ "Supported file tpyes:"
 			+ "\n"
-			+ Encoding.InputType.values()
+			+ Encoding.FileType.values()
 			+ "\n"
 			+ "Supported language codes:"
 			+ "\n"
