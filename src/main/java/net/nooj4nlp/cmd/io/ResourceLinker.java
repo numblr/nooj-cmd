@@ -85,7 +85,7 @@ final class ResourceLinker implements AutoCloseable {
 	private void linkSources(Map<Path, Path> linkMap) {
 		for (Entry<Path, Path> link : linkMap.entrySet()) {
 			try {
-				Files.createSymbolicLink(link.getKey(), link.getValue());
+				Files.createSymbolicLink(link.getKey().toAbsolutePath(), link.getValue().toAbsolutePath());
 			} catch (IOException e) {
 				throw new ResourceLinkCreationException(link.getKey(), e.getMessage());
 			}
@@ -98,7 +98,7 @@ final class ResourceLinker implements AutoCloseable {
 				.resolve(Constants.LEXICAL_ANALYSIS_PATH)
 				.resolve(PROPERTIES_DEFINITIONS);
 		try {
-			Files.createSymbolicLink(link, propertiesDefinitions);
+			Files.createSymbolicLink(link.toAbsolutePath(), propertiesDefinitions.toAbsolutePath());
 		} catch (IOException e) {
 			throw new ResourceLinkCreationException(propertiesDefinitions, e.getMessage());
 		}
