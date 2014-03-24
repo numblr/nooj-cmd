@@ -2,9 +2,8 @@ package net.nooj4nlp.cmd.io;
 
 import java.nio.file.Path;
 
+@SuppressWarnings("serial")
 class FileException extends RuntimeException {
-	private static final long serialVersionUID = 1L;
-	
 	private final String path;
 
 	FileException(Path file, String errorMessage) {

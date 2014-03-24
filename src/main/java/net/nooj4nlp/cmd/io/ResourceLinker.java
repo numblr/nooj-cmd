@@ -13,25 +13,32 @@ import java.util.Map.Entry;
 
 import net.nooj4nlp.cmd.io.LinguisticResources.ResourceLinkCreationException;
 import net.nooj4nlp.engine.Constants;
+import net.nooj4nlp.engine.Engine;
 
 import org.apache.commons.io.FileUtils;
 
 import com.google.common.collect.Maps;
 
+/**
+ * Creates temporary symbolic links to the given resources satisfying the
+ * directory structure required by {@link Engine}.
+ * 
+ * The created links are removed again by calling {@link #close()}.
+ */
 final class ResourceLinker implements AutoCloseable {
 	private static final Path PROPERTIES_DEFINITIONS = Paths.get("_properties.def");
 	
 	private final String language;
-	private final Path docDirectory;
+	private final Path tmpDirectory;
 
-	ResourceLinker(String language, Path outputDirectory) {
+	ResourceLinker(String language, Path tmpDirectory) {
 		this.language = checkNotNull(language);
-		this.docDirectory = outputDirectory.resolve(new UID().toString().replaceAll("\\W", ""));
+		this.tmpDirectory = tmpDirectory.resolve(new UID().toString().replaceAll("\\W", ""));
 	}
 	
 	@Override
 	public void close() throws IOException {
-		FileUtils.deleteDirectory(docDirectory.toFile());
+		FileUtils.deleteDirectory(tmpDirectory.toFile());
 	}
 	
 	Path linkResources(List<Path> lexicalResources,
@@ -43,7 +50,7 @@ final class ResourceLinker implements AutoCloseable {
 				Paths.get(Constants.SYNTACTIC_ANALYSIS_PATH));
 		linkPropertyDefinitions(propertiesDefinitions);
 		
-		return docDirectory;
+		return tmpDirectory;
 	}
 	
 	private Path linkInDirectoryStructure(List<Path> resourcesPaths, Path resourceDirectory) {
@@ -55,7 +62,7 @@ final class ResourceLinker implements AutoCloseable {
 	}
 	
 	private Path createDirectoryPath(Path resourceDirectory) {
-		Path path = docDirectory
+		Path path = tmpDirectory
 				.resolve(Paths.get(language)
 				.resolve(resourceDirectory));
 		try {
@@ -86,7 +93,7 @@ final class ResourceLinker implements AutoCloseable {
 	}
 	
 	private void linkPropertyDefinitions(Path propertiesDefinitions) {
-		Path link = docDirectory
+		Path link = tmpDirectory
 				.resolve(language)
 				.resolve(Constants.LEXICAL_ANALYSIS_PATH)
 				.resolve(PROPERTIES_DEFINITIONS);

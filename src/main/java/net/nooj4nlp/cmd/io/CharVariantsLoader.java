@@ -10,8 +10,8 @@ import net.nooj4nlp.engine.Language;
 public class CharVariantsLoader {
 	private final Path characterVariants;
 
-	public CharVariantsLoader(Path charVariants) {
-		this.characterVariants = checkNotNull(charVariants);
+	public CharVariantsLoader(Path characterVariants) {
+		this.characterVariants = checkNotNull(characterVariants);
 	}
 	
 	public void loadInto(Language language) {
@@ -29,9 +29,8 @@ public class CharVariantsLoader {
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	public static class CharVariantsException extends FileException {
-		private static final long serialVersionUID = 1L;
-		
 		private CharVariantsException(Path file, String errorMessage) {
 			super(file, errorMessage);
 		}

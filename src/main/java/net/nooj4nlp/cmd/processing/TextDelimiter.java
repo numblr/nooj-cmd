@@ -49,15 +49,15 @@ public final class TextDelimiter implements NtextProcessor {
 		return "";
 	}
 	
+	@SuppressWarnings("serial")
 	public static final class DelimiterException extends RuntimeException {
-		private static final long serialVersionUID = 1L;
-		
 		private DelimiterException(String message) {
 			super(message);
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	public static final class LimitExeededException extends RuntimeException {
-		private static final long serialVersionUID = 1L;
+		//text unit length exceeded
 	}
 }

@@ -54,17 +54,15 @@ public final class SyntacticParser implements NtextProcessor {
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	public static final class GrammarException extends RuntimeException {
-		private static final long serialVersionUID = 1L;
-		
 		private GrammarException(String message) {
 			super(message);
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	public static final class SyntaxParsingException extends RuntimeException {
-		private static final long serialVersionUID = 1L;
-		
 		private SyntaxParsingException(String message) {
 			super(message);
 		}

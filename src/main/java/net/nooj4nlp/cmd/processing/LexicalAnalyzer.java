@@ -32,9 +32,8 @@ public final class LexicalAnalyzer implements NtextProcessor {
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	public static final class LexicalAnalysisException extends RuntimeException {
-		private static final long serialVersionUID = 1L;
-		
 		private LexicalAnalysisException(String message) {
 			super(message);
 		}

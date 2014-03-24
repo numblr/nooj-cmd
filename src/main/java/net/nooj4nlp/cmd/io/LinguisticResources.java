@@ -105,25 +105,22 @@ public class LinguisticResources {
 		return fileName + "(" + String.format("%02d", priority) + ")";
 	}
 	
+	@SuppressWarnings("serial")
 	public static class LinguisticResourceException extends RuntimeException {
-		private static final long serialVersionUID = 1L;
-		
 		protected LinguisticResourceException(String message) {
 			super(message);
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	public static class ResourceLinkRemovalException extends FileException {
-		private static final long serialVersionUID = 1L;
-		
 		private ResourceLinkRemovalException(Path path, String message) {
 			super(path, message);
 		}
 	}
 	
+	@SuppressWarnings("serial")
 	public static class ResourceLinkCreationException extends FileException {
-		private static final long serialVersionUID = 1L;
-		
 		ResourceLinkCreationException(Path path, String message) {
 			super(path, message);
 		}
