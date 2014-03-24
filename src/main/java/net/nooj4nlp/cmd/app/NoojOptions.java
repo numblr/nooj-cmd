@@ -92,7 +92,7 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("TAGS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma sepearted list of xml tags (without braces)")
+				.withDescription("comma sepearted list of xml tags")
 				.create(XML_TAGS);
 		
 		Option filterXml = OptionBuilder
@@ -155,6 +155,7 @@ final class NoojOptions {
 	private static final String DEFUALT_LANGUAGE = "en";
 	private static final Encoding DEFAULT_ENCODING = new Encoding(null, FileType.UNICODE);
 	private static final String DEFAULT_TMP_DIR = System.getProperty("java.io.tmpdir");
+	private static final String DEFAULT_DELIMITER = "";
 	
 	private final CommandLine options;
 	
@@ -243,6 +244,10 @@ final class NoojOptions {
 	}
 
 	String getDelimiter() {
+		if (!options.hasOption(DELIMITER)) {
+			return DEFAULT_DELIMITER;
+		}
+		
 		return options.getOptionValue(DELIMITER);
 	}
 

@@ -195,10 +195,10 @@ public class NoojOptionsTest {
 	}
 
 	@Test
-	public void noOptionDelimiterIsParsedToNull() throws ParseException {
+	public void noOptionDelimiterIsParsedToEnptyString() throws ParseException {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
-		assertNull(noojOptions.getDelimiter());
+		assertEquals("", noojOptions.getDelimiter());
 	}
 
 	@Test
