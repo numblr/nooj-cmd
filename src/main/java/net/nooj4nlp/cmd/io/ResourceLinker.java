@@ -33,7 +33,9 @@ final class ResourceLinker implements AutoCloseable {
 
 	ResourceLinker(String language, Path tmpDirectory) {
 		this.language = checkNotNull(language);
-		this.tmpDirectory = tmpDirectory.resolve(new UID().toString().replaceAll("\\W", ""));
+		this.tmpDirectory = tmpDirectory
+				.resolve(new UID().toString().replaceAll("\\W", ""))
+				.toAbsolutePath();
 	}
 	
 	@Override
