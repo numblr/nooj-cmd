@@ -19,6 +19,7 @@ import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableList.Builder;
 import com.google.common.collect.Sets;
@@ -50,7 +51,7 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("FILES")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma seperated list of input files")
+				.withDescription("comma separated list of input files")
 				.isRequired()
 				.create(INPUT_FILES);
 		
@@ -59,7 +60,7 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("DICTS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma sepearted list of .jnod files")
+				.withDescription("comma separated list of .jnod files")
 				.isRequired()
 				.create(DICTS);
 		
@@ -68,7 +69,7 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("GRAMMARS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma sepearted list of .nog files")
+				.withDescription("comma separated list of .nog files")
 				.isRequired()
 				.create(GRAMMARS);
 		
@@ -81,13 +82,13 @@ final class NoojOptions {
 				.create(PROPERTIES);
 		
 		Option charVariants = OptionBuilder
-				.withLongOpt("character-variants")
+				.withLongOpt("charactervariants")
 				.hasArg()
 				.withArgName("CHAR_VAR")
 				.withDescription("character variants file")
 				.create(CHAR_VARIANTS);
 		
-		Option xmlTags = OptionBuilder.withLongOpt("xml-tags")
+		Option xmlTags = OptionBuilder.withLongOpt("xmltags")
 				.hasArgs()
 				.withArgName("TAGS")
 				.withValueSeparator(OPTION_SEPARATOR)
@@ -95,8 +96,8 @@ final class NoojOptions {
 				.create(XML_TAGS);
 		
 		Option filterXml = OptionBuilder
-				.withLongOpt("filter-xml")
-				.withDescription("filter output xml")
+				.withLongOpt("filterxml")
+				.withDescription("output contains only xml annotations")
 				.create(FILTER);
 		
 		Option language = OptionBuilder
@@ -124,7 +125,7 @@ final class NoojOptions {
 				.withLongOpt("delimiter")
 				.hasArg()
 				.withArgName("DEL")
-				.withDescription("delimiter used for splitting into text units")
+				.withDescription("delimiter used for splitting text into text units")
 				.create(DELIMITER);
 		
 		Option tmpDir = OptionBuilder
@@ -254,29 +255,40 @@ final class NoojOptions {
 	}
 	
 	static void printHelp() {
-		HELP_FORMATTER.printHelp(HELP_MESSAGE, OPTIONS);
+		HELP_FORMATTER.printHelp(60,
+				USAGE,
+				HELP_MESSAGE,
+				OPTIONS,
+				AVAILABLE_OPTIONS);
 	}
 	
-	private static final String HELP_MESSAGE = "Command Line interfacec for ONooj.\n"
+	private static final String USAGE =
+			"java -jar [options] -i file[,file..] -d dict[,dict..] -g grammar[,grammar..] -p propdefs";
+	
+	private static final String HELP_MESSAGE = "Command Line interface for ONooj:"
 			+ "\n"
 			+ "The specified input files are converted to xml annotated text files."
-			+ "The output files are created next to the input files with an xml postfix."
+			+ "The output files are created next to the input files with a .xml.txt "
+			+ "extension."
 			+ "\n"
-			+ "Dictionary, grammar and property definition files must be specified."
+			+ "Dictionary, grammar and property definition files used for linguistic "
+			+ "analysis must be specified."
 			+ "\n"
 			+ "If any of the arguments contains whitespace characters, then on Windows "
-			+ "the argument must be surrounded with double quotes. On Unix simple quotes, "
-			+ "double quotes, or escape the space with a backslash."
+			+ "the argument must be surrounded with double quotes. On Unix use simple "
+			+ "quotes, double quotes, or escape the space with a backslash."
+			+ "\n\n\n";
+			
+	private static final String AVAILABLE_OPTIONS = "Supported file tpyes:"
 			+ "\n"
-			+ "Supported file tpyes:"
-			+ "\n"
-			+ Encoding.FileType.values()
+			+ Joiner.on(", ").join(FileType.values())
 			+ "\n"
 			+ "Supported language codes:"
 			+ "\n"
-			+ Language.getAllLanguages()
+			+ Joiner.on(", ").join(Language.getAllLanguages())
 			+ "\n"
-			+ "Supported character sets:"
+			+ "Supported encodings:"
 			+ "\n"
-			+ Sets.newTreeSet(Charset.availableCharsets().keySet());
+			+ Joiner.on(", ")
+					.join(Sets.newTreeSet(Charset.availableCharsets().keySet()));
 }

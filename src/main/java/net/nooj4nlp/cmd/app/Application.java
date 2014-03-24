@@ -1,6 +1,7 @@
 package net.nooj4nlp.cmd.app;
 
 import java.io.IOException;
+import java.util.Arrays;
 
 import net.nooj4nlp.cmd.StaticInitialization;
 import net.nooj4nlp.cmd.io.CharVariantsLoader.CharVariantsException;
@@ -27,6 +28,11 @@ final class Application {
 	}
 
 	public static void main(String[] args) throws IOException, ParseException {
+		if (Arrays.asList(args).contains("--help")) {
+			NoojOptions.printHelp();
+			return;
+		}
+		
 		StaticInitialization.initialize();
 		String error = null;
 		
