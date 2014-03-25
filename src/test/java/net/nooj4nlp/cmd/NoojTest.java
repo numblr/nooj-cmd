@@ -1,12 +1,15 @@
 package net.nooj4nlp.cmd;
 
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 
 import net.nooj4nlp.engine.Engine;
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.RefObject;
 
+import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Rule;
@@ -14,6 +17,8 @@ import org.junit.rules.ExpectedException;
 import org.junit.rules.TemporaryFolder;
 
 public abstract class NoojTest {
+	private static final Path LOG_FILE = Paths.get("test.log");
+	
 	@Rule public ExpectedException thrown = ExpectedException.none();
 	@Rule public TemporaryFolder tmp = new TemporaryFolder();
 	
@@ -28,7 +33,12 @@ public abstract class NoojTest {
 	
 	@BeforeClass
 	public static void initialize() throws IOException {
-		StaticInitialization.initialize();
+		StaticInitialization.initialize(LOG_FILE);
+	}
+	
+	@AfterClass
+	public static void deleteLogFile() throws IOException {
+		Files.deleteIfExists(LOG_FILE);
 	}
 	
 	@Before

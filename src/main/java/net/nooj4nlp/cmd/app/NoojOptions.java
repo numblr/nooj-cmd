@@ -42,6 +42,8 @@ final class NoojOptions {
 	private static final String ENCODING = "e";
 	private static final String FILE_TYPE = "t";
 	private static final String TMP = "m";
+	private static final String LOG = "r";
+	private static final String HELP = "h";
 
 	private static final Options OPTIONS;
 	
@@ -135,13 +137,25 @@ final class NoojOptions {
 				.withDescription("directory for temporary files")
 				.create(TMP);
 		
+		Option log = OptionBuilder
+				.withLongOpt("log")
+				.hasArg()
+				.withArgName("FILE")
+				.withDescription("log file")
+				.create(LOG);
+		
+		Option help = OptionBuilder
+				.withLongOpt("help")
+				.withArgName("FILE")
+				.withDescription("print this help message")
+				.create(HELP);
+		
 		OPTIONS = new Options();
 		OPTIONS.addOption(inputFiles);
 		OPTIONS.addOption(dicts);
 		OPTIONS.addOption(grammars);
 		OPTIONS.addOption(properties);
 		OPTIONS.addOption(charVariants);
-		//OPTIONS.addOption(xmlAnnotations);
 		OPTIONS.addOption(xmlTags);
 		OPTIONS.addOption(filterXml);
 		OPTIONS.addOption(language);
@@ -149,13 +163,16 @@ final class NoojOptions {
 		OPTIONS.addOption(inputFileType);
 		OPTIONS.addOption(delimiter);
 		OPTIONS.addOption(tmpDir);
+		OPTIONS.addOption(log);
+		OPTIONS.addOption(help);
 	}
 	
 	private static final List<String> DEFAULT_XML_ANNOTATIONS = ImmutableList.of("<SYNTAX>");
-	private static final String DEFUALT_LANGUAGE = "en";
+	private static final String DEFAULT_LANGUAGE = "en";
 	private static final Encoding DEFAULT_ENCODING = new Encoding(null, FileType.UNICODE);
 	private static final String DEFAULT_TMP_DIR = System.getProperty("java.io.tmpdir");
 	private static final String DEFAULT_DELIMITER = "";
+	private static final Path DEFAULT_LOG_FILE = Paths.get("noojcmd.log");
 	
 	private final CommandLine options;
 	
@@ -219,7 +236,7 @@ final class NoojOptions {
 
 	Language getLanguage() {
 		if (!options.hasOption(LANGUAGE)) {
-			return new Language(DEFUALT_LANGUAGE);
+			return new Language(DEFAULT_LANGUAGE);
 		};
 		
 		return new Language(options.getOptionValue(LANGUAGE));
@@ -249,6 +266,14 @@ final class NoojOptions {
 		}
 		
 		return options.getOptionValue(DELIMITER);
+	}
+	
+	Path getLogFile() {
+		if (!options.hasOption(LOG)) {
+			return DEFAULT_LOG_FILE;
+		}
+		
+		return Paths.get(options.getOptionValue(LOG));
 	}
 
 	Path getTmpDirectory() {

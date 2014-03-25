@@ -20,6 +20,8 @@ import org.junit.Test;
 import com.google.common.base.Joiner;
 
 public class ApplicationTest {
+	private static final Path LOG_FILE = Paths.get("test.log");
+	
 	private Path dict;
 	private Path grammar;
 	private Path propertiesDefinitions;
@@ -33,7 +35,7 @@ public class ApplicationTest {
 
 	@Before
 	public void setupStaticInitialization() throws IOException {
-		StaticInitialization.initialize();
+		StaticInitialization.initialize(LOG_FILE);
 	}
 	
 	@Before
@@ -55,6 +57,7 @@ public class ApplicationTest {
 
 	@After
 	public void removeFiles() throws IOException {
+		removeFile(LOG_FILE);
 		removeFile(putin_xml_txt);
 		removeFile(test_xml_txt);
 		putin_xml_txt = null;
@@ -69,7 +72,7 @@ public class ApplicationTest {
 	
 	@Test
 	public void testApp() throws ParseException, IOException, URISyntaxException {
-		new Application().run(commandLine);
+		new Application().run(NoojOptions.create(commandLine));
 		
 		putin_xml_txt = getPath("/ONooj/en/Projects/Putin.xml.txt");
 		test_xml_txt = getPath("/ONooj/en/Projects/Test.xml.txt");

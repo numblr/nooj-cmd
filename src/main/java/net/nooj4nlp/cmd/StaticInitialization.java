@@ -2,6 +2,7 @@ package net.nooj4nlp.cmd;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -10,16 +11,14 @@ import net.nooj4nlp.engine.Dic;
 import net.nooj4nlp.gui.main.Launcher;
 
 public final class StaticInitialization {
-	private static final String LOG_FILE = "log.txt";
-
-	public static void initialize() throws IOException {
-		initializeLogFile();
+	public static void initialize(Path logFile) throws IOException {
+		initializeLogFile(logFile.toAbsolutePath());
 	}
 	
-	private static void initializeLogFile() throws IOException {
-		Dic.LogFileName = LOG_FILE;
+	private static void initializeLogFile(Path logFile) throws IOException {
+		Dic.LogFileName = logFile.toString();
 		
-		File file = new File(Dic.LogFileName);
+		File file = logFile.toFile();
 		if (!file.exists()) {
 			file.createNewFile();
 		}
