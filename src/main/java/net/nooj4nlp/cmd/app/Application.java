@@ -34,9 +34,6 @@ final class Application {
 		
 		try {
 			new Application().run(options);
-		} catch (ParseException e) {
-			logException(e, "Cannot parse command line options: "
-					+ e.getMessage());
 		} catch (CharVariantsException e) {
 			logException(e, "Cannot load character variants file: "
 					+ e.getPath() + ", " + e.getMessage());
