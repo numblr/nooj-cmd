@@ -2,6 +2,7 @@ package net.nooj4nlp.cmd.app;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -36,7 +37,7 @@ final class NoojOptions {
 	private static final Path DEFAULT_WORKING_DIR = Paths.get(System.getProperty("user.dir"));
 	private static final String DEFAULT_LANGUAGE = "en";
 	private static final String DEFAULT_DELIMITER = "\n";
-	private static final Encoding DEFAULT_ENCODING = new Encoding(null, FileType.UNICODE);
+	private static final Encoding DEFAULT_ENCODING = new Encoding(null, FileType.UNICODE_TEXT);
 	private static final Path DEFAULT_LOG_FILE = Paths.get("noojcmd.log");
 	private static final Path DEFAULT_TMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"));
 	private static final List<String> DEFAULT_XML_ANNOTATIONS = ImmutableList.of("<SYNTAX>");
@@ -169,7 +170,6 @@ final class NoojOptions {
 		
 		Option help = OptionBuilder
 				.withLongOpt("help")
-				.withArgName("FILE")
 				.withDescription("print this help message")
 				.create(HELP);
 		

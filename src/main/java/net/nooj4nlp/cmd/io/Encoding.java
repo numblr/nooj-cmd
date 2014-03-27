@@ -4,7 +4,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 public final class Encoding {
 	public static enum FileType {
-		UNICODE,
+		UNICODE_TEXT,
 		RAW_TEXT,
 		RTF,
 		WORD,

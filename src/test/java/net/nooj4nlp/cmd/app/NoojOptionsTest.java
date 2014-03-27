@@ -258,7 +258,7 @@ public class NoojOptionsTest {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(ARGS.get("-e"), noojOptions.getEncoding().getEncoding());
-		assertEquals(FileType.UNICODE, noojOptions.getEncoding().getFileType());
+		assertEquals(FileType.UNICODE_TEXT, noojOptions.getEncoding().getFileType());
 	}
 	
 	@Test
@@ -278,7 +278,7 @@ public class NoojOptionsTest {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(null, noojOptions.getEncoding().getEncoding());
-		assertEquals(FileType.UNICODE, noojOptions.getEncoding().getFileType());
+		assertEquals(FileType.UNICODE_TEXT, noojOptions.getEncoding().getFileType());
 	}
 	
 	@Test
