@@ -40,7 +40,6 @@ public class NoojOptionsTest {
 			put("-s", "\t");
 			put("-e", "iso-8859-1");
 			put("-t", "raw_text");
-			put("-m", "/tmp");
 			put("-r", "log/noojcmd.log");
 		}
 	};
@@ -247,22 +246,6 @@ public class NoojOptionsTest {
 		
 		assertEquals(null, noojOptions.getEncoding().getEncoding());
 		assertEquals(FileType.UNICODE_TEXT, noojOptions.getEncoding().getFileType());
-	}
-	
-	@Test
-	public void optionTempIsParsedToPath() throws ParseException {
-		args.add("-m");
-		args.add(ARGS.get("-m"));
-		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
-		
-		assertEquals(ARGS.get("-m"), noojOptions.getTmpDirectory().toString());
-	}
-
-	@Test
-	public void noOptionTempIsParsedToDefaultTempPath() throws ParseException {
-		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
-		
-		assertEquals(System.getProperty("java.io.tmpdir"), noojOptions.getTmpDirectory().toString());
 	}
 	
 	@Test
