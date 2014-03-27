@@ -2,7 +2,6 @@ package net.nooj4nlp.cmd.app;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import java.io.PrintWriter;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
