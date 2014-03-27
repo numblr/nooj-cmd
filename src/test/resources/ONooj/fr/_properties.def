@@ -1,0 +1,74 @@
+# NooJ V2
+# Dictionary properties' definition
+#
+# Language is: fr
+#
+# Special Characters: '=' '+' '#' ' '
+#
+# List categories and properties associated with features
+#   Example: N_Number = m | f;
+# Special KEYWORD: INFLECTION lists all inflectional features (used by variables $xF)
+#   Example: INFLECTION = m | f | Present | Futur;
+
+# Max Silberztein
+# les règles suivantes définissent les propriétés de chaque catégorie syntaxique
+# ainsi que les valeurs possibles correspondantes
+# La règle INFLECTION permet de distinguer les propriétés flexionnelles des propriétés syntactico-sémantiques
+#
+
+INFLECTION = m | f | s | p |
+             1 | 2 | 3 |
+             INF | G | PP | IP
+             PR  | I | PS | F | C
+             S | IS ;
+
+A_Genre = m | f;
+A_Nb    = s | p;
+A_Spec  = ord ;
+
+ADV_Spec = det | int | neg | padj | pnum | ppde ; 
+ADV_Info = dadj ;
+
+N_Genre  = m | f;
+N_Nb     = s | p;
+N_Sem    = Anl | Hum | HumColl | Conc | Alim | Anim | Abst | Pol | PR;
+N_Spec   = npr | titre | initiale | mois | lettre ;
+N_Struct = AAN | AN | E01 | NA | NAA | NAN | NCN | NDN | NN |
+           NPN | NPNPN | NPV | NX | NX4 | PN | VN | VV | VX |
+           XA | XN | XV | XX;
+
+DET_Genre = m | f;
+DET_Nb    = s | p;
+DET_Spec  = def | pos | dem | ind | int | part | rel ;
+
+PDET_Genre = m | f;
+PDET_Nb    = s | p;
+
+PREP_Spec = ell | pv ;
+
+PRO_Genre = m | f;
+PRO_Nb    = s | p;
+PRO_Pers  = 1 | 2 | 3;
+PRO_Spec  = clit | dis | dem | int | rel | ind ;
+PRO_Fonc  = nom | acc | dat ;
+
+V_Pers  = 1 | 2 | 3;
+V_Temps = INF                   # infinitif
+        | IP                    # impératif
+        | G | PP                # participes
+        | PR | I | PS | F | C   # temps de l'indicatif
+        | S | SI ;              # subjonctif
+V_Synt  = tr | intr ;
+V_Genre = m | f;
+V_Nb    = s | p;
+V_Spec  = pro | aux ;
+
+# Codes distributionnels
+
+V_N0 = N0Hum | N0NHum | N0Conc | N0Abst ;
+V_N1 = N1Hum | N1NHum | N1Conc | N1Abst ;
+
+# Structure
+
+V_Struct = N0V | N0VN1 | N0VàN1 | N0VDETN1 | N0VdeN1 |
+           N0VPREPN1 | N0VN1PREPN2 ;

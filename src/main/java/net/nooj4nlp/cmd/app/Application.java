@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.Arrays;
 
 import net.nooj4nlp.cmd.StaticInitialization;
-import net.nooj4nlp.cmd.io.CharVariantsLoader.CharVariantsException;
 import net.nooj4nlp.cmd.io.FileIO.FileIOLoadException;
 import net.nooj4nlp.cmd.io.FileIO.FileIOUnsupportedTypeException;
 import net.nooj4nlp.cmd.io.FileIO.FileIOWriteException;
@@ -32,9 +31,6 @@ final class Application {
 		
 		try {
 			new Application().run(options);
-		} catch (CharVariantsException e) {
-			logException(e, "Cannot load character variants file: "
-					+ e.getPath() + ", " + e.getMessage());
 		} catch (LinguisticResourceException e) {
 			logException(e, "Cannot load linugistic resources: "
 					+ e.getMessage());

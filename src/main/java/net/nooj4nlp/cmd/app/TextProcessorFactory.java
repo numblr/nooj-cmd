@@ -5,7 +5,6 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.nio.file.Path;
 import java.util.List;
 
-import net.nooj4nlp.cmd.io.CharVariantsLoader;
 import net.nooj4nlp.cmd.io.Encoding;
 import net.nooj4nlp.cmd.io.FileIO;
 import net.nooj4nlp.cmd.io.LinguisticResources;
@@ -33,8 +32,6 @@ final class TextProcessorFactory {
 	TextProcessor create() {
 		Language language = options.getLanguage();
 		
-		loadCharacterVariants(language);
-		
 		FileIO fileIO = createFileIO(language);
 		NtextConverter inputConverter = createInputConverter(language);
 		LinguisticResources resources = createLinugisticResources();
@@ -48,13 +45,6 @@ final class TextProcessorFactory {
 				xmlConverter);
 	}
 	
-	private void loadCharacterVariants(Language language) {
-		Path characterVariants = options.getCharVariantsFile();
-		if (characterVariants != null) {
-			new CharVariantsLoader(characterVariants).loadInto(language);
-		}
-	}
-
 	private FileIO createFileIO(Language language) {
 		Encoding encoding = options.getEncoding();
 		

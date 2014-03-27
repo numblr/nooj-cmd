@@ -47,7 +47,6 @@ final class NoojOptions {
 	private static final String DICTS = "d";
 	private static final String GRAMMARS = "g";
 	private static final String WORKING_DIR = "w";
-	private static final String CHAR_VARIANTS = "c";
 	private static final String XML_TAGS = "x";
 	private static final String FILTER = "f";
 	private static final String LANGUAGE = "l";
@@ -94,13 +93,6 @@ final class NoojOptions {
 						+ "the language folders with dictionaries and grammars following"
 						+ "the ONooj conventions", "current working directory"))
 				.create(WORKING_DIR);
-		
-		Option charVariants = OptionBuilder
-				.withLongOpt("charactervariants")
-				.hasArg()
-				.withArgName("CHAR_VAR")
-				.withDescription("character variants file")
-				.create(CHAR_VARIANTS);
 		
 		Option xmlTags = OptionBuilder.withLongOpt("xmltags")
 				.hasArgs()
@@ -168,7 +160,6 @@ final class NoojOptions {
 		OPTIONS.addOption(dicts);
 		OPTIONS.addOption(grammars);
 		OPTIONS.addOption(workingDir);
-		OPTIONS.addOption(charVariants);
 		OPTIONS.addOption(xmlTags);
 		OPTIONS.addOption(filterXml);
 		OPTIONS.addOption(language);
@@ -230,14 +221,6 @@ final class NoojOptions {
 		}
 		
 		return Paths.get(options.getOptionValue(WORKING_DIR));
-	}
-
-	Path getCharVariantsFile() {
-		if (!options.hasOption(CHAR_VARIANTS)) {
-			return null;
-		}
-		
-		return Paths.get(options.getOptionValue(CHAR_VARIANTS));
 	}
 
 	List<String> getXmlTags() {

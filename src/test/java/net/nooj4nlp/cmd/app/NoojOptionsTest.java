@@ -34,7 +34,6 @@ public class NoojOptionsTest {
 			put("-g", "test/dir/grammar.nop,other/test/dir/rammarg.nop");
 			put("-w", "ONooj");
 			put("-p", "ONooj/en/Lexical Analysis/properties.def");
-			put("-c", "test/dir/charactervariants.txt");
 			put("-x", "s,div,h,header");
 			put("-f", null);
 			put("-l", "en-us");
@@ -117,22 +116,6 @@ public class NoojOptionsTest {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(System.getProperty("user.dir"), noojOptions.getWorkingDirectory().toString());
-	}
-	
-	@Test
-	public void optionCharacterVariantsIsParsedToPath() throws ParseException {
-		args.add("-c");
-		args.add(ARGS.get("-c"));
-		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
-		
-		assertEquals(ARGS.get("-c"), noojOptions.getCharVariantsFile().toString());
-	}
-	
-	@Test
-	public void noOptionCharacterVariantsIsParsedToNull() throws ParseException {
-		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
-		
-		assertNull(noojOptions.getCharVariantsFile());
 	}
 	
 	@Test

@@ -10,8 +10,8 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
 
-import net.nooj4nlp.cmd.io.LinguisticResources;
 import net.nooj4nlp.cmd.io.FileIO;
+import net.nooj4nlp.cmd.io.LinguisticResources;
 import net.nooj4nlp.cmd.processing.Ntext2Xml;
 import net.nooj4nlp.cmd.processing.NtextConverter;
 import net.nooj4nlp.cmd.processing.NtextProcessor;
