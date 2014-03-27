@@ -13,9 +13,8 @@ import org.junit.Before;
 import com.google.common.collect.ImmutableList;
 
 public class NoojTestWithResources extends NoojTest {
-	private static final Path DICT = getPath("/linguistic/_Sample.jnod");
-	private static final Path GRAMMAR = getPath("/linguistic/_Date.nog");
-	private static final Path PROPERTIES_DEFINITIONS = getPath("/linguistic/_properties.def");
+	private static final Path DICT = Paths.get("_Sample.jnod");
+	private static final Path GRAMMAR = Paths.get("_Date.nog");
 	
 	private LinguisticResources linguisticResources;
 
@@ -28,18 +27,12 @@ public class NoojTestWithResources extends NoojTest {
 		List<Path> lexicalResources = ImmutableList.of(DICT);
 		List<Path> syntacticResources = ImmutableList.of(GRAMMAR);
 		linguisticResources = new LinguisticResources(lexicalResources,
-				syntacticResources,
-				PROPERTIES_DEFINITIONS,
-				getOutputDirectory());
+				syntacticResources);
 		
 		getLinguisticResources().loadInto(getEngine());
 	}
 
 	protected final LinguisticResources getLinguisticResources() {
 		return linguisticResources;
-	}
-	
-	private static Path getPath(String path) {
-		return Paths.get(NoojTestWithResources.class.getResource(path).getPath());
 	}
 }

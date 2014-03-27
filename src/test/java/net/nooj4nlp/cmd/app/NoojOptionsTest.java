@@ -50,10 +50,7 @@ public class NoojOptionsTest {
 	
 	@Before
 	public void setupRequiredArguments() {
-		args = Lists.newArrayList(
-				"-i", ARGS.get("-i"),
-				"-p", ARGS.get("-p")
-			);
+		args = Lists.newArrayList("-i", ARGS.get("-i"));
 	}
 	
 	@Test(expected=ParseException.class)
@@ -122,15 +119,6 @@ public class NoojOptionsTest {
 		assertEquals(System.getProperty("user.dir"), noojOptions.getWorkingDirectory().toString());
 	}
 	
-	@Test
-	public void optionPropertiesIsParsedToPath() throws ParseException {
-		args.add("-p");
-		args.add(ARGS.get("-p"));
-		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
-		
-		assertEquals(ARGS.get("-p"), noojOptions.getPropertiesDefinitions().toString());
-	}
-
 	@Test
 	public void optionCharacterVariantsIsParsedToPath() throws ParseException {
 		args.add("-c");

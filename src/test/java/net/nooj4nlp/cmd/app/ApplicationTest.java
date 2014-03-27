@@ -24,7 +24,7 @@ public class ApplicationTest {
 	
 	private Path dict;
 	private Path grammar;
-	private Path propertiesDefinitions;
+	private Path workingDir;
 	private Path putin_txt;
 	private Path test_txt;
 	private Path putin_xml_txt;
@@ -40,9 +40,9 @@ public class ApplicationTest {
 	
 	@Before
 	public void setupFilePaths() throws URISyntaxException {
-		dict = getPath("/ONooj/en/Lexical Analysis/_Sample.jnod");
-		grammar = getPath("/ONooj/en/Syntactic Analysis/_Date.nog");
-		propertiesDefinitions = getPath("/ONooj/en/Lexical Analysis/_properties.def");
+		dict = Paths.get("_Sample.jnod");
+		grammar = Paths.get("_Date.nog");
+		workingDir = getPath("/ONooj");
 		putin_txt = getPath("/ONooj/en/Projects/Putin.txt");
 		test_txt = getPath("/ONooj/en/Projects/Test.txt");
 		expected_xml_putin = getPath("/ONooj/en/Projects/Putin.xml.txt.expected");
@@ -86,7 +86,7 @@ public class ApplicationTest {
 			"--input", pathsString(putin_txt, test_txt),
 			"--dicts", pathsString(dict),
 			"--grammars", pathsString(grammar),
-			"--properties", pathsString(propertiesDefinitions),
+			"--workingdir", pathsString(workingDir),
 			"--delimiter", "\n"};
 		
 		return cmd;

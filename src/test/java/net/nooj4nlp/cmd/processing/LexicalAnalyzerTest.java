@@ -25,7 +25,7 @@ public class LexicalAnalyzerTest extends NoojTestWithResources {
 	
 	private static final List<Object> EXPECTED_ANNOTATIONS = Lists.<Object>newArrayList(
 			"This,UNKNOWN",
-			"is,be,V+FLX=BE+PR+s+3+Aux",
+			"is,be,V+FLX=BE+Tense=PR+Nb=s+Pers=3+Aux",
 			"the,UNKNOWN",
 			"first,UNKNOWN",
 			"sentence,UNKNOWN",

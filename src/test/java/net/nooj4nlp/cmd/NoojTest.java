@@ -1,6 +1,8 @@
 package net.nooj4nlp.cmd;
 
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -42,10 +44,10 @@ public abstract class NoojTest {
 	}
 	
 	@Before
-	public void setupEngine() throws IOException {
+	public void setupEngine() throws IOException, URISyntaxException {
 		outputDirectory = tmp.newFolder().toPath();
 		engine = new Engine(new RefObject<Language>(language),
-				"", "", "",
+				"", getPath("/ONooj"), "",
 				false, null, false, null);
 	}
 
@@ -55,5 +57,12 @@ public abstract class NoojTest {
 
 	protected final Path getOutputDirectory() {
 		return outputDirectory;
+	}
+	
+	private String getPath(String pathName) throws URISyntaxException {
+		URI pathURI = new URI(getClass().getResource(pathName).toString());
+		Path path = Paths.get(pathURI.getPath());
+		
+		return path.toAbsolutePath().toString();
 	}
 }

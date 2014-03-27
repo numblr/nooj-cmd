@@ -1,8 +1,5 @@
 package net.nooj4nlp.cmd.io;
 
-import static com.google.common.base.Preconditions.checkArgument;
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import java.io.IOException;
 import java.nio.file.Path;
 import java.util.ArrayList;
@@ -17,39 +14,17 @@ import com.google.common.collect.Lists;
 public class LinguisticResources {
 	private final List<Path> lexicalResources;
 	private final List<Path> syntacticResources;
-	private final Path propertiesDefinitions;
-	private final Path tmpDirectory;
 
-	public LinguisticResources(List<Path> lexicalResources,
-			List<Path> syntacticResources,
-			Path propertiesDefinitions,
-			Path tmpDirectory) {
-		checkArgument(lexicalResources.size() < 101, "There can be at most 100 dictionaries");
-		checkArgument(syntacticResources.size() < 101, "There can be at most 100 grammars");
+	public LinguisticResources(List<Path> lexicalResources, List<Path> syntacticResources) {
+		if (lexicalResources.size() > 99 || syntacticResources.size() > 99) {
+			throw new LinguisticResourceException("There can be at most 100 dictionaries and grammars");
+		}
 		
 		this.lexicalResources = lexicalResources;
 		this.syntacticResources = syntacticResources;
-		this.propertiesDefinitions = checkNotNull(propertiesDefinitions);
-		this.tmpDirectory = checkNotNull(tmpDirectory);
 	}
 
 	public void loadInto(Engine engine) {
-		String language = engine.Lan.isoName;
-		
-		try (ResourceLinker linker = new ResourceLinker(language, tmpDirectory)) {
-			Path docDirectory = linker.linkResources(lexicalResources,
-					syntacticResources,
-					propertiesDefinitions);
-			
-			engine.docDir = docDirectory.toAbsolutePath().toString();
-			loadViaLinks(engine, language);
-			engine.docDir = "";
-		} catch (IOException e) {
-			throw new ResourceLinkRemovalException(tmpDirectory, e.getMessage());
-		}
-	}
-
-	private void loadViaLinks(Engine engine, String language) {
 		RefObject<String> errMessage = new RefObject<String>("");
 		try {
 			boolean success = engine.loadResources(
@@ -109,20 +84,6 @@ public class LinguisticResources {
 	public static class LinguisticResourceException extends RuntimeException {
 		protected LinguisticResourceException(String message) {
 			super(message);
-		}
-	}
-	
-	@SuppressWarnings("serial")
-	public static class ResourceLinkRemovalException extends FileException {
-		private ResourceLinkRemovalException(Path path, String message) {
-			super(path, message);
-		}
-	}
-	
-	@SuppressWarnings("serial")
-	public static class ResourceLinkCreationException extends FileException {
-		ResourceLinkCreationException(Path path, String message) {
-			super(path, message);
 		}
 	}
 }

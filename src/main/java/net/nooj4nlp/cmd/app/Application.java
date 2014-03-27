@@ -9,8 +9,6 @@ import net.nooj4nlp.cmd.io.FileIO.FileIOLoadException;
 import net.nooj4nlp.cmd.io.FileIO.FileIOUnsupportedTypeException;
 import net.nooj4nlp.cmd.io.FileIO.FileIOWriteException;
 import net.nooj4nlp.cmd.io.LinguisticResources.LinguisticResourceException;
-import net.nooj4nlp.cmd.io.LinguisticResources.ResourceLinkCreationException;
-import net.nooj4nlp.cmd.io.LinguisticResources.ResourceLinkRemovalException;
 import net.nooj4nlp.cmd.processing.LexicalAnalyzer.LexicalAnalysisException;
 import net.nooj4nlp.cmd.processing.SyntacticParser.GrammarException;
 import net.nooj4nlp.cmd.processing.SyntacticParser.SyntaxParsingException;
@@ -40,12 +38,6 @@ final class Application {
 		} catch (LinguisticResourceException e) {
 			logException(e, "Cannot load linugistic resources: "
 					+ e.getMessage());
-		} catch (ResourceLinkCreationException e) {
-			logException(e, "Cannot create temporary link to linguistic resource files: "
-					+ e.getPath() + ", " + e.getMessage());
-		} catch (ResourceLinkRemovalException e) {
-			logException(e, "Cannot not remove temporary directory for linguistic resource files: "
-					+ e.getPath() + ", " + e.getMessage());
 		} catch (FileIOUnsupportedTypeException e) {
 			logException(e, "Cannot load file: " + e.getPath()
 					+ "unsupported file type: " + e.getMessage());

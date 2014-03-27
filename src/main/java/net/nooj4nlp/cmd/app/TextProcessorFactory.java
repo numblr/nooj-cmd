@@ -76,18 +76,14 @@ final class TextProcessorFactory {
 	private LinguisticResources createLinugisticResources() {
 		List<Path> lexicalResources = options.getLexicalResources();
 		List<Path> syntacticResources = options.getSyntacticResources();
-		Path propertiesDefinitions = options.getPropertiesDefinitions();
-		Path tmpDirectory = options.getTmpDirectory();
 		
 		return new LinguisticResources(lexicalResources,
-				syntacticResources,
-				propertiesDefinitions,
-				tmpDirectory);
+				syntacticResources);
 	}
 	
 	private List<NtextProcessor> createProcessors(Language language, LinguisticResources resources) {
 		Engine engine = new Engine(new RefObject<Language>(language),
-				"", "", "",
+				"", options.getWorkingDirectory().toAbsolutePath().toString(), "",
 				false, null, false, null);
 		
 		resources.loadInto(engine);
