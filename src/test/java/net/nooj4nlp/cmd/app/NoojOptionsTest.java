@@ -7,6 +7,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -18,6 +19,7 @@ import org.junit.Before;
 import org.junit.Ignore;
 import org.junit.Test;
 
+import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 
@@ -50,35 +52,45 @@ public class NoojOptionsTest {
 	public void setupRequiredArguments() {
 		args = Lists.newArrayList(
 				"-i", ARGS.get("-i"),
-				"-d", ARGS.get("-d"),
-				"-g", ARGS.get("-g"),
 				"-p", ARGS.get("-p")
 			);
 	}
 	
 	@Test(expected=ParseException.class)
 	public void missingMandatoryOptionsThrows() throws ParseException {
-		NoojOptions noojOptions = NoojOptions.create(STRING_ARRAY);
-		
-		assertEquals(ARGS.get("-p"), noojOptions.getPropertiesDefinitions().toString());
+		NoojOptions.create(STRING_ARRAY);
 	}
 	
 	@Test
 	public void optionDictionariesIsParsedToPathList() throws ParseException {
+		args.add("-d");
+		args.add(ARGS.get("-d"));
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
-		List<Path> expected = Lists.newArrayList(Paths.get("test/dir/dict.dic"),
-				Paths.get("other/test/dir/tcid.dic"));
 		
-		assertEquals(expected, noojOptions.getLexicalResources());
+		assertEquals(ARGS.get("-d"), Joiner.on(",").join(noojOptions.getLexicalResources()));
+	}
+	
+	@Test
+	public void noOoptionDictionariesIsParsedToEmptyList() throws ParseException {
+		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
+		
+		assertEquals(Collections.emptyList(), noojOptions.getLexicalResources());
 	}
 	
 	@Test
 	public void optionGrammarsIsParsedToPathList() throws ParseException {
+		args.add("-g");
+		args.add(ARGS.get("-g"));
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
-		List<Path> expected = Lists.newArrayList(Paths.get("test/dir/grammar.nop"),
-				Paths.get("other/test/dir/rammarg.nop"));
 		
-		assertEquals(expected, noojOptions.getSyntacticResources());
+		assertEquals(ARGS.get("-g"), Joiner.on(",").join(noojOptions.getSyntacticResources()));
+	}
+	
+	@Test
+	public void noOptionGrammarsIsParsedToEmptyList() throws ParseException {
+		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
+		
+		assertEquals(Collections.emptyList(), noojOptions.getSyntacticResources());
 	}
 	
 	@Test
@@ -152,6 +164,16 @@ public class NoojOptionsTest {
 		
 		assertNull(noojOptions.getXmlTags());
 	}
+	
+	@Test(expected=ParseException.class)
+	public void optionXmlTagsExludesDelimiterOption() throws ParseException {
+		args.add("-x");
+		args.add(ARGS.get("-x"));
+		args.add("-s");
+		args.add(ARGS.get("-s"));
+		
+		NoojOptions.create(args.toArray(STRING_ARRAY));
+	}
 
 	@Ignore
 	@Test
@@ -216,7 +238,7 @@ public class NoojOptionsTest {
 	public void noOptionDelimiterIsParsedToEnptyString() throws ParseException {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
-		assertEquals("", noojOptions.getDelimiter());
+		assertEquals("\n", noojOptions.getDelimiter());
 	}
 
 	@Test

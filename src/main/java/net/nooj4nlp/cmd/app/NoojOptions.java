@@ -5,6 +5,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 
 import net.nooj4nlp.cmd.io.Encoding;
@@ -26,7 +27,19 @@ import com.google.common.collect.Sets;
 
 @SuppressWarnings("static-access")
 final class NoojOptions {
+	private static final String DEFAULT_CHAR_ENCODING = "UTF-8";
+
 	private static final HelpFormatter HELP_FORMATTER = new HelpFormatter();
+	
+	private static final List<Path> DEFAULT_DICTS = Collections.emptyList();
+	private static final List<Path> DEFAULT_GRAMMARS = Collections.emptyList();
+	private static final Path DEFAULT_WORKING_DIR = Paths.get(System.getProperty("user.dir"));
+	private static final String DEFAULT_LANGUAGE = "en";
+	private static final String DEFAULT_DELIMITER = "\n";
+	private static final Encoding DEFAULT_ENCODING = new Encoding(null, FileType.UNICODE);
+	private static final Path DEFAULT_LOG_FILE = Paths.get("noojcmd.log");
+	private static final Path DEFAULT_TMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"));
+	private static final List<String> DEFAULT_XML_ANNOTATIONS = ImmutableList.of("<SYNTAX>");
 
 	private static final char OPTION_SEPARATOR = ',';
 	
@@ -63,8 +76,7 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("DICTS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma separated list of .jnod file names")
-				.isRequired()
+				.withDescription(description("comma separated list of .jnod file names (without path)", "no dictionaries"))
 				.create(DICTS);
 		
 		Option grammars = OptionBuilder
@@ -72,15 +84,16 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("GRAMMARS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma separated list of .nog file names")
-				.isRequired()
+				.withDescription(description("comma separated list of .nog file names (without path)", "no grammars"))
 				.create(GRAMMARS);
 		
 		Option workingDir = OptionBuilder
 				.withLongOpt("workingdir")
 				.hasArg()
 				.withArgName("DIR")
-				.withDescription("nooj working directory")
+				.withDescription(description("nooj working directory containing "
+						+ "the language folders with dictionaries and grammars following"
+						+ "the ONooj conventions", "current working directory"))
 				.create(WORKING_DIR);
 		
 		Option properties = OptionBuilder
@@ -102,40 +115,42 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("TAGS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma sepearted list of xml tags")
+				.withDescription("comma sepearted list of xml tags used for splitting input into text units."
+						+ "This option is mutually exclusive with the delimiter option")
 				.create(XML_TAGS);
 		
 		Option filterXml = OptionBuilder
 				.withLongOpt("filterxml")
-				.withDescription("output contains only xml annotations")
+				.withDescription("if sepcified, only annotated text is included in the output")
 				.create(FILTER);
 		
 		Option language = OptionBuilder
 				.withLongOpt("language")
-				.hasArgs(1)
+				.hasArg()
 				.withArgName("LANG")
-				.withDescription("iso code for the language of the input files")
+				.withDescription(description("iso code of the language of the input files", DEFAULT_LANGUAGE))
 				.create(LANGUAGE);
 		
 		Option encoding = OptionBuilder
 				.withLongOpt("encoding")
 				.hasArg()
 				.withArgName("ENC")
-				.withDescription("encoding of the input files")
+				.withDescription(description("encoding of the input files", DEFAULT_CHAR_ENCODING))
 				.create(ENCODING);
 		
 		Option inputFileType = OptionBuilder
 				.withLongOpt("filetype")
 				.hasArg()
 				.withArgName("TYPE")
-				.withDescription("type of the input files")
+				.withDescription(description("type of the input files", DEFAULT_ENCODING.getFileTypeName()))
 				.create(FILE_TYPE);
 		
 		Option delimiter = OptionBuilder
 				.withLongOpt("delimiter")
 				.hasArg()
 				.withArgName("DEL")
-				.withDescription("delimiter used for splitting text into text units")
+				.withDescription(description("PERL regular expression used for splitting input into text units, "
+						+ "use empty character (\"\") to process the whole input as one unit", "new line (\"\\<n\")"))
 				.create(DELIMITER);
 		
 		Option tmpDir = OptionBuilder
@@ -149,7 +164,7 @@ final class NoojOptions {
 				.withLongOpt("log")
 				.hasArg()
 				.withArgName("FILE")
-				.withDescription("log file")
+				.withDescription(description("log file", DEFAULT_LOG_FILE.toString()))
 				.create(LOG);
 		
 		Option help = OptionBuilder
@@ -175,18 +190,14 @@ final class NoojOptions {
 		OPTIONS.addOption(log);
 		OPTIONS.addOption(help);
 	}
-	
-	private static final List<String> DEFAULT_XML_ANNOTATIONS = ImmutableList.of("<SYNTAX>");
-	private static final String DEFAULT_LANGUAGE = "en";
-	private static final Encoding DEFAULT_ENCODING = new Encoding(null, FileType.UNICODE);
-	private static final Path DEFAULT_TMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"));
-	private static final String DEFAULT_DELIMITER = "";
-	private static final Path DEFAULT_LOG_FILE = Paths.get("noojcmd.log");
-	private static final Path DEFAULT_WORKING_DIR = Paths.get(System.getProperty("user.dir"));
 
 	private final CommandLine options;
 	
-	private NoojOptions(CommandLine options) {
+	private NoojOptions(CommandLine options) throws ParseException {
+		if (options.hasOption(XML_TAGS) && options.hasOption(DELIMITER)) {
+			throw new ParseException("Delimiter expressions cannot be specified if XML Delimiters are used.");
+		}
+		
 		this.options = checkNotNull(options);
 	}
 	
@@ -199,10 +210,18 @@ final class NoojOptions {
 	}
 
 	List<Path> getLexicalResources() {
+		if (!options.hasOption(DICTS)) {
+			return DEFAULT_DICTS;
+		}
+
 		return getPaths(DICTS);
 	}
 
 	List<Path> getSyntacticResources() {
+		if (!options.hasOption(GRAMMARS)) {
+			return DEFAULT_GRAMMARS;
+		}
+		
 		return getPaths(GRAMMARS);
 	}
 
@@ -254,6 +273,7 @@ final class NoojOptions {
 
 	Language getLanguage() {
 		if (!options.hasOption(LANGUAGE)) {
+			//Language objects are mutable!
 			return new Language(DEFAULT_LANGUAGE);
 		};
 		
@@ -302,6 +322,11 @@ final class NoojOptions {
 		return Paths.get(options.getOptionValue(TMP));
 	}
 	
+	private static String description(String message, String defaultValue) {
+		return message
+				+ "(default: " + defaultValue + ")";
+	}
+	
 	static void printHelp() {
 		HELP_FORMATTER.printHelp(60,
 				USAGE,
@@ -318,10 +343,13 @@ final class NoojOptions {
 			+ "The specified input files are converted to xml annotated text files."
 			+ "The output files are created next to the input files with a .xml.txt "
 			+ "extension."
-			+ "\n"
+			+ "\n\n"
 			+ "Dictionary, grammar and property definition files used for linguistic "
-			+ "analysis must be specified."
-			+ "\n"
+			+ "analysis must be placed in the specified (or default) working directory, "
+			+ "following the the convention:\n"
+			+ "languagecode/Lexical Analysis - containing dictionary, character variants and property definition files\n"
+			+ "languagecode/Syntactic Analysis - containing grammar files."
+			+ "\n\n"
 			+ "If any of the arguments contains whitespace characters, then on Windows "
 			+ "the argument must be surrounded with double quotes. On Unix use simple "
 			+ "quotes, double quotes, or escape the space with a backslash."
