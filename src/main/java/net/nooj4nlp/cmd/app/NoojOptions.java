@@ -118,7 +118,8 @@ final class NoojOptions {
 				.withLongOpt("encoding")
 				.hasArg()
 				.withArgName("ENC")
-				.withDescription(description("encoding of the input files", DEFAULT_CHAR_ENCODING))
+				.withDescription(description("encoding of the input files. "
+						+ "This option may be ignored if not applicable to a file type", DEFAULT_CHAR_ENCODING))
 				.create(ENCODING);
 		
 		Option inputFileType = OptionBuilder
@@ -176,6 +177,10 @@ final class NoojOptions {
 	private NoojOptions(CommandLine options) throws ParseException {
 		if (options.hasOption(XML_TAGS) && options.hasOption(DELIMITER)) {
 			throw new ParseException("Delimiter expressions cannot be specified if XML Delimiters are used.");
+		}
+		
+		if (options.hasOption(ENCODING) && !options.hasOption(FILE_TYPE)) {
+			throw new ParseException("Encoding can be specified only in connection with a file type.");
 		}
 		
 		this.options = checkNotNull(options);

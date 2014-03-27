@@ -39,7 +39,7 @@ public class NoojOptionsTest {
 			put("-l", "en-us");
 			put("-s", "\t");
 			put("-e", "iso-8859-1");
-			put("-t", "pdf");
+			put("-t", "raw_text");
 			put("-m", "/tmp");
 			put("-r", "log/noojcmd.log");
 		}
@@ -219,17 +219,7 @@ public class NoojOptionsTest {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(null, noojOptions.getEncoding().getEncoding());
-		assertEquals(FileType.PDF, noojOptions.getEncoding().getFileType());
-	}
-
-	@Test
-	public void optionEncodingIsParsedToEncoding() throws ParseException {
-		args.add("-e");
-		args.add(ARGS.get("-e"));
-		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
-		
-		assertEquals(ARGS.get("-e"), noojOptions.getEncoding().getEncoding());
-		assertEquals(FileType.UNICODE_TEXT, noojOptions.getEncoding().getFileType());
+		assertEquals(FileType.RAW_TEXT, noojOptions.getEncoding().getFileType());
 	}
 	
 	@Test
@@ -241,7 +231,14 @@ public class NoojOptionsTest {
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(ARGS.get("-e"), noojOptions.getEncoding().getEncoding());
-		assertEquals(FileType.PDF, noojOptions.getEncoding().getFileType());
+		assertEquals(FileType.RAW_TEXT, noojOptions.getEncoding().getFileType());
+	}
+	
+	@Test(expected=ParseException.class)
+	public void encodingRequiresFileType() throws ParseException {
+		args.add("-e");
+		args.add(ARGS.get("-e"));
+		NoojOptions.create(args.toArray(STRING_ARRAY));
 	}
 
 	@Test
