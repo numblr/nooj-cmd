@@ -30,6 +30,7 @@ public class NoojOptionsTest {
 			put("-i", "input.txt,with space.txt,/absolute/in.txt,relative/input-file.txt");
 			put("-d", "test/dir/dict.dic,other/test/dir/tcid.dic");
 			put("-g", "test/dir/grammar.nop,other/test/dir/rammarg.nop");
+			put("-w", "ONooj");
 			put("-p", "ONooj/en/Lexical Analysis/properties.def");
 			put("-c", "test/dir/charactervariants.txt");
 			put("-x", "s,div,h,header");
@@ -91,6 +92,22 @@ public class NoojOptionsTest {
 		
 		
 		assertEquals(expected, noojOptions.getFiles());
+	}
+	
+	@Test
+	public void optionWorkingDirIsParsedToPath() throws ParseException {
+		args.add("-w");
+		args.add(ARGS.get("-w"));
+		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
+		
+		assertEquals(ARGS.get("-w"), noojOptions.getWorkingDirectory().toString());
+	}
+	
+	@Test
+	public void noOptionWorkingDirIsParsedToCurrentWorkingDir() throws ParseException {
+		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
+		
+		assertEquals(System.getProperty("user.dir"), noojOptions.getWorkingDirectory().toString());
 	}
 	
 	@Test

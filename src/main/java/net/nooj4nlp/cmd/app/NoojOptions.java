@@ -33,6 +33,7 @@ final class NoojOptions {
 	private static final String INPUT_FILES = "i";
 	private static final String DICTS = "d";
 	private static final String GRAMMARS = "g";
+	private static final String WORKING_DIR = "w";
 	private static final String PROPERTIES = "p";
 	private static final String CHAR_VARIANTS = "c";
 	private static final String XML_TAGS = "x";
@@ -62,7 +63,7 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("DICTS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma separated list of .jnod files")
+				.withDescription("comma separated list of .jnod file names")
 				.isRequired()
 				.create(DICTS);
 		
@@ -71,9 +72,16 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("GRAMMARS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma separated list of .nog files")
+				.withDescription("comma separated list of .nog file names")
 				.isRequired()
 				.create(GRAMMARS);
+		
+		Option workingDir = OptionBuilder
+				.withLongOpt("workingdir")
+				.hasArg()
+				.withArgName("DIR")
+				.withDescription("nooj working directory")
+				.create(WORKING_DIR);
 		
 		Option properties = OptionBuilder
 				.withLongOpt("properties")
@@ -154,6 +162,7 @@ final class NoojOptions {
 		OPTIONS.addOption(inputFiles);
 		OPTIONS.addOption(dicts);
 		OPTIONS.addOption(grammars);
+		OPTIONS.addOption(workingDir);
 		OPTIONS.addOption(properties);
 		OPTIONS.addOption(charVariants);
 		OPTIONS.addOption(xmlTags);
@@ -170,10 +179,11 @@ final class NoojOptions {
 	private static final List<String> DEFAULT_XML_ANNOTATIONS = ImmutableList.of("<SYNTAX>");
 	private static final String DEFAULT_LANGUAGE = "en";
 	private static final Encoding DEFAULT_ENCODING = new Encoding(null, FileType.UNICODE);
-	private static final String DEFAULT_TMP_DIR = System.getProperty("java.io.tmpdir");
+	private static final Path DEFAULT_TMP_DIR = Paths.get(System.getProperty("java.io.tmpdir"));
 	private static final String DEFAULT_DELIMITER = "";
 	private static final Path DEFAULT_LOG_FILE = Paths.get("noojcmd.log");
-	
+	private static final Path DEFAULT_WORKING_DIR = Paths.get(System.getProperty("user.dir"));
+
 	private final CommandLine options;
 	
 	private NoojOptions(CommandLine options) {
@@ -204,6 +214,14 @@ final class NoojOptions {
 		}
 		
 		return files.build();
+	}
+	
+	Path getWorkingDirectory() {
+		if (!options.hasOption(WORKING_DIR)) {
+			return DEFAULT_WORKING_DIR;
+		}
+		
+		return Paths.get(options.getOptionValue(WORKING_DIR));
 	}
 
 	Path getPropertiesDefinitions() {
@@ -278,7 +296,7 @@ final class NoojOptions {
 
 	Path getTmpDirectory() {
 		if (!options.hasOption(TMP)) {
-			return Paths.get(DEFAULT_TMP_DIR);
+			return DEFAULT_TMP_DIR;
 		}
 		
 		return Paths.get(options.getOptionValue(TMP));
