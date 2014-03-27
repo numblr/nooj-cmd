@@ -73,7 +73,7 @@ final class Application {
 		} catch (ParseException e) {
 			System.err.println("Cannot parse command line options: "
 					+ e.getMessage());
-			NoojOptions.printHelp();
+			System.err.println("Use --help for usage information");
 			System.exit(1);
 		}
 		
@@ -82,6 +82,7 @@ final class Application {
 	
 	private static void logException(Exception exception, String message) {
 		System.err.println(message);
+		System.err.println("Use --help for usage information");
 		
 		Dic.writeLog(message);
 		Dic.writeLog(ExceptionUtils.getStackTrace(exception));

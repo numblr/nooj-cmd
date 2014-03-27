@@ -53,7 +53,7 @@ final class NoojOptions {
 	private static final String ENCODING = "e";
 	private static final String FILE_TYPE = "t";
 	private static final String LOG = "r";
-	private static final String HELP = "h";
+	private static final String HELP = "help";
 
 	private static final Options OPTIONS;
 	
@@ -143,9 +143,9 @@ final class NoojOptions {
 				.create(LOG);
 		
 		Option help = OptionBuilder
-				.withLongOpt("help")
+				.withLongOpt(HELP)
 				.withDescription("print this help message")
-				.create(HELP);
+				.create();
 		
 		OPTIONS = new Options();
 		OPTIONS.addOption(inputFiles);
