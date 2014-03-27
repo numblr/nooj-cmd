@@ -33,7 +33,7 @@ public class TextDelimiterTest extends NoojTest {
 	}
 	
 	@Test
-	public void nTextFromRawTextDelimitsTextUnitsAndCreatesMftObject() {
+	public void delimitTextSetsTextUnitsAndCreatesMftObject() {
 		TextDelimiter textDelimiter = new TextDelimiter(getEngine());
 		
 		Ntext nText = new Ntext(ENGLISH.isoName, DELIMITER, null);
@@ -45,7 +45,20 @@ public class TextDelimiterTest extends NoojTest {
 	}
 	
 	@Test
-	public void nTextFromXmlDelimitsTextUnits() {
+	public void delimitTextWithRegexSetsTextUnitsAndCreatesMftObject() {
+		TextDelimiter textDelimiter = new TextDelimiter(getEngine());
+		
+		Ntext nText = new Ntext(ENGLISH.isoName, "\\d", null);
+		nText.buffer = "First1Second2Third3Fourth";
+		textDelimiter.process(nText);
+		
+		assertEquals(4, nText.nbOfTextUnits);
+		assertNotNull(nText.mft);
+	}
+
+	
+	@Test
+	public void delimitXmlSetsTextUnitsAndCreatesMftObject() {
 		TextDelimiter textDelimiter = new TextDelimiter(getEngine());
 		
 		Ntext nText = new Ntext(ENGLISH.isoName, DELIMITER, XML_NODES.toArray(new String[0]));
