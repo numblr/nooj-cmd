@@ -1,4 +1,4 @@
-﻿#NooJ v2
+#NooJ v2
 # table of characters' variants
 #
 

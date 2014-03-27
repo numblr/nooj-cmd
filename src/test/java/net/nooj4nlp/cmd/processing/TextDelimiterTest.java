@@ -55,7 +55,6 @@ public class TextDelimiterTest extends NoojTest {
 		assertEquals(4, nText.nbOfTextUnits);
 		assertNotNull(nText.mft);
 	}
-
 	
 	@Test
 	public void delimitXmlSetsTextUnitsAndCreatesMftObject() {

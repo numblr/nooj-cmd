@@ -13,12 +13,15 @@ import net.nooj4nlp.cmd.StaticInitialization;
 
 import org.apache.commons.cli.ParseException;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
 
 import com.google.common.base.Joiner;
 
+@FixMethodOrder
 public class ApplicationTest {
 	private static final Path LOG_FILE = Paths.get("test.log");
 	
@@ -81,13 +84,29 @@ public class ApplicationTest {
 		assertTrue(FileUtils.contentEquals(expected_xml_test.toFile(), test_xml_txt.toFile()));
 	}
 	
+	@Test
+	public void testAppWithoutResources() throws ParseException, IOException, URISyntaxException {
+		new Application().run(NoojOptions.create(createCommandLineWithoutResources()));
+		
+		putin_xml_txt = getPath("/ONooj/en/Projects/Putin.xml.txt");
+		test_xml_txt = getPath("/ONooj/en/Projects/Test.xml.txt");
+		
+		assertTrue(FileUtils.contentEquals(putin_txt.toFile(), putin_xml_txt.toFile()));
+		assertTrue(FileUtils.contentEquals(test_txt.toFile(), test_xml_txt.toFile()));
+	}
+	
 	private String[] createCommandLine() {
-		String[] cmd = {
-			"--input", pathsString(putin_txt, test_txt),
+		String[] resources = {
 			"--dicts", pathsString(dict),
-			"--grammars", pathsString(grammar),
-			"--workingdir", pathsString(workingDir),
-			"--delimiter", "\n"};
+			"--grammars", pathsString(grammar)};
+		
+		return ArrayUtils.addAll(createCommandLineWithoutResources(), resources);
+	}
+	
+	private String[] createCommandLineWithoutResources() {
+		String[] cmd = {
+				"--input", pathsString(putin_txt, test_txt),
+				"--workingdir", pathsString(workingDir)};
 		
 		return cmd;
 	}
