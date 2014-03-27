@@ -88,7 +88,7 @@ final class NoojOptions {
 				.hasArg()
 				.withArgName("DIR")
 				.withDescription(description("nooj working directory containing "
-						+ "the language folders with dictionaries and grammars following"
+						+ "the language folders with dictionaries and grammars following "
 						+ "the ONooj conventions", "current working directory"))
 				.create(WORKING_DIR);
 		
@@ -96,7 +96,7 @@ final class NoojOptions {
 				.hasArgs()
 				.withArgName("TAGS")
 				.withValueSeparator(OPTION_SEPARATOR)
-				.withDescription("comma sepearted list of xml tags used for splitting input into text units."
+				.withDescription("comma sepearted list of xml tags used for splitting input into text units. "
 						+ "This option is mutually exclusive with the delimiter option")
 				.create(XML_TAGS);
 		
@@ -132,7 +132,7 @@ final class NoojOptions {
 				.hasArg()
 				.withArgName("DEL")
 				.withDescription(description("PERL regular expression used for splitting input into text units, "
-						+ "use empty character (\"\") to process the whole input as one unit", "new line (\"\\<n\")"))
+						+ "use empty character (\"\") to process the whole input as one unit", "new line (\"\\n\")"))
 				.create(DELIMITER);
 		
 		Option log = OptionBuilder
@@ -279,7 +279,7 @@ final class NoojOptions {
 	
 	private static String description(String message, String defaultValue) {
 		return message
-				+ "(default: " + defaultValue + ")";
+				+ " [default: " + defaultValue + "]";
 	}
 	
 	static void printHelp() {
@@ -291,7 +291,7 @@ final class NoojOptions {
 	}
 	
 	private static final String USAGE =
-			"java -jar [options] -i file[,file..] -d dict[,dict..] -g grammar[,grammar..] -p propdefs";
+			"java -jar -i file[,file..] [-d dict[,dict..] -g grammar[,grammar..]] [options]";
 	
 	private static final String HELP_MESSAGE = "Command Line interface for ONooj:"
 			+ "\n"
@@ -300,8 +300,7 @@ final class NoojOptions {
 			+ "extension."
 			+ "\n\n"
 			+ "Dictionary, grammar and property definition files used for linguistic "
-			+ "analysis must be placed in the specified (or default) working directory, "
-			+ "following the the convention:\n"
+			+ "analysis must be placed in the Nooj working directory, following the the convention:\n"
 			+ "languagecode/Lexical Analysis - containing dictionary, character variants and property definition files\n"
 			+ "languagecode/Syntactic Analysis - containing grammar files."
 			+ "\n\n"
