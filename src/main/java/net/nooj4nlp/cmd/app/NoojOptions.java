@@ -2,11 +2,13 @@ package net.nooj4nlp.cmd.app;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.Collections;
 import java.util.List;
+import java.util.Properties;
 
 import net.nooj4nlp.cmd.io.Encoding;
 import net.nooj4nlp.cmd.io.Encoding.FileType;
@@ -27,16 +29,18 @@ import com.google.common.collect.Sets;
 
 @SuppressWarnings("static-access")
 final class NoojOptions {
-	private static final String DEFAULT_CHAR_ENCODING = "UTF-8";
-
-	private static final HelpFormatter HELP_FORMATTER = new HelpFormatter();
+	private static final String PROPERTIES_FILE = "/.properties";
+	private static final String VERSION_PROPERTY = "version";
 	
+	private static final HelpFormatter HELP_FORMATTER = new HelpFormatter();
+
 	private static final List<Path> DEFAULT_DICTS = Collections.emptyList();
 	private static final List<Path> DEFAULT_GRAMMARS = Collections.emptyList();
 	private static final Path DEFAULT_WORKING_DIR = Paths.get(System.getProperty("user.dir"));
 	private static final String DEFAULT_LANGUAGE = "en";
 	private static final String DEFAULT_DELIMITER = "\n";
 	private static final Encoding DEFAULT_ENCODING = new Encoding(null, FileType.UNICODE_TEXT);
+	private static final String DEFAULT_CHAR_ENCODING = "UTF-8";
 	private static final Path DEFAULT_LOG_FILE = Paths.get("noojcmd.log");
 	private static final List<String> DEFAULT_XML_ANNOTATIONS = ImmutableList.of("<SYNTAX>");
 
@@ -54,6 +58,7 @@ final class NoojOptions {
 	private static final String FILE_TYPE = "t";
 	private static final String LOG = "r";
 	private static final String HELP = "help";
+	private static final String VERSION = "version";
 
 	private static final Options OPTIONS;
 	
@@ -142,6 +147,11 @@ final class NoojOptions {
 				.withDescription(description("log file", DEFAULT_LOG_FILE.toString()))
 				.create(LOG);
 		
+		Option version = OptionBuilder
+				.withLongOpt(VERSION)
+				.withDescription("print version")
+				.create();
+		
 		Option help = OptionBuilder
 				.withLongOpt(HELP)
 				.withDescription("print this help message")
@@ -159,6 +169,7 @@ final class NoojOptions {
 		OPTIONS.addOption(inputFileType);
 		OPTIONS.addOption(delimiter);
 		OPTIONS.addOption(log);
+		OPTIONS.addOption(version);
 		OPTIONS.addOption(help);
 	}
 
@@ -280,6 +291,13 @@ final class NoojOptions {
 	private static String description(String message, String defaultValue) {
 		return message
 				+ " [default: " + defaultValue + "]";
+	}
+	
+	static void printVersion() throws IOException {
+		Properties properties = new Properties();
+		properties.load(NoojOptions.class.getResourceAsStream(PROPERTIES_FILE));
+		
+		System.out.println("Nooj-Cmd Version " + properties.getProperty(VERSION_PROPERTY));
 	}
 	
 	static void printHelp() {

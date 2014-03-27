@@ -61,9 +61,14 @@ final class Application {
 		}
 	}
 
-	private static NoojOptions parseOptions(String[] args) {
+	private static NoojOptions parseOptions(String[] args) throws IOException {
 		if (Arrays.asList(args).contains("--help")) {
 			NoojOptions.printHelp();
+			System.exit(0);
+		}
+		
+		if (Arrays.asList(args).contains("--version")) {
+			NoojOptions.printVersion();
 			System.exit(0);
 		}
 		
