@@ -12,7 +12,7 @@ import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.TextIO;
 
 public class FileIO {
-	private static final Charset UTF_8 = Charset.forName("UTF-8");
+	public static final Charset OUTPUT_ENCODING = Charset.forName("UTF-8");
 	
 	private Encoding encoding;
 	private Language language;
@@ -42,7 +42,7 @@ public class FileIO {
 	}
 	
 	public void write(String text, Path file) {
-		try (BufferedWriter fileWriter = Files.newBufferedWriter(file, UTF_8)) {
+		try (BufferedWriter fileWriter = Files.newBufferedWriter(file, OUTPUT_ENCODING)) {
 			fileWriter.write(text);
 		} catch (IOException e) {
 			throw new FileIOWriteException(file, e.getMessage());
