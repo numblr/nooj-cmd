@@ -18,6 +18,6 @@ The project can be built with the command:
 ```
 from the directory containing the pom.xml. Jar and jar-with-all-dependencies files can be created with
 ```Shell
-	mvn clean compile assembly:single
+	mvn clean install assembly:single
 ```
-and are placed in the target folder.
+and are placed in the target folder and installed to the local maven repository on your machine.
