@@ -7,7 +7,7 @@ public interface NtextProcessor {
 	/**
 	 * Performs analysis on an {@link Ntext} object.
 	 * 
-	 * @param ntext the Ntext object to be analysed. The instance may be
+	 * @param ntext the Ntext object to be analysed. The nText instance may be
 	 * 				modified during the analysis.
 	 */
 	void process(Ntext nText);

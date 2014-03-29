@@ -21,6 +21,7 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.OptionBuilder;
 import org.apache.commons.cli.Options;
 import org.apache.commons.cli.ParseException;
+import org.apache.commons.cli.Parser;
 
 import com.google.common.base.Joiner;
 import com.google.common.collect.ImmutableList;
@@ -29,6 +30,7 @@ import com.google.common.collect.Sets;
 
 @SuppressWarnings("static-access")
 final class NoojOptions {
+	private static final Parser PARSER = new GnuParser();
 	private static final String PROPERTIES_FILE = "/.properties";
 	private static final String VERSION_PROPERTY = "version";
 	
@@ -188,7 +190,7 @@ final class NoojOptions {
 	}
 	
 	static NoojOptions create(String[] args) throws ParseException {
-		return new NoojOptions(new GnuParser().parse(OPTIONS, args));
+		return new NoojOptions(PARSER.parse(OPTIONS, args));
 	}
 	
 	List<Path> getFiles() {
@@ -289,8 +291,7 @@ final class NoojOptions {
 	}
 	
 	private static String description(String message, String defaultValue) {
-		return message
-				+ " [default: " + defaultValue + "]";
+		return message + " [default: " + defaultValue + "]";
 	}
 	
 	static void printVersion() throws IOException {
@@ -337,6 +338,5 @@ final class NoojOptions {
 			+ "\n"
 			+ "Supported encodings:"
 			+ "\n"
-			+ Joiner.on(", ")
-					.join(Sets.newTreeSet(Charset.availableCharsets().keySet()));
+			+ Joiner.on(", ").join(Sets.newTreeSet(Charset.availableCharsets().keySet()));
 }

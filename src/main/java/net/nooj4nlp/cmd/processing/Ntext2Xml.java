@@ -25,11 +25,9 @@ public class Ntext2Xml {
 	
 	public String convert(Ntext nText) {
 		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-		PrintWriter xmlWriter = new PrintWriter(byteStream);
-
-		writeNtext(xmlWriter, nText);
-
-		xmlWriter.close();
+		try (PrintWriter xmlWriter = new PrintWriter(byteStream)) {
+			writeNtext(xmlWriter, nText);
+		}
 
 		return byteStream.toString();
 	}

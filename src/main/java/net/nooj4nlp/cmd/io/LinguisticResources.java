@@ -82,7 +82,7 @@ public class LinguisticResources {
 	
 	@SuppressWarnings("serial")
 	public static class LinguisticResourceException extends RuntimeException {
-		protected LinguisticResourceException(String message) {
+		private LinguisticResourceException(String message) {
 			super(message);
 		}
 	}
