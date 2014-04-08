@@ -44,7 +44,7 @@ final class Application {
 			logException(e, "Cannot write file: "
 					+ e.getPath() + ", " + e.getMessage());
 		} catch (DelimiterException e) {
-			logException(e, "Cannot split text into text units"
+			logException(e, "Cannot split text into text units: "
 					+ e.getMessage());
 		} catch (LimitExeededException e) {
 			logException(e, "Cannot split text into text units: "
