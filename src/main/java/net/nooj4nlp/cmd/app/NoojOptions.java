@@ -186,6 +186,10 @@ final class NoojOptions {
 			throw new ParseException("Encoding can be specified only in connection with a file type.");
 		}
 		
+		if (!options.hasOption(DICTS) && !options.hasOption(GRAMMARS)) {
+			throw new ParseException("There must be at least one dictionary or grammar file specified.");
+		}
+		
 		this.options = checkNotNull(options);
 	}
 	
