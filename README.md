@@ -18,6 +18,12 @@ The project can be built with the command:
 ```
 from the directory containing the pom.xml. Jar and jar-with-all-dependencies files can be created with
 ```Shell
-	mvn clean install assembly:single
+	mvn clean install
 ```
 and are placed in the target folder and installed to the local maven repository on your machine.
+
+To create a new release update the version number in the pom.xml and run
+```Shell
+	mvn clean deploy
+```
+After that increment the version number, postfixed with "_SNAPSHOT" to continue working on the next version.
