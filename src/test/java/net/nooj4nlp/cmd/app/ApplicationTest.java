@@ -24,14 +24,12 @@ import com.google.common.base.Joiner;
 public class ApplicationTest {
 	private static final Path LOG_FILE = Paths.get("test.log");
 	
-	private Path dict;
-	private Path grammar;
+	private String dicts;
+	private String grammars;
+	
 	private Path workingDir;
-	private Path putin_txt;
 	private Path test_txt;
-	private Path putin_xml_txt;
 	private Path test_xml_txt;
-	private Path expected_xml_putin;
 	private Path expected_xml_test;
 	private String[] commandLine;
 
@@ -42,13 +40,11 @@ public class ApplicationTest {
 	
 	@Before
 	public void setupFilePaths() throws URISyntaxException {
-		dict = Paths.get("_Sample.jnod");
-		grammar = Paths.get("_Date.nog");
+		dicts = pathsString(Paths.get("test_dict.jnod"));
+		grammars = pathsString(Paths.get("aggr_test.nog"), Paths.get("nation_test.nog"));
 		workingDir = getPath("/ONooj");
-		putin_txt = getPath("/ONooj/en/Projects/Putin.txt");
-		test_txt = getPath("/ONooj/en/Projects/Test.txt");
-		expected_xml_putin = getPath("/ONooj/en/Projects/Putin.xml.txt.expected");
-		expected_xml_test = getPath("/ONooj/en/Projects/Test.xml.txt.expected");
+		test_txt = getPath("/ONooj/hu/Projects/test.txt");
+		expected_xml_test = getPath("/ONooj/hu/Projects/test.xml.txt.expected");
 		
 		commandLine = createCommandLine();
 	}
@@ -60,9 +56,7 @@ public class ApplicationTest {
 	@After
 	public void removeFiles() throws IOException {
 		removeFile(LOG_FILE);
-		removeFile(putin_xml_txt);
 		removeFile(test_xml_txt);
-		putin_xml_txt = null;
 		test_xml_txt = null;
 	}
 	
@@ -76,19 +70,18 @@ public class ApplicationTest {
 	public void testApp() throws ParseException, IOException, URISyntaxException {
 		new Application().run(NoojOptions.create(commandLine));
 		
-		putin_xml_txt = getPath("/ONooj/en/Projects/Putin.xml.txt");
-		test_xml_txt = getPath("/ONooj/en/Projects/Test.xml.txt");
+		test_xml_txt = getPath("/ONooj/hu/Projects/test.xml.txt");
 		
-		assertTrue(FileUtils.contentEquals(expected_xml_putin.toFile(), putin_xml_txt.toFile()));
 		assertTrue(FileUtils.contentEquals(expected_xml_test.toFile(), test_xml_txt.toFile()));
 	}
 	
 	private String[] createCommandLine() {
 		String[] commandLine = {
-			"--dicts", pathsString(dict),
-			"--grammars", pathsString(grammar),
-			"--input", pathsString(putin_txt, test_txt),
-			"--workingdir", pathsString(workingDir)};
+			"--dicts", dicts,
+			"--grammars", grammars,
+			"--input", pathsString(test_txt),
+			"--workingdir", pathsString(workingDir),
+			"--language", "hu"};
 		
 		return commandLine;
 	}
