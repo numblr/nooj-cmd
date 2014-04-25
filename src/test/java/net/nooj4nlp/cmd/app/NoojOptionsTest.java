@@ -26,8 +26,8 @@ import com.google.common.collect.Lists;
 public class NoojOptionsTest {
 	private static final String[] STRING_ARRAY = new String[0];
 
+	@SuppressWarnings("serial")
 	private static final Map<String, String> ARGS = new HashMap<String, String>() {
-		private static final long serialVersionUID = 1L;
 		{
 			put("-i", "input.txt,with space.txt,/absolute/in.txt,relative/input-file.txt");
 			put("-d", "test/dir/dict.dic,other/test/dir/tcid.dic");
@@ -48,7 +48,7 @@ public class NoojOptionsTest {
 	
 	@Before
 	public void setupRequiredArguments() {
-		args = Lists.newArrayList("-i", ARGS.get("-i"));
+		args = Lists.newArrayList("-i", ARGS.get("-i"), "-g", ARGS.get("-g"));
 	}
 	
 	@Test(expected=ParseException.class)
@@ -74,8 +74,6 @@ public class NoojOptionsTest {
 	
 	@Test
 	public void optionGrammarsIsParsedToPathList() throws ParseException {
-		args.add("-g");
-		args.add(ARGS.get("-g"));
 		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
 		
 		assertEquals(ARGS.get("-g"), Joiner.on(",").join(noojOptions.getSyntacticResources()));
@@ -83,7 +81,9 @@ public class NoojOptionsTest {
 	
 	@Test
 	public void noOptionGrammarsIsParsedToEmptyList() throws ParseException {
-		NoojOptions noojOptions = NoojOptions.create(args.toArray(STRING_ARRAY));
+		NoojOptions noojOptions = NoojOptions.create(
+				Lists.newArrayList("-i", ARGS.get("-i"), "-d", ARGS.get("-d"))
+				.toArray(STRING_ARRAY));
 		
 		assertEquals(Collections.emptyList(), noojOptions.getSyntacticResources());
 	}
