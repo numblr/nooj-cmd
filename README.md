@@ -15,7 +15,7 @@ or to the online repository:
 ```Shell
 	mvn deploy:deploy-file -Dfile=PATH_TO_JAR -DpomFile=PATH_TO_POM -Durl=api.bintray.com/maven/grand-hifi/nooj-releases/nooj4nlp -DrepositoryId=ID_FROM_SETTINGS
 ```
-The pom file must specify the dependencies for nooj4nlp and a version number used to identify it from nooj-cmd.
+The pom file must specify the dependencies for nooj4nlp and artifact coordinates and a version number used to identify it from nooj-cmd.
 
 The project can be built with the command:
 ```Shell
