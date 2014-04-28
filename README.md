@@ -7,15 +7,15 @@ Command line interface for nooj4nlp
 
 This repository contains configuration files to build the project with maven (maven.apache.org) and uses bintray.com/maven/grand-hifi/nooj-releases as an online release repository.
 
-For the build the nooj4nlp jar and a related pom file (*) specifing dependencies and artifact coordinates need to be installed to the local maven repository on your machine (~/.m2/repository):
+For the build the nooj4nlp jar and a related pom file (*) need to be installed to the local maven repository on your machine (~/.m2/repository):
 ```Shell
-	mvn install:install-file -Dfile=path/nooj4nlp-VERSION.jar -DpomFile=path/nooj4nlp-VERSION.pom
+	mvn install:install-file -Dfile=PATH_TO_JAR -DpomFile=PATH_TO_POM
 ```
 or to the online repository:
 ```Shell
-	mvn deploy:deploy-file -Dfile=path/nooj4nlp-VERSION.jar -DpomFile=path/nooj4nlp-VERSION.pom -Durl=api.bintray.com/maven/grand-hifi/nooj-releases/nooj4nlp -DrepositoryId=ID_FROM_SETTINGS
+	mvn deploy:deploy-file -Dfile=PATH_TO_JAR -DpomFile=PATH_TO_POM -Durl=api.bintray.com/maven/grand-hifi/nooj-releases/nooj4nlp -DrepositoryId=ID_FROM_SETTINGS
 ```
-where nooj4nlp-VERSION.jar (pom) is the jar (pom) to be installed and VERSION is the nooj4nlp version number as specified in the pom.xml.
+The pom file must specify the dependencies for nooj4nlp and a version number used to identify it from nooj-cmd.
 
 The project can be built with the command:
 ```Shell
