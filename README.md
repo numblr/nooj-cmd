@@ -23,7 +23,7 @@ The project can be built with the command:
 ```
 from the directory containing the pom.xml.
 
-To create a new release update the version number in the pom.xml and run either the local build or deploy the release to the online repository. After that increment the version number, postfixed with "_SNAPSHOT" to continue working on the next version.
+To create a new release update the version number in the pom.xml and run either the local build or deploy the release to the online repository. After that increment the version number, postfixed with "-SNAPSHOT" to continue working on the next version.
 
 Jar and jar-with-all-dependencies files can be created with
 ```Shell
