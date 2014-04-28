@@ -9,7 +9,7 @@ This repository contains configuration files to build the project with maven (ma
 
 For the build the nooj4nlp jar and a related pom file (*) need to be installed to the local maven repository on your machine (~/.m2/repository):
 ```Shell
-	mvn install:install-file -Dfile=nooj4nlp-VERSION.jar -DgroupId=net.nooj4nlp -DartifactId=nooj4nlp -Dpackaging=jar -Dversion=VERSION
+	mvn install:install-file -Dfile=nooj4nlp-VERSION.jar -DpomFile=PATH_TO_POM
 ```
 or to the online repository:
 ```Shell
