@@ -29,8 +29,10 @@ final class Application {
 		
 		StaticInitialization.initialize(options.getLogFile());
 		
+		boolean success = false;
 		try {
 			new Application().run(options);
+			success = true;
 		} catch (LinguisticResourceException e) {
 			logException(e, "Cannot load linugistic resources: "
 					+ e.getMessage());
@@ -59,6 +61,8 @@ final class Application {
 			logException(e, "Cannot apply grammars: "
 					+ e.getMessage());
 		}
+
+		System.exit(success ? 0 : 1);
 	}
 
 	private static NoojOptions parseOptions(String[] args) throws IOException {
