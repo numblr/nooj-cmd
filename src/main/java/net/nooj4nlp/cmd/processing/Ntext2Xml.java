@@ -3,12 +3,12 @@ package net.nooj4nlp.cmd.processing;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
 import java.util.List;
 
 import net.nooj4nlp.engine.Language;
 import net.nooj4nlp.engine.Ntext;
-
-import org.apache.commons.io.output.ByteArrayOutputStream;
 
 public class Ntext2Xml {
 	private final List<String> xmlAnnotations;
@@ -24,12 +24,12 @@ public class Ntext2Xml {
 	}
 	
 	public String convert(Ntext nText) {
-		ByteArrayOutputStream byteStream = new ByteArrayOutputStream();
-		try (PrintWriter xmlWriter = new PrintWriter(byteStream)) {
+		StringWriter stringWriter = new StringWriter();
+		try (PrintWriter xmlWriter = new PrintWriter(stringWriter)) {
 			writeNtext(xmlWriter, nText);
 		}
 
-		return byteStream.toString();
+		return stringWriter.toString();
 	}
 
 	private void writeNtext(PrintWriter xmlWriter, Ntext nText) {
