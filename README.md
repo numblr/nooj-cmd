@@ -47,4 +47,4 @@ For deployments to the online repository the bintray user account credentials ne
   </servers>
 ```
 
-* see: http://bintray.com/grand-hifi/nooj-releases/nooj4nlp/v3.1-20140421/
+* see: https://dl.bintray.com/grand-hifi/nooj-releases/net/nooj4nlp/nooj4nlp/v3.1-20140421/nooj4nlp-v3.1-20140421.pom
