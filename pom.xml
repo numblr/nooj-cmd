@@ -13,6 +13,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<nooj4nlp.version>v3.1-20140421</nooj4nlp.version>
 		<bintray.deploy>https://api.bintray.com/maven/grand-hifi/nooj-releases/nooj-cmd</bintray.deploy>
 		<bintray>http://dl.bintray.com/grand-hifi/nooj-releases</bintray>
 	</properties>
@@ -21,7 +22,7 @@
 		<dependency>
 			<groupId>net.nooj4nlp</groupId>
 			<artifactId>nooj4nlp</artifactId>
-			<version>v3.1-20140421</version>
+			<version>${nooj4nlp.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>com.google.guava</groupId>
