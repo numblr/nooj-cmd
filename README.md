@@ -11,7 +11,7 @@ Márton Miháltz <mmihaltz@gmail.com>
 
 #Usage
 
-Please download https://bitbucket.org/tkb-/nooj-cmd/downloads/nooj-cmd-1.0-with-Nooj-v3.1-20140421.jar (the  nooj-cmd-1.0-with-Nooj-v3.1-20140421.jar file in the Downloads section of the repo on Bitbucket).
+Please download https://bitbucket.org/tkb-/nooj-cmd/downloads/nooj-cmd-1.0-with-Nooj-v3.1-20140421.jar (the .jar file in the Downloads section of the repo on Bitbucket).
 This jar file contains nooj-cmd, Java NooJ (version specified in the filename) and all its dependencies in one package.
 
 nooj-cmd assumes the usual NooJ data file hierarchy in its working directory, ie. folders like
