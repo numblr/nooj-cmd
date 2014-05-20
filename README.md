@@ -4,10 +4,10 @@ nooj-cmd
 Command line interface for nooj4nlp.
 
 Developer:
-Thomas Bur
+Thomas Baier <tbaier@math.bme.hu>
 
-Contact:
-Márton Miháltz <mmihaltz@gmail.com>
+Maintainer:
+Márton Miháltz <mihaltz.marton@nytud.mta.hu>
 
 #Usage
 
