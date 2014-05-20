@@ -1,7 +1,35 @@
 nooj-cmd
 ========
 
-Command line interface for nooj4nlp
+Command line interface for nooj4nlp.
+
+Developer:
+Thomas Bur
+
+Contact:
+Márton Miháltz <mmihaltz@gmail.com>
+
+#Usage
+
+Please download https://bitbucket.org/tkb-/nooj-cmd/downloads/nooj-cmd-1.0-with-Nooj-v3.1-20140421.jar (the  nooj-cmd-1.0-with-Nooj-v3.1-20140421.jar file in the Downloads section of the repo on Bitbucket).
+This jar file contains nooj-cmd, Java NooJ (version specified in the filename) and all its dependencies in one package.
+
+nooj-cmd assumes the usual NooJ data file hierarchy in its working directory, ie. folders like
+<lang_code>/Lexical Analysis/
+to hold the Java NooJ dictionary files (*.jnod) and folders like
+<lang_code>/Syntactic Analysis/
+to hold the Java NooJ grammar files (*.nog).
+A different path to the root of the data folder hierarchy may be specified in the command line (see below).
+
+Example: to run nooj-cmd on a file named "testtext.txt" with a Hungarian dictionary "teszt_szotar.jnod" and grammar "aggr_test.nog,nation_test.nog", use the following command:
+```Shell
+   java -jar nooj-cmd-1.0-with-Nooj-v3.1-20140421.jar -i testtext.txt -l hu -d teszt_szotar.jnod -g aggr_test.nog,nation_test.nog
+```
+
+For further details on usage and available options, run nooj-cmd with --help:
+```Shell
+   java -jar nooj-cmd-1.0-with-Nooj-v3.1-20140421.jar --help
+```
 
 #Build
 
@@ -9,7 +37,7 @@ This repository contains configuration files to build the project with maven (ma
 
 For the build the nooj4nlp jar and a related pom file (*) need to be installed to the local maven repository on your machine (~/.m2/repository):
 ```Shell
-	mvn install:install-file -Dfile=PATH_TO_JAR -DpomFile=PATH_TO_POM
+   mvn install:install-file -Dfile=PATH_TO_JAR -DpomFile=PATH_TO_POM
 ```
 or to the online repository:
 ```Shell
