@@ -21,7 +21,7 @@ to hold the Java NooJ dictionary files (.jnod) and folders like
 to hold the Java NooJ grammar files (.nog).
 A different path to the root of the data folder hierarchy may be specified in the command line (see below).
 
-Example: to run nooj-cmd on a file named "testtext.txt" with a Hungarian dictionary "teszt_szotar.jnod" and grammar "aggr_test.nog,nation_test.nog", use the following command:
+Example: to run nooj-cmd on a file named "testtext.txt" with a Hungarian dictionary "teszt_szotar.jnod" and 2 grammar files "aggr_test.nog" and "nation_test.nog", use the following command:
 ```Shell
    java -jar nooj-cmd-1.0-with-Nooj-v3.1-20140421.jar -i testtext.txt -l hu -d teszt_szotar.jnod -g aggr_test.nog,nation_test.nog
 ```
