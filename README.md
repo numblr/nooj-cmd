@@ -16,9 +16,9 @@ This jar file contains nooj-cmd, Java NooJ (version specified in the filename) a
 
 nooj-cmd assumes the usual NooJ data file hierarchy in its working directory, ie. folders like
 <lang_code>/Lexical Analysis/
-to hold the Java NooJ dictionary files (*.jnod) and folders like
+to hold the Java NooJ dictionary files (.jnod) and folders like
 <lang_code>/Syntactic Analysis/
-to hold the Java NooJ grammar files (*.nog).
+to hold the Java NooJ grammar files (.nog).
 A different path to the root of the data folder hierarchy may be specified in the command line (see below).
 
 Example: to run nooj-cmd on a file named "testtext.txt" with a Hungarian dictionary "teszt_szotar.jnod" and grammar "aggr_test.nog,nation_test.nog", use the following command:
