@@ -3,7 +3,7 @@ nooj-cmd
 
 Command line interface for nooj4nlp
 
-#Build
+# Build
 
 This repository contains configuration files to build the project with maven (maven.apache.org) and uses bintray.com/maven/grand-hifi/nooj-releases as an online release repository.
 
