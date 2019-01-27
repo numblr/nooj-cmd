@@ -1,7 +1,7 @@
 nooj-cmd
 ========
 
-Command line interface for nooj4nlp
+Command line interface for [nooj4nlp](http://www.nooj-association.org).
 
 # Build
 
