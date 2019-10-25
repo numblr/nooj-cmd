@@ -35,7 +35,7 @@ For further details on usage and available options, run nooj-cmd with --help:
 
 This repository contains configuration files to build the project with maven (maven.apache.org) and uses bintray.com/maven/grand-hifi/nooj-releases as an online release repository.
 
-For the build the nooj4nlp jar and a related pom file (*) need to be installed to the local maven repository on your machine (~/.m2/repository):
+For the build the nooj4nlp jar and a related pom file<sup>1</sup> need to be installed to the local maven repository on your machine (~/.m2/repository):
 ```Shell
    mvn install:install-file -Dfile=PATH_TO_JAR -DpomFile=PATH_TO_POM
 ```
@@ -75,4 +75,10 @@ For deployments to the online repository the bintray user account credentials ne
   </servers>
 ```
 
-* see: https://dl.bintray.com/grand-hifi/nooj-releases/net/nooj4nlp/nooj4nlp/v3.1-20140421/nooj4nlp-v3.1-20140421.pom
+# Source
+
+[github](https://github.com/numblr/nooj-cmd)  
+[bitbucket](https://bitbucket.org/tkb-/nooj-cmd)
+
+#### Footnotes
+1. see: https://dl.bintray.com/grand-hifi/nooj-releases/net/nooj4nlp/nooj4nlp/v3.1-20140421/nooj4nlp-v3.1-20140421.pom
